@@ -48,6 +48,9 @@ Avaliaremos as seguintes habilidades
 - Qualidade do código
 - Utilização do github
 
+## Entrega
+Deve-se fazer uma [Publish](https://docs.expo.dev/workflow/publishing/#how-to-publish) através do Expo para que o aplicativo seja mais facilmente testado, além de deixar o link no readme de um vídeo demonstrando o aplicativo.
+
 ## Diferenciais
 - Testes automatizados (para os testes recomenda-se o uso do Jest)
 - Linter
