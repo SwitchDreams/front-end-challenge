@@ -34,7 +34,7 @@ Cada aula contém as informações:
 - Descrição
 
 ## API
-Para obter as informações que utilizará no aplicativo utiliza a API fornecida:
+Para obter as informações que utilizará no aplicativo utilize a API fornecida:
 
 Documentação: [https://documenter.getpostman.com/view/12265896/Uz59MeAK](https://documenter.getpostman.com/view/12265896/Uz59MeAK)
 
