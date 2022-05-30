@@ -33,6 +33,12 @@ Cada aula contém as informações:
 - Imagem de capa da aula
 - Descrição
 
+## API
+Para obter as informações que utilizará no aplicativo utiliza a API fornecida:
+
+Documentação: [https://documenter.getpostman.com/view/12265896/Uz59MeAK](https://documenter.getpostman.com/view/12265896/Uz59MeAK)
+API: https://switch-gym.herokuapp.com/
+
 ## Requisitos
 
 Para iniciar o desafio, crie um fork a partir do presente repositório e inicie seu projeto react native nele. Altere o readme com todas as informações que julgar pertinente para o desafio. Para entregar a sua implementação você deve criar uma PR e inserir no readme um link de um vídeo demonstrativo de todas as telas e do fluxo criado para o projeto.
