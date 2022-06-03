@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, Image, Dimensions} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, Text, TextInput, TouchableOpacity, Alert, Image, Dimensions, SafeAreaView} from 'react-native';
+
 import { StatusBar } from 'expo-status-bar';
 import styles from './styles';
 
