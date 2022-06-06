@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Logo from '../../../assets/logo.svg'
 import {
   useTheme,
@@ -19,6 +19,7 @@ type Props = {}
 
 const Login = (props: Props) => {
   const { colors } = useTheme()
+  const [show, setShow] = useState(false)
 
   return (
     <BackgroundImage screen="Login">
@@ -51,6 +52,7 @@ const Login = (props: Props) => {
             <FormControl>
               <FormControl.Label>Email</FormControl.Label>
               <Input
+                color={colors.muted[100]}
                 size="md"
                 placeholder="Email"
                 InputLeftElement={
@@ -66,6 +68,8 @@ const Login = (props: Props) => {
             <FormControl>
               <FormControl.Label>Senha</FormControl.Label>
               <Input
+                type={show ? 'text' : 'password'}
+                color={colors.muted[100]}
                 size="md"
                 placeholder="Senha"
                 InputLeftElement={
@@ -74,6 +78,15 @@ const Login = (props: Props) => {
                     size={5}
                     ml={2}
                     color={colors.primary[400]}
+                  />
+                }
+                InputRightElement={
+                  <Icon
+                    as={<Feather name={show ? 'eye' : 'eye-off'} />}
+                    size={5}
+                    mr="2"
+                    color="muted.400"
+                    onPress={() => setShow(!show)}
                   />
                 }
               />
