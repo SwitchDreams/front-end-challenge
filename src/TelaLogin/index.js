@@ -5,28 +5,29 @@ import { StatusBar } from 'expo-status-bar';
 import styles from './styles';
 
 
-
 // Icons
 
 import { Feather } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function TelaLogin({navigation}) {
-
+    //  Discovering the dimension of screen to create a responsive screen
     const {width, heigth} = Dimensions.get('screen');
-
+    // Defining the Email and Password states of text input
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
 
+    // Using an async function to make the request
     async function login() {
+
         const res = await fetch(`http://switch-gym.herokuapp.com/api/users/login`,{
             method: 'POST',
             mode: 'cors',
             headers: new Headers({
                 'Content-Type': "application/json;charset=utf-8"
             }),
+
             body:JSON.stringify({
                 "user": {
                     "email": email,
@@ -34,33 +35,41 @@ export default function TelaLogin({navigation}) {
                 }
             })
         });
+        // error handling
         if (res.status != 200) {
 
-            Alert.alert('Erro de Login', 'Não foi possivel fazer o login, email ou senha inválidos');
+            Alert.alert(
+                'Erro de Login',
+                'Não foi possivel fazer o login, email ou senha inválidos'
+            );
 
             return;
         }
+        // Getting Bearer tokem from  response header
+        const token =  res.headers.get('Authorization');
+
+        // If the token was received, asynchronous storage will save it as a cookie so it can be reused later
+        if(token){
+            await AsyncStorage.setItem("bearer_token", token);
+        }
+
+        console.log(await AsyncStorage.getItem("bearer_token"));
+
+
         navigation.navigate("VerAulas");
-
     }
-
     return (
 
         <SafeAreaView style={{ width:width, height:heigth, flex:1,  }}>
             <StatusBar hidden/>
 
+            {/* Image logo */}
             <Image
                 style={styles.backgroundImg}
-                source={require('../../assets/imgCadastro/FitDreams2.png')}
+                source={require('../../../assets/imgLogin/FitDreams2.png')}
             />
 
-
-
-
-
-
             <Text style={styles.title}> Faça Login</Text>
-
 
             {/* TextInput  email*/}
             <View style={styles.textInputContainer}>
@@ -79,8 +88,7 @@ export default function TelaLogin({navigation}) {
                 />
             </View>
 
-
-            {/* TextInput senha */}
+            {/* TextInput password */}
 
             <View style={styles.textInputContainer}>
 
@@ -101,41 +109,33 @@ export default function TelaLogin({navigation}) {
                 />
             </View>
 
-
-
-
+            {/* Button Login */}
             <TouchableOpacity
-                onPress={() => login()}
-                style={styles.btnRegistrar}
+                onPress={login}
+                style={styles.btnLogin}
             >
 
-                <Text style={styles.titleBtnRegistrar}>
+                <Text style={styles.titleBtnLogin}>
                     Fazer Login
                 </Text>
 
             </TouchableOpacity>
 
+            {/* TouchableOpacity SignUp */}
             <View style={styles.BtnAjudaContainer}>
+
                 <Text pre style={styles.titleAjuda}>
                     Não possui uma conta?
                 </Text>
 
-
-
-
                 <Text
                     onPress={()=> navigation.navigate("Cadastro")}
-                    style={styles.titleBtnLogin}
+                    style={styles.titleBtnCadastro}
                 > Cadastre-se
 
                 </Text>
 
-
             </View>
-
-
-
-
         </SafeAreaView>
     );
 }
