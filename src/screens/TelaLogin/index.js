@@ -1,15 +1,17 @@
 import React, {useState} from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, Image, Dimensions, SafeAreaView} from 'react-native';
-
-import { StatusBar } from 'expo-status-bar';
+import { View, Text, TextInput, TouchableOpacity, Alert, Image, Dimensions, SafeAreaView,  } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { StatusBar } from 'expo-status-bar/src/StatusBar';
 import styles from './styles';
 
 
 // Icons
 
-import { Feather } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Feather } from '@expo/vector-icons/build/Icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons/build/Icons';
+
+
+
 
 export default function TelaLogin({navigation}) {
     //  Discovering the dimension of screen to create a responsive screen

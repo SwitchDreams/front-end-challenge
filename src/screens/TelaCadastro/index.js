@@ -1,16 +1,17 @@
 import React, {useState} from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity, Alert, Dimensions, } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import {Picker} from '@react-native-picker/picker';
-import { StatusBar } from 'expo-status-bar';
+import { View, Text, Image, TextInput, TouchableOpacity, Alert, Dimensions, SafeAreaView} from 'react-native';
+
+import { Picker } from '@react-native-picker/picker';
+import { StatusBar } from 'expo-status-bar/src/StatusBar';
 import styles from './styles';
 
 
 // Icons
-import { Ionicons } from '@expo/vector-icons';
-import { Feather } from '@expo/vector-icons';
-import { Fontisto } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons/build/Icons';
+import { Feather } from '@expo/vector-icons/build/Icons';
+import { Fontisto } from '@expo/vector-icons/build/Icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons/build/Icons';
+
 
 
 
@@ -40,6 +41,7 @@ export default function TelaCadastro({navigation}) {
             method:'POST',
             mode: 'cors',
             headers: new Headers({
+
                 'Content-Type': "application/json;charset=utf-8"
             }),
             body:JSON.stringify({
@@ -75,9 +77,10 @@ export default function TelaCadastro({navigation}) {
         <SafeAreaView style={{ width:width, height:heigth, flex:1,  }}>
             <StatusBar hidden/>
 
+            {/* Image logo */}
             <Image
                 style={styles.backgroundImg}
-                source={require('../../assets/imgCadastro/FitDreams2.png')}
+                source={require('../../../assets/imgCadastro/FitDreams2.png')}
             />
 
 
