@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         color: '#000',
     },
-    btnRegistrar:{
+    btnLogin:{
         Color:'#FFF',
         backgroundColor:'#1317DD',
         justifyContent:'center',
@@ -55,11 +55,6 @@ const styles = StyleSheet.create({
         width:'50%',
         aspectRatio: 10/2.5,
         alignSelf:'center',
-
-    },
-    btnLogin:{
-        width:'100%',
-        paddingHorizontal:20,
 
     },
     BtnAjudaContainer:{
@@ -73,11 +68,11 @@ const styles = StyleSheet.create({
         justifyContent:'center'
 
     },
-    titleBtnRegistrar:{
+    titleBtnLogin:{
         color: '#FFF',
         textAlign:'center'
     },
-    titleBtnLogin:{
+    titleBtnCadastro:{
         color: '#1317DD',
         fontSize:10,
     },
