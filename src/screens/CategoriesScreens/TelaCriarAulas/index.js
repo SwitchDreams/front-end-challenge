@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { View, Text, Alert } from 'react-native-web';
+import { View, Text, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-export default function TelaAulasDisponiveis() {
+export default function TelaCriarAulas() {
 
     const danca = "dança";
     const description = "descricão maior";
@@ -44,15 +44,14 @@ export default function TelaAulasDisponiveis() {
             return;
         }
 
-        Alert.alert('sucesso fela');
-
+ 
 
 
     }
     return (
 
         <View>
-            <Text onPress={gymclass}>hello wsrld</Text>
+            <Text>hello wsrld</Text>
 
         </View>
 
