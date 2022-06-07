@@ -1,20 +1,86 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import 'react-native-gesture-handler';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+
+// importing screens
+import TelaCadastro from './src/screens/TelaCadastro/index';
+import TelaLogin from './src/screens/TelaLogin/index';
+import TelaCriarAulas from './src/screens/CategoriesScreens/TelaCriarAulas';
+import TelaEditDelAulas from './src/screens/CategoriesScreens/TelaEditDelAulas';
+import TelaAulas from './src/screens/CategoriesScreens/TelaAulas';
+
+const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+function TelaProfesor(){
+
+    return(
+
+        <Drawer.Navigator>
+
+            <Drawer.Screen
+                name='Criar aulas'
+                component={TelaCriarAulas}
+            />
+
+            <Drawer.Screen
+                name='EditeOuDeleteAulas'
+                component={TelaEditDelAulas}
+            />
+
+            <Drawer.Screen
+                name='Aulas'
+                component={TelaAulas}
+
+            />
+
+        </Drawer.Navigator>
+    );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+export default function App() {
+
+    return (
+
+        <NavigationContainer>
+
+            <Stack.Navigator>
+
+                <Stack.Screen
+                    name='Cadastro'
+                    component={TelaCadastro}
+                    options={{
+                        headerShown: false
+                    }}
+                />
+
+                <Stack.Screen
+                    name='Login'
+                    component={TelaLogin}
+                    options={{
+                        headerShown: false
+                    }}
+                />
+
+                <Stack.Screen
+                    name='CriarAulaProfessor'
+                    component={TelaProfesor}
+                    options={{
+                        headerShown: false
+                    }}
+                />
+
+                <Stack.Screen
+                    name='VerAulaAluno'
+                    component={TelaAulas}
+                />
+            </Stack.Navigator>
+
+        </NavigationContainer>
+
+    );
+}
