@@ -17,6 +17,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons/build/Icons';
 
 
 
+
 export default function TelaCadastro({navigation}) {
 
 
@@ -79,8 +80,8 @@ export default function TelaCadastro({navigation}) {
 
             {/* Image logo */}
             <Image
-                style={styles.backgroundImg}
-                source={require('../../../assets/imgCadastro/FitDreams2.png')}
+                style={styles.imgLogo}
+                source={require('../../../assets/imgs/FitDreams2.png')}
             />
 
 
