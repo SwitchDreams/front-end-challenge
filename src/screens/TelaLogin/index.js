@@ -13,7 +13,13 @@ import { MaterialCommunityIcons } from '@expo/vector-icons/build/Icons';
 
 
 
+
+
+
 export default function TelaLogin({navigation}) {
+
+
+
     //  Discovering the dimension of screen to create a responsive screen
     const {width, heigth} = Dimensions.get('screen');
     // Defining the Email and Password states of text input
@@ -36,7 +42,11 @@ export default function TelaLogin({navigation}) {
                     "password": password
                 }
             })
+
         });
+
+
+
         // error handling
         if (res.status != 200) {
 
@@ -57,8 +67,18 @@ export default function TelaLogin({navigation}) {
 
         console.log(await AsyncStorage.getItem("bearer_token"));
 
-
-        navigation.navigate("VerAulas");
+        // Getting a json with user data
+        const data = await res.json();
+        const userRole = data.role;
+        console.log(userRole);
+        //  If the role of user = Teacher ou admin so it goes to a screen with more resources
+        if(userRole == "teacher"|"admin"){
+            navigation.navigate("CriarAulaProfessor");
+        }
+        // Else goes to limited screen of  custumer user
+        else{
+            navigation.navigate("VerAulaAluno");
+        }
     }
     return (
 
@@ -67,8 +87,8 @@ export default function TelaLogin({navigation}) {
 
             {/* Image logo */}
             <Image
-                style={styles.backgroundImg}
-                source={require('../../../assets/imgLogin/FitDreams2.png')}
+                style={styles.imgLogo}
+                source={require('../../../assets/imgs/FitDreams2.png')}
             />
 
             <Text style={styles.title}> Faça Login</Text>
