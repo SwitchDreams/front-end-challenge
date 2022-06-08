@@ -33,7 +33,7 @@ const BackgroundImage = ({ screen, children }: BackgroundImageProps) => {
       />
       <Box
         size="full"
-        backgroundColor="rgba(21, 8, 43, 0.6)"
+        backgroundColor="rgba(21, 8, 43, 0.7)"
         position="absolute"
       >
         <SafeAreaView style={{ flex: 1 }}>{children}</SafeAreaView>
