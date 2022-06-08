@@ -51,6 +51,14 @@ export default function App() {
             <Stack.Navigator>
 
                 <Stack.Screen
+                    name='CriarAulaProfessor'
+                    component={TelaProfesor}
+                    options={{
+                        headerShown: false
+                    }}
+                />
+
+                <Stack.Screen
                     name='Cadastro'
                     component={TelaCadastro}
                     options={{
@@ -66,13 +74,7 @@ export default function App() {
                     }}
                 />
 
-                <Stack.Screen
-                    name='CriarAulaProfessor'
-                    component={TelaProfesor}
-                    options={{
-                        headerShown: false
-                    }}
-                />
+
 
                 <Stack.Screen
                     name='VerAulaAluno'
