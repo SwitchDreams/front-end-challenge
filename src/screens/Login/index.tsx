@@ -1,23 +1,23 @@
 import React, { useState } from 'react'
 import Logo from '../../../assets/logo.svg'
+import { Feather } from '@expo/vector-icons'
+import BackgroundImage from '../../components/BackgroundImage'
 import {
   useTheme,
-  Center,
   Box,
   FormControl,
   Text,
   Input,
-  Stack,
+  Link,
   Icon,
   Button,
   KeyboardAvoidingView,
 } from 'native-base'
-import BackgroundImage from '../../components/BackgroundImage'
-import { Feather } from '@expo/vector-icons'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
-type Props = {}
+type LoginProps = NativeStackScreenProps<RootStackParamList, 'Login'>
 
-const Login = (props: Props) => {
+const Login = ({ navigation }: LoginProps) => {
   const { colors } = useTheme()
   const [show, setShow] = useState(false)
 
@@ -48,7 +48,7 @@ const Login = (props: Props) => {
             Dê um switch no seu estilo de vida{'\n'}com a academia que faz
             acontecer
           </Text>
-          <Box mb="1/3" width="full">
+          <Box mb="1/3" width="full" alignItems="center">
             <FormControl>
               <FormControl.Label>Email</FormControl.Label>
               <Input
@@ -91,6 +91,13 @@ const Login = (props: Props) => {
                 }
               />
             </FormControl>
+            <Link
+              mt={4}
+              _text={{ color: colors.primary[100] }}
+              onPress={() => navigation.navigate('SignUp')}
+            >
+              Não possui conta? Clique aqui!
+            </Link>
           </Box>
           <Button width="full">Login</Button>
         </Box>

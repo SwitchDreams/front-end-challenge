@@ -1,10 +1,11 @@
 import * as Font from 'expo-font'
-import { useState, useEffect, useCallback } from 'react'
-import { View } from 'react-native'
+import theme from './src/styles/theme'
 import Login from './src/screens/Login'
+import SignUp from './src/screens/SignUp'
 import { StatusBar } from 'expo-status-bar'
-import * as SplashScreen from 'expo-splash-screen'
 import { NativeBaseProvider } from 'native-base'
+import * as SplashScreen from 'expo-splash-screen'
+import { useState, useEffect, useCallback } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -18,7 +19,6 @@ import {
   Lexend_800ExtraBold,
   Lexend_900Black,
 } from '@expo-google-fonts/lexend'
-import theme from './src/styles/theme'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -66,6 +66,7 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="SignUp" component={SignUp} />
           </Stack.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>
