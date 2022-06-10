@@ -1,13 +1,20 @@
 import { StyleSheet } from "react-native";
-import { color } from "react-native-reanimated";
+
 const styles = StyleSheet.create({
-
-    imgBackground:{
-        flex:1,
-        alignItems:'center',
+    welcomeView:{
+        flexDirection: 'row',
         justifyContent:'center',
+        width:'100%',
+        marginTop:'10%',
 
+    },
 
+    textWelcome:{
+        color:'#fff',
+        alignSelf:'center',
+        fontSize:18,
+        fontWeight:'300',
+        lineHeight:40,
     },
     card:{
 
@@ -41,18 +48,22 @@ const styles = StyleSheet.create({
     },
     centeredView: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22,
+
+
+        backgroundColor:'#000'
 
     },
     modalView: {
+        position:'absolute',
+        top:150,
         margin: 20,
-        backgroundColor: "#f8f8ff",
+        backgroundColor: "#000",
         borderRadius: 20,
         padding: 35,
+        alignSelf:'center',
 
-        shadowColor: "#000",
+
+        shadowColor: "#FFF",
         shadowOffset: {
             width: 0,
             height: 2
@@ -66,28 +77,50 @@ const styles = StyleSheet.create({
         padding: 10,
         elevation: 2
     },
+    closeicon:{
+        position:'absolute',
+        right:10,
+        top:5
+    },
+    addIcon:{
+        position:'absolute',
+        right:20,
+        top:4,
+    },
+    trashIcon:{
+        position:'absolute',
+        top:8,
+        right:10
+    },
+    editIcon:{
+        position:'absolute',
+        top:36,
+        right:10
+    },
     buttonOpen: {
         backgroundColor: "#F194FF",
     },
     buttonClose: {
-        backgroundColor: "#2196F3",
+        backgroundColor: "#fff",
         marginTop:20,
     },
     textStyle: {
-        color: "white",
+        color: "#000",
         fontWeight: "bold",
-        textAlign: "center"
+        textAlign: "center",
     },
     modalText: {
         marginBottom: 15,
-        textAlign: "center"
+        textAlign: "center",
+        color:'#FFF'
+
     },
     categoriesCard:{
         borderRadius:20,
-        backgroundColor:'#f8f8ff',
         marginVertical:30,
         marginHorizontal:10,
         width:300,
+        backgroundColor:'#',
         alignSelf:'center',
         shadowColor: "#000",
         shadowOffset: {
@@ -101,7 +134,7 @@ const styles = StyleSheet.create({
     },
     textCard:{
         textAlign:"center",
-        color:'#fff',
+        color:'#000',
         fontWeight:'700',
         fontSize:14,
         lineHeight:20,
@@ -109,19 +142,29 @@ const styles = StyleSheet.create({
         left:17,
         top:14,
     },
+    descriptionCard:{
+        color:'#000',
+        fontWeight:'100',
+        fontSize:14,
+        lineHeight:10,
+        position:'absolute',
+        left:17,
+        bottom:28,
+    },
     imgCard:{
 
         width:300,
         height:180,
-        alignSelf:'center',
+        borderRadius: 10,
         resizeMode:'contain',
+        backgroundColor:'#7F3FBF',
         bottom:0
     },
     footerimgcard:{
 
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
-        backgroundColor:'#000',
+        backgroundColor:'#fff',
         width:300,
         height:80,
         alignSelf:'center',
