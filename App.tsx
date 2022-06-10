@@ -2,7 +2,9 @@ import * as Font from 'expo-font'
 import theme from './src/styles/theme'
 import Login from './src/screens/Login'
 import SignUp from './src/screens/SignUp'
-import { StatusBar } from 'expo-status-bar'
+import { StatusBar } from 'native-base'
+import ClassList from './src/screens/ClassList'
+import ClassEdit from './src/screens/ClassEdit'
 import { NativeBaseProvider } from 'native-base'
 import * as SplashScreen from 'expo-splash-screen'
 import { useState, useEffect, useCallback } from 'react'
@@ -67,6 +69,8 @@ export default function App() {
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="ClassList" component={ClassList} />
+            <Stack.Screen name="ClassEdit" component={ClassEdit} />
           </Stack.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>
