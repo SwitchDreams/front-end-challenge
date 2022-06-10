@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { StatusBar } from 'expo-status-bar'
 import { FlatList } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import ClassCard from '../../components/ClassCard'
@@ -14,50 +15,40 @@ import {
   Text,
   Stack,
   Icon,
-  StatusBar,
   Actionsheet,
   useDisclose,
   IconButton,
+  Spinner,
 } from 'native-base'
-
-const data = [
-  {
-    id: 27,
-    name: 'Zumba',
-    description: 'Descrição maiorzinha',
-    teacher_name: 'Pedro',
-    start_time: '2022-05-24T15:36:11.000Z',
-    duration: 3600,
-    category_id: 44,
-  },
-  {
-    id: 28,
-    name: 'Treino Muzy',
-    description: 'Descrição maiorzinha',
-    teacher_name: 'Paulo Muzy',
-    start_time: '2022-05-24T15:36:11.000Z',
-    duration: 3600,
-    category_id: 44,
-  },
-  {
-    id: 29,
-    name: 'Boxe',
-    description: 'Descrição maiorzinha',
-    teacher_name: 'Popó',
-    start_time: '2022-05-24T15:36:11.000Z',
-    duration: 3600,
-    category_id: 44,
-  },
-]
 
 type ClassListProps = NativeStackScreenProps<RootStackParamList, 'ClassList'>
 
 const ClassList = ({ navigation }: ClassListProps) => {
+  const [classes, setClasses] = useState<Class[]>([])
+  const [isLoading, setIsLoading] = useState(true)
   const { colors } = useTheme()
   const { isOpen, onOpen, onClose } = useDisclose(false)
-  const [clickedItem, setClickedItem] = useState(data[0])
+  const [clickedItem, setClickedItem] = useState<Class>(classes[0])
 
-  const renderItem = ({ item }) => (
+  const getClasses = async () => {
+    try {
+      const response = await fetch(
+        'https://switch-gym.herokuapp.com/api/gym_classes'
+      )
+      const json = await response.json()
+      setClasses(json)
+    } catch (error) {
+      console.warn(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    getClasses()
+  }, [])
+
+  const renderItem = ({ item }: { item: Class }) => (
     <ClassCard
       name={item.name}
       teacherName={item.teacher_name}
@@ -80,23 +71,29 @@ const ClassList = ({ navigation }: ClassListProps) => {
           Veja aqui as aula disponíveis.{'\n'}Bora treinar?
         </Text>
       </Stack>
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={({ id }) => id.toString()}
-      />
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <FlatList
+          data={classes}
+          renderItem={renderItem}
+          keyExtractor={({ id }) => id.toString()}
+        />
+      )}
       <Actionsheet isOpen={isOpen} onClose={onClose}>
         <Actionsheet.Content alignItems="flex-start" px="6">
           <Box py="4" mb="4" width="full">
             <HStack alignItems="center">
               <Text fontSize="xl" color={colors.primary[500]} fontWeight="bold">
-                {clickedItem.name}
+                {clickedItem?.name}
               </Text>
               <Spacer />
               <IconButton
                 borderRadius="full"
                 onPress={() =>
-                  navigation.navigate('ClassEdit', { classId: clickedItem.id })
+                  navigation.navigate('ClassEdit', {
+                    classId: clickedItem?.id,
+                  })
                 }
                 icon={
                   <Icon
@@ -107,7 +104,7 @@ const ClassList = ({ navigation }: ClassListProps) => {
                 }
               />
             </HStack>
-            <Text>{clickedItem.description}</Text>
+            <Text>{clickedItem?.description}</Text>
           </Box>
           <HStack width="full" mb="6">
             <VStack space="4">
@@ -117,7 +114,7 @@ const ClassList = ({ navigation }: ClassListProps) => {
                   size={6}
                   color={colors.muted[800]}
                 />
-                <Text>{clickedItem.teacher_name}</Text>
+                <Text>{clickedItem?.teacher_name}</Text>
               </HStack>
               <HStack space="3">
                 <Icon
@@ -125,7 +122,7 @@ const ClassList = ({ navigation }: ClassListProps) => {
                   size={6}
                   color={colors.muted[800]}
                 />
-                <Text>{formatDuration(clickedItem.duration)}</Text>
+                <Text>{formatDuration(clickedItem?.duration)}</Text>
               </HStack>
             </VStack>
             <Spacer />
@@ -136,7 +133,7 @@ const ClassList = ({ navigation }: ClassListProps) => {
                   size={6}
                   color={colors.muted[800]}
                 />
-                <Text>{formatDate(clickedItem.start_time)}</Text>
+                <Text>{formatDate(clickedItem?.start_time)}</Text>
               </HStack>
               <HStack space="3">
                 <Icon
@@ -144,7 +141,7 @@ const ClassList = ({ navigation }: ClassListProps) => {
                   size={6}
                   color={colors.muted[800]}
                 />
-                <Text>{formatTime(clickedItem.start_time)}</Text>
+                <Text>{formatTime(clickedItem?.start_time)}</Text>
               </HStack>
             </VStack>
           </HStack>
