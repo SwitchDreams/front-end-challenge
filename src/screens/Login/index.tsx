@@ -99,7 +99,9 @@ const Login = ({ navigation }: LoginProps) => {
               Não possui conta? Clique aqui!
             </Link>
           </Box>
-          <Button width="full">Login</Button>
+          <Button width="full" onPress={() => navigation.navigate('ClassList')}>
+            Login
+          </Button>
         </Box>
       </KeyboardAvoidingView>
     </BackgroundImage>
