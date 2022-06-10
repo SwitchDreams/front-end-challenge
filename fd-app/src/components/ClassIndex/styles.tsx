@@ -5,7 +5,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
 
     width: '100%',
@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
 
-  contentScrooll: {
+  contentScroll: {
     // width: '100%',
     justifyContent: 'space-around',
     paddingTop: 30,
@@ -28,6 +28,13 @@ export const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     paddingBottom: 30,
+  },
+  
+  message: {
+    paddingTop: 30,
+    fontFamily: theme.fonts.regular,
+    color: theme.color.text3,
+    fontSize: theme.fontSizes.medium
   }
 
 

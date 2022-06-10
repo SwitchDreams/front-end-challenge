@@ -14,7 +14,7 @@ export function BaseModal({ route, navigation }: any) {
 
       <View style={styles.modal}>
 
-        <TouchableOpacity style={styles.xButton} onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={styles.xButton} onPress={() => navigation.navigate('Index')}>
           <X size={theme.iconSize} color={theme.color.icon} weight={'bold'} />
         </TouchableOpacity>
 
@@ -26,7 +26,7 @@ export function BaseModal({ route, navigation }: any) {
         }
 
         <Text style={styles.text}>
-          {requestSuccess ? "Inscrição feita com sucesso" : "Falha ao salvar, tente novamente!"}
+          {requestSuccess ? "Operação feita com sucesso" : "Falha, tente novamente!"}
         </Text>
       </View>
 

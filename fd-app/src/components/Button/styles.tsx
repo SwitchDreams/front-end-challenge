@@ -6,15 +6,19 @@ export const styles = StyleSheet.create({
     // flex: 1,
     width: 300,
     height: 50,
-    backgroundColor: theme.color.button,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
+    backgroundColor: theme.color.button,
   },
 
   title: {
     fontSize: theme.fontSizes.regular,
     color: theme.color.text,
     fontFamily: theme.fonts.regular,
+  },
+
+  disabled: {
+    opacity: 0.6
   }
 });

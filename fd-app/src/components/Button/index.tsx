@@ -1,6 +1,5 @@
 import React from 'react';
 import { ActivityIndicator, Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
-import { theme } from '../../theme';
 
 import { styles } from './styles';
 
@@ -9,14 +8,20 @@ interface Props extends TouchableOpacityProps {
   isLoading: boolean
 }
 
-export function Button({ titleText, isLoading, ...rest }: Props) {
+export function Button({ titleText, isLoading, disabled, style, ...rest }: Props) {
   return (
-    <TouchableOpacity activeOpacity={0.4} style={styles.container} {...rest} disabled={isLoading}>
+    <View style={disabled && styles.disabled}>
 
-      {isLoading ? <ActivityIndicator color={theme.color.text}></ActivityIndicator> :
-        <Text style={styles.title}>{titleText}</Text>
-      }
+      <TouchableOpacity activeOpacity={0.4}
+        style={[styles.container, style]} {...rest}
+        disabled={isLoading || disabled}
 
-    </TouchableOpacity>
+      >
+        {isLoading ? <ActivityIndicator color={'white'} /> :
+          <Text style={styles.title}>{titleText}</Text>
+        }
+
+      </TouchableOpacity>
+    </View>
   );
 }

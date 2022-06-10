@@ -33,5 +33,6 @@ export const theme = {
     bold: 'IBMPlexSans_600SemiBold',
   },
 
-  iconSize: '27px'
+  iconSize: '27px',
+  iconBigSize: '94px',
 };

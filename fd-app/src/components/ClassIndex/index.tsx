@@ -1,33 +1,87 @@
-import React from 'react';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
+import { SmileyXEyes } from 'phosphor-react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, FlatList, RefreshControl, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { api } from '../../libs/api';
+import { theme } from '../../theme';
+import { ClassType } from '../../util/ClassInfoType';
 import { ClassThumbnail } from '../ClassThumbnail';
 
 import { styles } from './styles';
 
 export function ClassIndex({ navigation }: any) {
+  const [pageLoading, isPageLoading] = useState(true)
+  const [classes, setClasses] = useState(null)
+  const [errorLoading, isErrorLoading] = useState(false)
+  const [haveItems, setHaveItems] = useState(false)
 
+  useEffect(() => {
+    fetchClasses()
+  }, [])
 
-  const classes = [<ClassThumbnail />, <ClassThumbnail />, <ClassThumbnail />, <ClassThumbnail />, <ClassThumbnail />,]
+  async function fetchClasses() {
+
+    isErrorLoading(false)
+    isPageLoading(true)
+    setHaveItems(true)
+
+    try {
+      const response = await api.get('gym_classes')
+
+      setClasses(response.data)
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possivel carregar os dados, tente novamente mais tarde")
+      isErrorLoading(true)
+    }
+
+    isPageLoading(false)
+  }
+
+  function renderItem(listItem: any) {
+    const classData = listItem.item
+
+    // setHaveItems(true)
+    return (
+      <TouchableOpacity style={styles.thumbContainer} onPress={() => navigation.navigate('Show', { id: classData.id })}>
+        <ClassThumbnail
+          className={classData.name}
+          professorName={classData.teacher_name}
+          startTime={classData.start_time}
+          duration={classData.duration}
+        />
+      </TouchableOpacity>
+    )
+  }
 
   return (
     <View style={styles.container}>
 
+      {(errorLoading) &&
+        <SmileyXEyes
+          color={theme.color.line}
+          size={theme.iconBigSize}
+          weight={'regular'} />}
 
-      <ScrollView indicatorStyle='white' style={styles.scroll} contentContainerStyle={styles.contentScrooll}>
+      {!pageLoading && !haveItems && <Text style={styles.message}>Sem aulas disponiveis</Text>}
 
-        {classes.map((value, idx) =>
-          (
-            <TouchableOpacity key={idx} style={styles.thumbContainer} onPress={() => navigation.navigate('Show')}>
-              {value}
-            </TouchableOpacity>
-          )
-        )
-        }
-      </ScrollView>
+      {classes && (
+        <FlatList
+          refreshControl=
+          {<RefreshControl
+            refreshing={false}
+            onRefresh={fetchClasses}
+          />}
+          style={styles.scroll}
+          contentContainerStyle={styles.contentScroll}
+          data={classes}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id
+            // .toString()
+          }
+        />
+      )}
 
-      {/* <TouchableOpacity style={{width: '100%', alignItems: 'center'}} onPress={() => navigation.goBack()}>
-        <ClassThumbnail />
-      </TouchableOpacity> */}
+      {pageLoading && <ActivityIndicator size={'large'} color={'white'} />}
+
 
     </View>
   );

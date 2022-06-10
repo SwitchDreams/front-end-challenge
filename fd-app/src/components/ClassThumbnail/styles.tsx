@@ -21,6 +21,9 @@ export const styles = StyleSheet.create({
   text: {
     fontFamily: theme.fonts.regular,
     color: theme.color.text,
+    // textTransform: 'capitalize'
+    // flex:1,
+    // flexShrink: 1,
   },
 
   thumb: {
@@ -47,6 +50,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
 
+    // flex:1,
+    // flexShrink: 1,
     // backgroundColor: theme.color.primary
   },
 

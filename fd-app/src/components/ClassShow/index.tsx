@@ -1,63 +1,148 @@
-import React, { useState } from 'react';
-import { Image, ScrollView, Text, View } from 'react-native';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
+import { ActivityIndicator, Alert, Image, ScrollView, Text, View } from 'react-native';
 import { Button } from '../Button';
 import { testImg } from '../ClassThumbnail/testImg';
+import { useRoute } from '@react-navigation/native';
 
 import { styles } from './styles';
+import { api } from '../../libs/api';
+import { getPaddedTime, getWeekDay } from '../../util/timeFunctions';
+import { SmileyXEyes } from 'phosphor-react-native';
+import { theme } from '../../theme';
+import { userContext } from '../../util/userInfoContext';
+import { isUserRegistered } from './apiCallFunctions';
+import { ClassType } from '../../util/ClassInfoType';
 
-interface Props {
-  className?: String,
-  professorName?: String,
-  startTime?: String,
-  imgSource?: string, // A string in base64 containing the image
-  weekDays?: String,
-  description?: String,
-  navigation: any,
-}
+export function ClassShow({ navigation }: any) {
+  const [pageIsLoading, setPageIsLoading] = useState(true)
+  const [classData, setClassData] = useState<any>(null)
+  const [loadingError, setErrorLoading] = useState(false)
+  const [buttonLoading, setButtonLoading] = useState(false)
+  const [isRegistered, setIsRegistered] = useState(false)
+  // let isRegistered = false
 
-export function ClassShow(props: Props) {
+  const [classStart, setClassStart] = useState(new Date())
+  const [classEnd, setClassEnd] = useState(new Date())
+
+  const route = useRoute()
+
+  const userInfo = useContext(userContext)
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  function setClassTime(classInfo: ClassType) {
+    const init = new Date(classInfo.start_time)
+
+    setClassStart(init)
+    setClassEnd(new Date(init.getTime() + classInfo.duration * 1000))
+  }
+
+  async function fetchData() {
+    setPageIsLoading(true)
+    setErrorLoading(false)
+
+    const params: any = route.params
+    const classId = params.id
+
+    try {
+      
+      const response = await api.get(`gym_classes/${classId}`)
+      
+      setClassTime(response.data)
+      setClassData(response.data)
+      setIsRegistered(await isUserRegistered((response.data as ClassType).id, userInfo.id))
+
+    } catch (error) {
+      JSON.stringify(error)
+      Alert.alert("Erro", "Não foi possivel carregar os dados, tente novamente mais tarde")
+      setErrorLoading(true)
+    }
+    setPageIsLoading(false)
+  }
+
+  async function handleUserSubscription() {
+    setButtonLoading(true)
+
+    try {
+      const response = await api.post('/gym_class_users', {
+        gym_class_user: {
+          gym_class_id: classData.id,
+          user_id: userInfo.id,
+        }
+      })
+
+      navigation.navigate('InscricaoModal', { requestSuccess: true })
+
+    } catch (error) {
+      navigation.navigate('InscricaoModal', { requestSuccess: false })
+    };
+
+    setButtonLoading(false)
+  }
 
   return (
     <View style={styles.container}>
 
-      <ScrollView style={{width: '100%'}} contentContainerStyle={styles.scrollContainer}>
+      {pageIsLoading && <ActivityIndicator color={'white'} size={'large'} />}
 
-        {/* <Image source={{uri: props.imgSource}}  */}
-        <Image source={{ uri: testImg }}
-          style={styles.img} />
+      <ScrollView style={{ width: '100%' }} contentContainerStyle={styles.scrollContainer}>
 
-        <View style={styles.classDataContainer}>
-          <View style={styles.classInfo}>
-            <Text style={styles.classTitle}>
-              {/* {props.className} */}
-              Zumba
-            </Text>
+        {(loadingError) &&
+          <SmileyXEyes
+            color={theme.color.line}
+            size={theme.iconBigSize}
+            weight={'regular'} />}
 
-            <Text style={styles.classProfessor}>
-              {/* {props.professorName} */}
-              Prof. Thiago
-            </Text>
-          </View>
+        {classData && !loadingError &&
+          (<>
+            < Image source={{ uri: (classData.imgSource ? classData.imgSource : testImg) }}
+              style={styles.img} />
 
-          <View style={styles.classTime}>
-            <Text style={styles.classTimeText}>
-              {/* {props.weekDays} */}
-              Seg - Qua - Sex
-            </Text>
+            <View style={styles.classDataContainer}>
+              <View style={styles.classInfo}>
+                <Text style={styles.classTitle}>
+                  {classData.name}
+                </Text>
 
-            <Text style={styles.classTimeText}>
-              {/* {props.startTime} */}
-              12h as 13h
-            </Text>
-          </View>
+                <Text style={styles.classProfessor}>
+                  Prof. {classData.teacher_name}
+                </Text>
+              </View>
 
-          <Text style={styles.description}>
-            {/* {props.description} */}
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ullamcorper ligula at facilisis scelerisque. Fusce non maximus magna. Nunc sodales ante a ipsum euismod pretium. Pellentesque eget dui nulla. Quisque tincidunt ut purus ac aliquam. Quisque et pulvinar odio, et tempus nisl. Proin dignissim leo sed rutrum facilisis
-          </Text>
-        </View>
+              <View style={styles.classTime}>
+                <Text style={styles.classTimeText}>
+                  Ocorre dia {classStart.getDate()}/{
+                    classStart.getMonth() + 1}, {
+                    getWeekDay(classStart.getDay())}
+                </Text>
 
-        <Button titleText='Inscrever-se' isLoading={false} onPress={() => props.navigation.navigate('InscricaoModal', { requestSuccess: true })}/>
+                <Text style={styles.classTimeText}>
+                  {getPaddedTime(classStart)} as {getPaddedTime(classEnd)}
+                </Text>
+              </View>
+
+              <Text style={styles.description}>
+                {classData.description}
+              </Text>
+            </View>
+
+            <Button titleText={isRegistered ? 'Inscrito' : 'Inscrever-se'}
+              isLoading={buttonLoading}
+
+              disabled={isRegistered}
+              onPress={handleUserSubscription}
+
+              style={{marginBottom: 10}}
+            />
+
+            {isRegistered &&
+              <Button
+                titleText={'Cancelar Inscrição'}
+                isLoading={buttonLoading}
+              />}
+          </>)}
       </ScrollView>
     </View>
   );

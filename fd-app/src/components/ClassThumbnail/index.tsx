@@ -1,38 +1,43 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
 import { theme } from '../../theme';
+import { getPaddedTime, getWeekDay } from '../../util/timeFunctions';
 
 import { styles } from './styles';
 import { testImg } from './testImg';
 
 interface Props {
-  className?: String,
-  professorName?: String,
-  startTime?: String,
+  className: string,
+  professorName: string,
+  startTime: string,
   imgSource?: string, // A string in base64 containing the image
-  weekDays?: String,
+  weekDays?: string,
+  duration: number
 }
 
 
-export function ClassThumbnail({ className, professorName, startTime, imgSource, weekDays }: Props) {
+export function ClassThumbnail({ className, professorName, startTime, imgSource, duration, weekDays }: Props) {
 
+  const classDate = new Date(startTime)
+  const classEnd = new Date(classDate.getTime() + duration * 1000)
+
+  
   return (
     <View style={styles.container}>
 
-      <Image source={{ uri: testImg }} style={styles.thumb} />
+      <Image source={{ uri: imgSource ? imgSource : testImg }} style={styles.thumb} />
 
       <View style={styles.classInfo}>
 
         <View style={[styles.classData, styles.nameInfo]}>
 
           <Text style={[styles.text, { fontSize: theme.fontSizes.medium }]}>
-            {/* {className} */}
-            Zumba
+            {className}
+            {/* Zumbadashdiashdiashdaishdasiudhasi */}
           </Text>
 
           <Text style={[styles.text, { fontSize: theme.fontSizes.small }]}>
-            {/* Prof. {professorName} */}
-            Prof. Ricardo
+            Prof. {professorName? professorName : 'não especificado'}
           </Text>
         </View>
 
@@ -40,11 +45,13 @@ export function ClassThumbnail({ className, professorName, startTime, imgSource,
 
           <Text style={[styles.text, { fontSize: theme.fontSizes.regular }]}>
             {/* {weekDays} */}
-            Seg - Qua - Sex
+
+            {getWeekDay(classDate.getDay())}
+            {/* Seg - Qua - Sex */}
           </Text>
           <Text style={[styles.text, { fontSize: theme.fontSizes.small }]}>
-            {/* Começa as {startTime} */}
-            Começa as 12h
+            {getPaddedTime(classDate)} as {getPaddedTime(classEnd)}
+            {/* Começa as 12h */}
           </Text>
 
         </View>
