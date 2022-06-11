@@ -61,7 +61,7 @@ const ClassList = ({ navigation }: ClassListProps) => {
   )
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <StatusBar style="light" backgroundColor={colors.primary[500]} />
       <Stack space="4" py="8" px="6" backgroundColor={colors.primary[500]}>
         <Text fontSize="2xl" fontWeight="bold" color={colors.white}>
