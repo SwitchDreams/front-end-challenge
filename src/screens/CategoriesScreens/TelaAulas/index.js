@@ -9,7 +9,6 @@ export default function  TelaAulas() {
     //  Discovering the dimension of screen to create a responsive screen
     const {width, heigth} = Dimensions.get('screen');
 
-    / Function responsible for delete categories
     const [categorydata,setCategoryData] = useState();
     const [isFetching, setFetching] = useState();
 
@@ -21,7 +20,7 @@ export default function  TelaAulas() {
 
     const featchData= () => {
         setFetching(true);
-        fetch(`http://switch-gym.herokuapp.com/api/categories`, {
+        fetch(`https://switch-gym.herokuapp.com/api/categories`, {
             method: "GET",
 
             headers: new Headers({
