@@ -16,7 +16,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons/build/Icons';
 
 
 
-export default function TelaLogin({navigation}) {
+export default function TelaLogin(props) {
 
 
 
@@ -71,13 +71,17 @@ export default function TelaLogin({navigation}) {
         const data = await res.json();
         const userRole = data.role;
         console.log(userRole);
+
+
         //  If the role of user = Teacher ou admin so it goes to a screen with more resources
         if(userRole == "teacher"|"admin"){
-            navigation.navigate("CriarAulaProfessor");
+
+            props.navigation.navigate('CriarAulaProfessor');
+
         }
         // Else goes to limited screen of  custumer user
         else{
-            navigation.navigate("VerAulaAluno");
+            props.navigation.navigate("VerAulaAluno");
         }
     }
     return (
@@ -119,6 +123,7 @@ export default function TelaLogin({navigation}) {
                     size={24}
                     color="black"
                     style={styles.icons}
+
                 />
 
                 <TextInput
@@ -151,7 +156,7 @@ export default function TelaLogin({navigation}) {
                 </Text>
 
                 <Text
-                    onPress={()=> navigation.navigate("Cadastro")}
+                    onPress={()=> props.navigation.navigate("Cadastro")}
                     style={styles.titleBtnCadastro}
                 > Cadastre-se
 
