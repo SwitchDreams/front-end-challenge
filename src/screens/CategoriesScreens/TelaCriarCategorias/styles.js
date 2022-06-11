@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
         fontSize:18,
         fontWeight:'300',
         lineHeight:40,
+        marginLeft:50,
     },
     card:{
 
@@ -54,13 +55,14 @@ const styles = StyleSheet.create({
 
     },
     modalView: {
-        position:'absolute',
-        top:150,
-        margin: 20,
+
+
         backgroundColor: "#000",
         borderRadius: 20,
         padding: 35,
         alignSelf:'center',
+
+
 
 
         shadowColor: "#FFF",
@@ -77,25 +79,61 @@ const styles = StyleSheet.create({
         padding: 10,
         elevation: 2
     },
-    closeicon:{
-        position:'absolute',
-        right:10,
-        top:5
-    },
-    addIcon:{
+    btnCloseIcon:{
         position:'absolute',
         right:20,
-        top:4,
+        top:5,
+
     },
-    trashIcon:{
+    btnAddIcon:{
+        position:'relative',
+        right:0,
+        top:4,
+        marginLeft:20,
+    },
+    btnTrashIcon:{
         position:'absolute',
         top:8,
         right:10
     },
-    editIcon:{
+    btnEditIcon:{
         position:'absolute',
         top:36,
         right:10
+    },
+    btnVerAulas:{
+        position:'absolute',
+        top:10,
+        right:10,
+        borderRadius:10,
+        backgroundColor:'#000',
+        width:114,
+        height:30,
+        color:'#fff'
+
+    },
+
+    textBtnVerAulas:{
+        marginTop:5,
+        textAlign: 'center',
+        color:'#fff'
+    },
+    btnCriarAulas:{
+        position:'absolute',
+        top:45,
+        right:10,
+        borderRadius:10,
+        backgroundColor:'#000',
+        width:114,
+        height:30,
+        color:'#fff'
+
+    },
+
+    textBtnCriarAulas:{
+        marginTop:5,
+        textAlign: 'center',
+        color:'#fff'
     },
     buttonOpen: {
         backgroundColor: "#F194FF",
@@ -144,9 +182,9 @@ const styles = StyleSheet.create({
     },
     descriptionCard:{
         color:'#000',
-        fontWeight:'100',
+        fontWeight:'normal',
         fontSize:14,
-        lineHeight:10,
+        lineHeight:20,
         position:'absolute',
         left:17,
         bottom:28,
@@ -171,7 +209,8 @@ const styles = StyleSheet.create({
         position:'absolute',
         bottom:0,
         marginBottom:0
-    }
+    },
+
 
 
 });
