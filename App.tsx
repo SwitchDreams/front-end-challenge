@@ -2,7 +2,7 @@ import * as Font from 'expo-font'
 import theme from './src/styles/theme'
 import Login from './src/screens/Login'
 import SignUp from './src/screens/SignUp'
-import { StatusBar } from 'native-base'
+import { StatusBar } from 'expo-status-bar'
 import ClassList from './src/screens/ClassList'
 import ClassEdit from './src/screens/ClassEdit'
 import { NativeBaseProvider } from 'native-base'
@@ -66,10 +66,22 @@ export default function App() {
       <NativeBaseProvider theme={theme}>
         <StatusBar style="light" />
         <NavigationContainer>
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="SignUp" component={SignUp} />
-            <Stack.Screen name="ClassList" component={ClassList} />
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUp}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="ClassList"
+              component={ClassList}
+              options={{ headerShown: false }}
+            />
             <Stack.Screen name="ClassEdit" component={ClassEdit} />
           </Stack.Navigator>
         </NavigationContainer>
