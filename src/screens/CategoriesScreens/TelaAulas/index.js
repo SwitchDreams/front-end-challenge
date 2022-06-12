@@ -4,7 +4,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar/src/StatusBar';
 import styles from './styles';
 
-export default function  TelaAulas() {
+
+
+export default function  TelaAulas(props) {
+
+
+
 
     //  Discovering the dimension of screen to create a responsive screen
     const {width, heigth} = Dimensions.get('screen');
@@ -38,10 +43,14 @@ export default function  TelaAulas() {
             });
     };
 
+
+    const {id_user} = props.route.params;
+
     return (
 
         <SafeAreaView style={styles.centeredView}>
             <FlatList
+
                 data={categorydata}
                 nestedScrollEnabled={true}
                 keyExtractor={(categorydata) => categorydata.id}
@@ -62,10 +71,20 @@ export default function  TelaAulas() {
                             <Text style={styles.descriptionCard}>
                                 {item.description}
                             </Text>
+                            <TouchableOpacity
+                                style={styles.btnVerAulas}
+                                onPress={() => props.navigation.navigate("Aulas2", {id:item.id, id_user}) }
+                            >
+                                <Text style={styles.textBtnVerAulas}>
+                                        AULAS
+                                </Text>
+                            </TouchableOpacity>
+
                         </View>
                     </View>
                 )}
             />
+
 
         </SafeAreaView>
 
