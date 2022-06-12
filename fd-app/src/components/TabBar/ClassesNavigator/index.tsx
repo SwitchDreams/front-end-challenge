@@ -3,6 +3,7 @@ import { ListBullets } from 'phosphor-react-native';
 import React from 'react';
 import { View } from 'react-native';
 import { myScreenOptions } from '../../../util/screenOptions';
+import { ClassEdit } from '../../ClassEdit';
 import { ClassIndex } from '../../ClassIndex';
 import { ClassShow } from '../../ClassShow';
 import { Header } from '../../Header';
@@ -41,8 +42,14 @@ export function ClassesNavigator() {
         }}
       />
 
+      <Stack.Screen name='Edit' component={ClassEdit}
+        options={{
+          title: 'Editar Aula'
+        }}
+      />
+
       <Stack.Group screenOptions={{ presentation: 'transparentModal', headerShown: false, animation: 'fade' }}>
-        <Stack.Screen name={'InscricaoModal'} component={BaseModal} />
+        <Stack.Screen name={'SubscriptionModal'} component={BaseModal} />
       </Stack.Group>
     </Stack.Navigator>
 

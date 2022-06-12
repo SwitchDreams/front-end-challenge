@@ -1,3 +1,4 @@
+import { useRoute } from '@react-navigation/native';
 import { CheckCircle, SmileyXEyes, X } from 'phosphor-react-native';
 import React from 'react';
 import { Button, Text, TouchableOpacity, View } from 'react-native';
@@ -5,10 +6,12 @@ import { theme } from '../../../theme';
 
 import { styles } from './styles';
 
+export function BaseModal({ navigation }: any) {
+  const route = useRoute()
+  let { requestSuccess } = route.params? route.params : { requestSucess: true } as any
 
-export function BaseModal({ route, navigation }: any) {
-  const { requestSuccess } = route.params
-
+  console.log(requestSuccess)
+  requestSuccess = true
   return (
     <View style={styles.container}>
 

@@ -1,17 +1,20 @@
-import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { ActivityIndicator, Alert, Image, ScrollView, Text, View } from 'react-native';
 import { Button } from '../Button';
 import { testImg } from '../ClassThumbnail/testImg';
-import { useRoute } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 
 import { styles } from './styles';
 import { api } from '../../libs/api';
+import axios, { Canceler, CancelTokenSource } from 'axios'
+
 import { getPaddedTime, getWeekDay } from '../../util/timeFunctions';
 import { SmileyXEyes } from 'phosphor-react-native';
 import { theme } from '../../theme';
 import { userContext } from '../../util/userInfoContext';
-import { isUserRegistered } from './apiCallFunctions';
+import { excludeGymClass, excludeGymClassUser, isUserRegistered } from './apiCallFunctions';
 import { ClassType } from '../../util/ClassInfoType';
+import { feedbackModal, isCustomer } from '../../util/utilFunctions'
 
 export function ClassShow({ navigation }: any) {
   const [pageIsLoading, setPageIsLoading] = useState(true)
@@ -19,7 +22,6 @@ export function ClassShow({ navigation }: any) {
   const [loadingError, setErrorLoading] = useState(false)
   const [buttonLoading, setButtonLoading] = useState(false)
   const [isRegistered, setIsRegistered] = useState(false)
-  // let isRegistered = false
 
   const [classStart, setClassStart] = useState(new Date())
   const [classEnd, setClassEnd] = useState(new Date())
@@ -28,42 +30,66 @@ export function ClassShow({ navigation }: any) {
 
   const userInfo = useContext(userContext)
 
-  useEffect(() => {
-    fetchData()
-  }, [])
+  navigation = useNavigation()
 
   function setClassTime(classInfo: ClassType) {
     const init = new Date(classInfo.start_time)
 
-    setClassStart(init)
-    setClassEnd(new Date(init.getTime() + classInfo.duration * 1000))
+    if (isActive) {
+      setClassStart(init)
+      setClassEnd(new Date(init.getTime() + classInfo.duration * 1000))
+    }
   }
 
-  async function fetchData() {
-    setPageIsLoading(true)
-    setErrorLoading(false)
+  let isActive = true
 
-    const params: any = route.params
-    const classId = params.id
+  useFocusEffect(useCallback(() => {
+    const CancelToken = axios.CancelToken
+    const source = CancelToken.source()
+
+    fetchData(source)
+    isActive = true
+
+    return () => {
+      source.cancel()
+      isActive = false
+    }
+  }, []))
+
+  async function fetchData(source: CancelTokenSource) {
 
     try {
-      
-      const response = await api.get(`gym_classes/${classId}`)
-      
-      setClassTime(response.data)
-      setClassData(response.data)
-      setIsRegistered(await isUserRegistered((response.data as ClassType).id, userInfo.id))
+      if (isActive) {
+        setPageIsLoading(true)
+        setErrorLoading(false)
+      }
+
+      const params: any = route.params
+      const classId = params.id
+      const response = await api.get(`gym_classes/${classId}`, { cancelToken: source.token })
+
+      if (isActive) {
+        setPageIsLoading(false)
+        setClassTime(response.data)
+        setClassData(response.data)
+        setIsRegistered(await isUserRegistered((response.data as ClassType).id, userInfo.id))
+      }
 
     } catch (error) {
-      JSON.stringify(error)
-      Alert.alert("Erro", "Não foi possivel carregar os dados, tente novamente mais tarde")
-      setErrorLoading(true)
+
+      // console.log(JSON.stringify(error))
+      if (!axios.isCancel(error) && isActive) {
+        setErrorLoading(true)
+        setPageIsLoading(false)
+        Alert.alert("Erro", "Não foi possivel carregar os dados, tente novamente mais tarde")
+      }
     }
-    setPageIsLoading(false)
   }
 
   async function handleUserSubscription() {
-    setButtonLoading(true)
+    if (isActive) {
+      setButtonLoading(true)
+    }
 
     try {
       const response = await api.post('/gym_class_users', {
@@ -73,13 +99,15 @@ export function ClassShow({ navigation }: any) {
         }
       })
 
-      navigation.navigate('InscricaoModal', { requestSuccess: true })
+      feedbackModal(true, navigation.goBack)
 
     } catch (error) {
-      navigation.navigate('InscricaoModal', { requestSuccess: false })
+      feedbackModal(false, navigation.goBack)
     };
 
-    setButtonLoading(false)
+    if (isActive) {
+      setButtonLoading(false)
+    }
   }
 
   return (
@@ -128,20 +156,74 @@ export function ClassShow({ navigation }: any) {
               </Text>
             </View>
 
-            <Button titleText={isRegistered ? 'Inscrito' : 'Inscrever-se'}
-              isLoading={buttonLoading}
+            {isCustomer(userInfo) && <Button titleText={isRegistered ? 'Inscrito' : 'Inscrever-se'}
+              isLoading={buttonLoading && !isRegistered}
 
               disabled={isRegistered}
               onPress={handleUserSubscription}
 
-              style={{marginBottom: 10}}
-            />
+              style={styles.button}
+            />}
 
-            {isRegistered &&
+            {isRegistered && isCustomer(userInfo) &&
               <Button
                 titleText={'Cancelar Inscrição'}
                 isLoading={buttonLoading}
+                onPress={async () => {
+                  if (isActive) {
+                    setButtonLoading(true)
+                  }
+
+                  feedbackModal(await excludeGymClassUser(), navigation.goBack)
+                }}
+                style={styles.button}
+
               />}
+
+            {!isCustomer(userInfo) &&
+              <Button
+                titleText={'Editar'}
+                isLoading={buttonLoading}
+                onPress={() => navigation.navigate('Edit',
+                  {
+                    class_id: classData.id,
+                    editing: true
+                  })}
+                style={styles.button}
+              />
+            }
+
+            {!isCustomer(userInfo) &&
+
+              <Button
+                titleText={'Excluir Aula'}
+                isLoading={buttonLoading}
+                onPress={() => {
+
+                  if (isActive) {
+                    setButtonLoading(true)
+                  }
+
+                  Alert.alert("Excluindo Aula", "Tem certeza?", [
+                    {
+                      text: 'Sim',
+                      onPress: async () => { feedbackModal(await excludeGymClass(classData.id), navigation.goBack) },
+                      style: 'destructive',
+                    },
+                    {
+                      text: 'Não',
+                      style: 'default'
+                    },
+                  ], { cancelable: true })
+
+                  if(isActive) {
+                    setButtonLoading(false)
+                  }
+                }}
+                style={styles.button}
+              />
+            }
+
           </>)}
       </ScrollView>
     </View>

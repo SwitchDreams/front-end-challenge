@@ -69,6 +69,10 @@ export const styles = StyleSheet.create({
     textAlign: 'justify',
     width: '90%',
     // backgroundColor: 'blue',
+  },
+
+  button: {
+    marginBottom: 10,
   }
 
 });

@@ -19,8 +19,8 @@ export function Login({ navigation }: any) {
     setIsButtonLoading(true)
 
     try {
-
-      const response = await api.post('/users/login', {
+      // console.log(userEmail, userPassword)
+      const response = await api.post(`/users/login?timestamp=${new Date().getTime()}`, {
         user: {
           email: userEmail,
           password: userPassword
@@ -29,7 +29,7 @@ export function Login({ navigation }: any) {
 
       api.defaults.headers.common = { 'Authorization': response.headers['authorization'] }
 
-      // console.log(response.data)
+      // console.log(response)
       navigation.navigate('Logged', {
         id: response.data.id,
         email: userEmail,
@@ -38,6 +38,7 @@ export function Login({ navigation }: any) {
 
     } catch (error: any) {
 
+      console.log(error)
       Alert.alert('Dados inválidos', 'Email ou senha estão incorretos! Digite novamente.')
     }
     setIsButtonLoading(false)

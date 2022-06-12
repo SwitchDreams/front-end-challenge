@@ -12,6 +12,7 @@ import { ClassIndex } from './src/components/ClassIndex';
 import { Header } from './src/components/Header';
 import { TabBar } from './src/components/TabBar';
 import { myScreenOptions } from './src/util/screenOptions';
+import { Provider } from 'react-native-paper';
 
 export default function App() {
   SplashScreen.preventAutoHideAsync()
@@ -31,21 +32,23 @@ export default function App() {
   SplashScreen.hideAsync()
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
+    <Provider>
+      <View style={styles.container}>
+        <StatusBar style="auto" />
 
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName='Login'
-          screenOptions={myScreenOptions}
-        >
-          <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
-          <Stack.Screen name='Register' component={Register} options={{ headerShown: false }} />
-          <Stack.Screen name='Logged' component={TabBar} options={{ title: 'Aulas Disponíveis', headerShown: false }} />
-        </Stack.Navigator>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName='Login'
+            screenOptions={myScreenOptions}
+          >
+            <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+            <Stack.Screen name='Register' component={Register} options={{ headerShown: false }} />
+            <Stack.Screen name='Logged' component={TabBar} options={{ title: 'Aulas Disponíveis', headerShown: false }} />
+          </Stack.Navigator>
 
 
-      </NavigationContainer>
-    </View>
+        </NavigationContainer>
+      </View>
+    </Provider>
   );
 }
 

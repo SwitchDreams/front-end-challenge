@@ -1,7 +1,7 @@
 import { BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useRoute } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { House, ListBullets, SignOut } from 'phosphor-react-native';
+import { House, ListBullets, PlusCircle, SignOut } from 'phosphor-react-native';
 import React, { createContext, useContext } from 'react';
 import { View } from 'react-native';
 import { theme } from '../../theme';
@@ -15,15 +15,19 @@ import { Logo } from '../Logo';
 import { ClassesNavigator } from './ClassesNavigator';
 
 import { styles } from './styles';
-
+import { isCustomer } from '../../util/utilFunctions';
+import { BaseModal } from '../Modals/BaseModal';
 
 export function TabBar() {
 
   const Tab = createBottomTabNavigator();
   const route = useRoute()
 
+  // console.log(route.params)
+  const userInfo = route.params as userType
+
   return (
-    <userContext.Provider value={route.params as userType}>
+    <userContext.Provider value={userInfo}>
 
       <Tab.Navigator
         sceneContainerStyle={styles.container}
@@ -33,6 +37,7 @@ export function TabBar() {
         <Tab.Screen name='Home' component={Home}
           options={{
             title: 'Home',
+            headerShown: false,
             tabBarIcon: ({ focused, color, size }) => <House size={size} color={color} weight={focused ? 'fill' : 'regular'} />
           }} />
 
@@ -44,7 +49,7 @@ export function TabBar() {
           }}
         />
 
-        <Tab.Screen name='Exit' component={ClassEdit} options={{
+        <Tab.Screen name='Exit' component={BaseModal} options={{
           title: 'Sair',
           tabBarIcon: ({ focused, color, size }) => <SignOut size={size} color={color} weight={focused ? 'fill' : 'regular'} />
         }} />

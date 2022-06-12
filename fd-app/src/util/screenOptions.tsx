@@ -23,5 +23,5 @@ export const myScreenOptions: NativeStackNavigationOptions = {
 
   headerTintColor: theme.color.text,
 
-  headerShadowVisible: false,
+  headerShadowVisible: true,
 }

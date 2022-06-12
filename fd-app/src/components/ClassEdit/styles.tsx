@@ -13,11 +13,10 @@ export const styles = StyleSheet.create({
   },
 
   formBox: {
-    paddingVertical: 10,
+    marginVertical: 10,
   },
 
   scrollContainer: {
-    // width: '100%',
     justifyContent: 'space-around',
     alignItems: 'center',
     paddingBottom: 20,
@@ -27,6 +26,5 @@ export const styles = StyleSheet.create({
     height: 150,
     justifyContent: 'flex-start',
     textAlignVertical: 'top',
-    // height: 600,
   }
 });

@@ -8,9 +8,10 @@ interface Props {
   myStyle?: StyleProp<TextStyle>
   setTime?: (date: Date) => void
   mode: 'date' | 'time'
+  formTitle: string
 }
 
-export function TimeForm({ myStyle, setTime, mode }: Props) {
+export function TimeForm({ myStyle, setTime, mode, formTitle }: Props) {
   const [date, setDate] = useState(new Date())
   const [show, setShow] = useState(false);
   const [isTimeSelected, setIsTimeSelected] = useState(false)
@@ -32,14 +33,15 @@ export function TimeForm({ myStyle, setTime, mode }: Props) {
   }
 
   function getDate() {
-    return 'dias'      
+    return isTimeSelected ?
+    date.toLocaleDateString('pt-BR') : 'Selecione o dia...'      
   }
 
   return (
     <View style={[{ width: '100%' }, myStyle]}>
 
       <Text style={styles.title}>
-        Horário
+        {formTitle}
       </Text>
 
       <TouchableOpacity activeOpacity={1} onPress={() => { setIsTimeSelected(true); setShow(true) }} style={styles.container} >
@@ -51,8 +53,8 @@ export function TimeForm({ myStyle, setTime, mode }: Props) {
         {show &&
           <DateTimePicker
             testID="dateTimePicker"
-            display='clock'
-            mode='time'
+            display='default'
+            mode={mode}
             value={date}
             is24Hour={true}
             onChange={changeDate}

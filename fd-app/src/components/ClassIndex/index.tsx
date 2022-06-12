@@ -1,5 +1,7 @@
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import axios, { CancelTokenSource } from 'axios';
 import { SmileyXEyes } from 'phosphor-react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, FlatList, RefreshControl, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { api } from '../../libs/api';
 import { theme } from '../../theme';
@@ -8,40 +10,64 @@ import { ClassThumbnail } from '../ClassThumbnail';
 
 import { styles } from './styles';
 
-export function ClassIndex({ navigation }: any) {
+
+export function ClassIndex() {
   const [pageLoading, isPageLoading] = useState(true)
   const [classes, setClasses] = useState(null)
   const [errorLoading, isErrorLoading] = useState(false)
   const [haveItems, setHaveItems] = useState(false)
 
-  useEffect(() => {
-    fetchClasses()
-  }, [])
+  const navigation = useNavigation()
 
-  async function fetchClasses() {
+  let isActive = true
+  const CancelToken = axios.CancelToken
+  const source = CancelToken.source()
 
-    isErrorLoading(false)
-    isPageLoading(true)
-    setHaveItems(true)
+  useFocusEffect(useCallback(() => {
+    fetchClasses(source)
+    isActive = true
 
-    try {
-      const response = await api.get('gym_classes')
-
-      setClasses(response.data)
-    } catch (error) {
-      Alert.alert("Erro", "Não foi possivel carregar os dados, tente novamente mais tarde")
-      isErrorLoading(true)
+    return () => {
+      source.cancel()
+      isActive = false
     }
 
-    isPageLoading(false)
+  }, []))
+
+  async function fetchClasses(source: CancelTokenSource) {
+
+    if (isActive) {
+      isErrorLoading(false)
+      isPageLoading(true)
+    }
+
+    try {
+      const response = await api.get('gym_classes', { cancelToken: source.token })
+
+      if (isActive) {
+        setClasses(response.data)
+
+        if ((response.data as ClassType[]).length > 0) {
+          setHaveItems(true)
+        }
+      }
+    } catch (error) {
+
+      if (!axios.isCancel(error) && isActive) {
+        Alert.alert("Erro", "Não foi possivel carregar os dados, tente novamente mais tarde")
+        isErrorLoading(true);
+      }
+    }
+
+    if (isActive)
+      isPageLoading(false);
   }
 
   function renderItem(listItem: any) {
     const classData = listItem.item
 
-    // setHaveItems(true)
     return (
-      <TouchableOpacity style={styles.thumbContainer} onPress={() => navigation.navigate('Show', { id: classData.id })}>
+      <TouchableOpacity style={styles.thumbContainer} onPress={() => navigation.navigate('Show' as never, { id: classData.id } as never)}>
         <ClassThumbnail
           className={classData.name}
           professorName={classData.teacher_name}
@@ -68,14 +94,13 @@ export function ClassIndex({ navigation }: any) {
           refreshControl=
           {<RefreshControl
             refreshing={false}
-            onRefresh={fetchClasses}
+            onRefresh={() => { fetchClasses(source) }}
           />}
           style={styles.scroll}
           contentContainerStyle={styles.contentScroll}
           data={classes}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id
-            // .toString()
+          keyExtractor={(item) => item.id.toString()
           }
         />
       )}

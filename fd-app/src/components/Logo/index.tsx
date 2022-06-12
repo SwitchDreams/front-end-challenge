@@ -1,10 +1,14 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, ImageStyle, StyleProp } from 'react-native';
 
 import { styles } from './styles';
 
-export function Logo() {
+interface Props {
+  logoStyle?: StyleProp<ImageStyle>
+}
+
+export function Logo({ logoStyle }: Props) {
   return (
-    <Image style={styles.container} source={require('../../assets/logo-b.png')} />
+    <Image style={[styles.container, logoStyle]} source={require('../../assets/logo-b.png')} />
   );
 }
