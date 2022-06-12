@@ -28,20 +28,8 @@ import { FontAwesome } from "@expo/vector-icons";
 export default function TelaCriarAulas(props) {
     //Getting screen dimensions of user
     const { width, heigth } = Dimensions.get("screen");
-
-    // States of body request
-    const [category_id, setCategoryId] = useState("");
-    const [start_time, setStarTime] = useState("");
-    const [duration, setduration] = useState("");
-    const [teacher_name, setTeacherName] = useState("");
-    const [class_name, setClassName] = useState("");
-    const [class_description, setClassDescription] = useState("");
-
-
- 
-    
-    const [gymclassdata,setGymClassData] = useState();
-    const [isFetching, setFetching] = useState();
+    const [gymclassdata,setGymClassData] = useState('');
+    const [isFetching, setFetching] = useState('');
 
     // Update the flatlist with the data from gym classes
 
@@ -104,24 +92,38 @@ export default function TelaCriarAulas(props) {
 
 
     }
-    const [modalVisible, setModalVisible] = useState(false);
     const [modalVisible1, setModalVisible1] = useState(false);
 
     const [updateCategoryName,setUpdateCategoryName] = useState("");
     const [updateCategoryDescription,setUpdateCategoryDescription] = useState("");
-    const [id1,setId] = useState(null);
+    const [id1,setId] = useState("");
+    const [start_time, setStarTime] = useState("");
+    const [duration, setDuration] = useState('');
+    const [teacher_name,setTeacherName] = useState("");
+    const [class_name, setClassName] = useState("");
+    const [class_description, setClassDescription] = useState("");
+
+    const today = new Date();
+    const date = today.getDate()+'-'+(today.getMonth()+1+'-'+today.getFullYear());
+    const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    const dateTime = date+' '+time;
+
 
     async function updateClass() {
         const token = await AsyncStorage.getItem("bearer_token");
         await fetch(`https://switch-gym.herokuapp.com/api/gym_classes/59`, {
-            method:'OPTIONS',
+            method:'PATCH',
 
 
 
             body: JSON.stringify({
-                "category": {
-                    "name": updateCategoryName,
-                    "description": updateCategoryDescription,
+                "gym_class": {
+                    "category_id": id1,
+                    "start_time": dateTime,
+                    "duration": duration,
+                    "teacher_name":teacher_name,
+                    "name": class_name,
+                    "description": class_description
                 },
             }),
 
@@ -150,7 +152,7 @@ export default function TelaCriarAulas(props) {
     }
 
 
-    // This object is used to confirm the action of user, if he click on category then the category_id is passed for this object and this object is used on flatlist  to exibe just gym classes from that category id
+    // This params is used to confirm the action of user, if he click on category then the category_id is passed for this params and  is used on flatlist  to exibe just gym classes from that category id
 
     const {id} = props.route.params;
 
@@ -162,19 +164,7 @@ export default function TelaCriarAulas(props) {
                 <Text style={styles.textWelcome}>
                     Seja bem vindo Professor
                 </Text>
-                <TouchableOpacity
-                    onPress={() => setModalVisible(true)}
-                    style={styles.addIcon}
-                >
-                    <Feather
-                        name="more-vertical"
-                        size={28}
-                        color="white"
-                        style={styles.addIcon}
 
-
-                    />
-                </TouchableOpacity>
             </View>
 
             <FlatList
@@ -212,8 +202,9 @@ export default function TelaCriarAulas(props) {
                                 <View style={styles.footerimgcard}>
                                     <Text style={styles.textCard}>{item.name}</Text>
                                     <Text style={styles.descriptionCard}>
-                                        {item.id}
+                                        {item.duration/60} min
                                     </Text>
+
                                 </View>
                             </View>
                             }
@@ -222,7 +213,7 @@ export default function TelaCriarAulas(props) {
                     );}}
             />
 
-          
+
 
             <Modal
                 animationType="fade"
@@ -237,7 +228,7 @@ export default function TelaCriarAulas(props) {
                         width: width,
                         height: heigth,
                         marginTop: 22,
-                        alignSelf: "center",
+                        alignSelf:'center'
                     }}
                 >
                     <View style={styles.modalView}>
@@ -245,30 +236,47 @@ export default function TelaCriarAulas(props) {
                             name="close"
                             size={24}
                             color="white"
-                            style={styles.closeicon}
+                            style={styles.btnCloseIcon}
                             onPress={() => setModalVisible1(false)}
                         />
-                        <Text style={styles.modalText}>Edite sua aula </Text>
-                        {/* TextInput  class name*/}
+                        <Text style={styles.modalText}>Editar Aula</Text>
+                        {/* TextInput  category name*/}
                         <View style={styles.textInputContainer}>
                             <TextInput
                                 style={styles.textInput}
-                                placeholder="Nome atualizado da categoria..."
-                                onChangeText={(text) => setUpdateCategoryName(text)}
+                                placeholder="Nome da Aula..."
+                                onChangeText={(text) => setClassName(text)}
                             />
                         </View>
-                        {/* TextInput  class description*/}
+                        {/* TextInput  category description*/}
                         <View style={styles.textInputContainer}>
                             <TextInput
                                 style={styles.textInput}
-                                placeholder="Descrição da aula atualizado..."
-                                onChangeText={(text) => setUpdateCategoryDescription(text)}
+                                placeholder="Breve Descrição..."
+                                onChangeText={(text) => setClassDescription(text)}
                             />
                         </View>
 
+                        <View style={styles.textInputContainer}>
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="Duração da aula em minutos..."
+                                onChangeText={(number) => setDuration(number*60)}
+                            />
+                        </View>
+
+                        <View style={styles.textInputContainer}>
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="Nome do professor"
+                                onChangeText={(text) => setTeacherName(text)}
+                            />
+                        </View>
+
+
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={updateCategories}
+                            onPress={updateClass}
                         >
                             <Text style={styles.textStyle}>
                                 Editar Aula
@@ -276,7 +284,6 @@ export default function TelaCriarAulas(props) {
                         </Pressable>
                     </View>
                 </ScrollView>
-
             </Modal>
 
 
