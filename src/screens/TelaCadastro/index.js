@@ -1,221 +1,102 @@
-import React, {useState} from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity, Alert, Dimensions, SafeAreaView} from 'react-native';
+import React, { useState } from "react";
+import {
+    View,
+    Text,
+    Image,
+    TextInput,
+    TouchableOpacity,
+    Alert,
+    Dimensions,
+    SafeAreaView,
+} from "react-native";
 
-import { Picker } from '@react-native-picker/picker';
-import { StatusBar } from 'expo-status-bar/src/StatusBar';
-import styles from './styles';
+import { StatusBar } from "expo-status-bar/src/StatusBar";
+import styles from "./styles";
 
+// Components
+import NameInput from "../../components/NameInput";
+import EmailInput from "../../components/EmailInput";
+import PasswordInput from "../../components/PasswordInput";
+import DropDownRoles from "../../components/DropDownRoles";
+import SignInSignUpBtn from "../../components/SignInSignUpBtn";
+import BtnHelpUser from "../../components/BtnHelpUser";
 
-// Icons
-import { Ionicons } from '@expo/vector-icons/build/Icons';
-import { Feather } from '@expo/vector-icons/build/Icons';
-import { Fontisto } from '@expo/vector-icons/build/Icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons/build/Icons';
+export default function TelaCadastro({ navigation }) {
+    const { width, heigth } = Dimensions.get("screen");
+    // States of function
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [role, setRole] = useState();
 
-
-
-
-
-
-
-export default function TelaCadastro({navigation}) {
-
-
-
-    const {width, heigth} = Dimensions.get('screen');
-
-
-
-
-
-    const [name,setName] = useState('');
-    const [email,setEmail] = useState('');
-    const [password,setPassword] = useState('');
-    const [role,setRole] = useState();
-
-
-
-
-    async function registrar(){
-
-        const res = await fetch('http://switch-gym.herokuapp.com/api/users',{
-            method:'POST',
-            mode: 'cors',
+    async function signUp() {
+        const res = await fetch("http://switch-gym.herokuapp.com/api/users", {
+            method: "POST",
+            mode: "cors",
             headers: new Headers({
-
-                'Content-Type': "application/json;charset=utf-8"
+                "Content-Type": "application/json;charset=utf-8",
             }),
-            body:JSON.stringify({
-                "user": {
-                    "name":name,
-                    "email": email,
-                    "password": password,
-                    "role": role
-                }
-            })
+            body: JSON.stringify({
+                user: {
+                    name: name,
+                    email: email,
+                    password: password,
+                    role: role,
+                },
+            }),
         });
         if (res.status != 201) {
-            Alert.alert('Erro ao cadastrar', 'Não foi possivel concluir o cadastro, certifique-se de ter prenchido todos os dados corretamente');
-
+            Alert.alert(
+                "Erro ao cadastrar",
+                "Não foi possivel concluir o cadastro, certifique-se de ter prenchido todos os dados corretamente"
+            );
 
             return;
         }
 
-
-
         navigation.navigate("Login");
-
-
-
-
-
     }
 
 
     return (
-
-
-        <SafeAreaView style={{ width:width, height:heigth, flex:1,  }}>
-            <StatusBar hidden/>
+        <SafeAreaView style={{ width: width, height:heigth, flex:1}}>
+            <StatusBar hidden />
 
             {/* Image logo */}
             <Image
                 style={styles.imgLogo}
-                source={require('../../../assets/imgs/FitDreams2.png')}
+                source={require("../../../assets/imgs/FitDreams2.png")}
             />
 
+            <Text style={styles.title}>
+                Registre-se
+            </Text>
 
-
-
-
-
-            <Text style={styles.title}> Registre-se</Text>
-
-            {/* TextInput nome */}
-            <View style={styles.textInputContainer}>
-                <Ionicons
-                    name="ios-person-outline"
-                    size={24}
-                    color="black"
-                    style={styles.icons}
-                />
-
-                <TextInput
-                    style={styles.textInput}
-                    placeholder='Nome Completo...'
-                    onChangeText={text=>setName(text)}
-
-                />
-            </View>
-            {/* TextInput  email*/}
-            <View style={styles.textInputContainer}>
-                <MaterialCommunityIcons
-                    name="email-outline"
-                    size={24}
-                    color="black"
-                    style={styles.icons}
-                />
-
-                <TextInput
-                    style={styles.textInput}
-                    placeholder='Seu e-mail...'
-                    onChangeText={text=>setEmail(text)}
-
-                />
-            </View>
-
+            {/*Name Text Input*/}
+            <NameInput
+                setValue={setName} />
+            {/*Email Text Input*/}
+            <EmailInput
+                setValue={setEmail} />
 
             {/* TextInput senha */}
 
-            <View style={styles.textInputContainer}>
+            <PasswordInput
+                setValue={setPassword} />
 
-                <Feather
-                    name="lock"
-                    size={24}
-                    color="black"
-                    style={styles.icons}
-                />
+            {/* DropDownBox  the user can select your role, i put this just for tests because in a real app the role  is altered in data base or with a diferent form.*/}
 
-                <TextInput
-                    style={styles.textInput}
-                    placeholder='Sua senha...'
-                    secureTextEntry={true}
-                    onChangeText={text=>setPassword(text)}
+            <DropDownRoles
+                pickerValue={role}
+                setValue={setRole} />
 
+            <SignInSignUpBtn onpress={signUp} labelBtn="Registrar-se" />
 
-                />
-            </View>
-
-
-
-            {/* DropDownBox  permite selecionar que funcão o usuario irá exercer e com base nisso ter uma tratativa diferente*/}
-
-            <View style={styles.textInputContainer}>
-
-                <Fontisto
-                    name="person"
-                    size={24}
-                    color="black"
-                    style={styles.icons}
-                />
-
-                <Picker
-                    selectedValue={role}
-                    style={styles.textInput}
-                    onValueChange={(itemValue,) => setRole(itemValue)}
-
-                >
-
-                    <Picker.Item
-                        label='Professor'
-                        value="teacher"
-                    />
-
-                    <Picker.Item
-                        label="Cliente"
-                        value="customer"
-
-                    />
-
-
-                </Picker>
-
-            </View>
-
-
-
-            <TouchableOpacity
-                onPress={() => registrar()}
-                style={styles.btnRegistrar}
-            >
-
-                <Text style={styles.titleBtnRegistrar}>
-                    Registrar-se
-                </Text>
-
-            </TouchableOpacity>
-
-            <View style={styles.BtnAjudaContainer}>
-                <Text pre style={styles.titleAjuda}>
-                    Já possui uma conta?
-                </Text>
-
-
-
-
-                <Text
-                    onPress={()=> navigation.navigate("Login")}
-                    style={styles.titleBtnLogin}
-                > Fazer login
-
-                </Text>
-
-
-            </View>
-
-
-
-
+            <BtnHelpUser
+                onpress={() => navigation.navigate("Login")}
+                txt="Já possui uma conta?"
+                txtBtn=" Fazer login"
+            />
         </SafeAreaView>
     );
 }
