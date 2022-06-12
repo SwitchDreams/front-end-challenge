@@ -81,7 +81,7 @@ export default function TelaLogin(props) {
         }
         // Else goes to limited screen of  custumer user
         else{
-            props.navigation.navigate("VerAulaAluno");
+            props.navigation.navigate("VerAulaAluno", {id_user:data.id});
         }
     }
     return (
