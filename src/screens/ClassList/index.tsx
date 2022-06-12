@@ -18,6 +18,7 @@ import {
   Actionsheet,
   useDisclose,
   IconButton,
+  Center,
   Spinner,
 } from 'native-base'
 
@@ -72,7 +73,9 @@ const ClassList = ({ navigation }: ClassListProps) => {
         </Text>
       </Stack>
       {isLoading ? (
-        <Spinner />
+        <Center flex={1}>
+          <Spinner size="lg" />
+        </Center>
       ) : (
         <FlatList
           data={classes}
