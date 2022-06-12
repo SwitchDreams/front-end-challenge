@@ -1,3 +1,4 @@
+import { Lato_100Thin_Italic, Lato_700Bold_Italic } from "@expo-google-fonts/lato";
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
@@ -79,29 +80,44 @@ const styles = StyleSheet.create({
         padding: 10,
         elevation: 2
     },
-    closeicon:{
+    clockIcon:{
         position:'absolute',
-        right:10,
+        paddingTop:1,
+        left:98,
+        bottom:28,
+    },
+    alterIcon:{
+        position:'absolute',
+        paddingTop:1,
+        left:2,
+        bottom:24.5,
+        width:30,
+        height:30
+
+    },
+    textHalter:{
+        position:'absolute',
+        paddingTop:1,
+        left:29,
+        bottom:32,
+    },
+    btnComecar:{
+        position:'absolute',
         top:5,
+        right:5,
+        borderRadius:10,
+        backgroundColor:'#000',
+        width:114    ,
+        height:40,
+        color:'#fff',
+        alignItems:'center',
+        justifyContent:'center'
 
     },
-    addIcon:{
-        position:'relative',
-        right:0,
-        top:4, // This save the object pass in TelaCriarAulas
 
-
-        marginLeft:20,
-    },
-    trashIcon:{
-        position:'absolute',
-        top:8,
-        right:10
-    },
-    editIcon:{
-        position:'absolute',
-        top:36,
-        right:10
+    textBtnComecar:{
+        color:'#fff',
+        fontFamily: 'Lato_700Bold_Italic',
     },
     buttonOpen: {
         backgroundColor: "#F194FF",
@@ -147,16 +163,16 @@ const styles = StyleSheet.create({
         lineHeight:20,
         position:'absolute',
         left:17,
-        top:14,
+        top:5,
     },
     descriptionCard:{
         color:'#000',
-        fontWeight:'normal',
+        fontFamily: 'Lato_100Thin_Italic',
         fontSize:14,
         lineHeight:20,
         position:'absolute',
-        left:17,
-        bottom:28,
+        left:120,
+        bottom:26,
     },
     imgCard:{
 

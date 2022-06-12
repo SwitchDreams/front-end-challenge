@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-
+import { Lato_300Light, Lato_400Regular, Lato_700Bold, Lato_700Bold_Italic } from "@expo-google-fonts/lato";
 const styles = StyleSheet.create({
     centeredView: {
         flex: 1,
@@ -27,22 +27,27 @@ const styles = StyleSheet.create({
 
     },
     textCard:{
-        textAlign:"center",
+
+        width:120,
+        height:20,
         color:'#000',
         fontWeight:'700',
         fontSize:14,
         lineHeight:20,
         position:'absolute',
-        left:17,
-        top:14,
+        left:12,
+        top:5,
+        fontFamily:'Lato_700Bold',
+
     },
     descriptionCard:{
         color:'#000',
+
         fontWeight:'100',
         fontSize:14,
         lineHeight:10,
         position:'absolute',
-        left:17,
+        left:12,
         bottom:28,
     },
     imgCard:{
@@ -65,7 +70,30 @@ const styles = StyleSheet.create({
         position:'absolute',
         bottom:0,
         marginBottom:0
-    }
+    },
+    btnVerAulas:{
+        position:'absolute',
+        top:5,
+        right:5,
+        borderRadius:10,
+        backgroundColor:'#000',
+        width:114    ,
+        height:40,
+        color:'#fff',
+        alignItems:'center',
+        justifyContent:'center'
+
+    },
+
+    textBtnVerAulas:{
+
+        color:'#fff',
+        fontFamily: 'Lato_400Regular',
+
+
+
+
+    },
 
 
 });
