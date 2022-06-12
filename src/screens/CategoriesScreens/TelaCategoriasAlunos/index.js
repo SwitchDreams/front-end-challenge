@@ -6,7 +6,7 @@ import styles from './styles';
 
 
 
-export default function  TelaAulas(props) {
+export default function  TelaCategoriasAlunos(props) {
 
 
 
@@ -73,7 +73,7 @@ export default function  TelaAulas(props) {
                             </Text>
                             <TouchableOpacity
                                 style={styles.btnVerAulas}
-                                onPress={() => props.navigation.navigate("Aulas2", {id:item.id, id_user}) }
+                                onPress={() => props.navigation.navigate("Aulas", {id:item.id, id_user}) }
                             >
                                 <Text style={styles.textBtnVerAulas}>
                                         AULAS

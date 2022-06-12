@@ -320,7 +320,7 @@ export default function TelaCriarCategorias(props) {
                             </Text>
                             <TouchableOpacity
                                 style={styles.btnVerAulas}
-                                onPress={() => props.navigation.navigate("EditeOuDeleteAulas", {id:item.id}) }
+                                onPress={() => props.navigation.navigate("Aulas Disponiveis", {id:item.id}) }
                             >
                                 <Text style={styles.textBtnVerAulas}>
                                     Ver aulas
