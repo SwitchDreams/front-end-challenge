@@ -71,13 +71,16 @@ export default function TelaCriarCategorias(props) {
 
 
     // States of body request
-
-
     const [start_time, setStarTime] = useState("");
     const [duration, setDuration] = useState('');
     const [teacher_name,setTeacherName] = useState("");
     const [class_name, setClassName] = useState("");
     const [class_description, setClassDescription] = useState("");
+
+    const today = new Date();
+    const date = today.getDate()+'-'+(today.getMonth()+1+'-'+today.getFullYear());
+    const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    const dateTime = date+' '+time;
 
 
     // Function responsible for creating category
@@ -97,6 +100,8 @@ export default function TelaCriarCategorias(props) {
                 body: JSON.stringify({
                     "gym_class": {
                         "category_id": id1,
+                        "start_time": dateTime,
+                        "duration": duration,
                         "teacher_name":teacher_name,
                         "name": class_name,
                         "description": class_description
@@ -185,20 +190,24 @@ export default function TelaCriarCategorias(props) {
 
 
     }
+    // State of modal create category
     const [modalVisible, setModalVisible] = useState(false);
+    // State of modal edit category
     const [modalVisible1, setModalVisible1] = useState(false);
+    // State of modal create class
     const [modalVisible2, setModalVisible2] = useState(false);
 
+    // State of modal update category
     const [updateCategoryName,setUpdateCategoryName] = useState("");
     const [updateCategoryDescription,setUpdateCategoryDescription] = useState("");
     const [id1,setId] = useState(null);
 
-  
+
     async function updateCategories() {
         const token = await AsyncStorage.getItem("bearer_token");
         const res = await fetch('https//switch-gym.herokuapp.com/api/categories/204', {
             method:'PATCH',
-            
+
 
 
             body: JSON.stringify({
@@ -218,7 +227,7 @@ export default function TelaCriarCategorias(props) {
 
             })
 
-            
+
 
 
         });
@@ -283,7 +292,7 @@ export default function TelaCriarCategorias(props) {
                 renderItem={({ item }) => (
                     <View style={styles.categoriesCard}>
                         {/* here the image can be passed through the api and placed in the image source below, but there is no image in the api, so I put a generic image in all categories*/}
-                        <View style={{ marginVertical: 40 }}>
+                        <View style={{marginVertical:40}}>
                             <Image
                                 source={require("../../../../assets/imgs/BackgroundImageAulas.png")}
                                 style={styles.imgCard}
@@ -486,7 +495,7 @@ export default function TelaCriarCategorias(props) {
                             <TextInput
                                 style={styles.textInput}
                                 placeholder="Duração da aula em minutos..."
-                                onChangeText={(number) => setDuration(number)}
+                                onChangeText={(number) => setDuration(number*60)}
                             />
                         </View>
 
