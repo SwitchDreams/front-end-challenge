@@ -11,6 +11,12 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.color.primary
   },
 
+  scrollContainer: {
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    height: '100%'
+  },
+
   text: {
     fontFamily: theme.fonts.regular,
     fontSize: theme.fontSizes.big,
@@ -22,5 +28,5 @@ export const styles = StyleSheet.create({
     marginVertical: 10
   },
 
-  listing: {borderWidth: 0.5, borderColor: theme.color.line}
+  listing: {borderWidth: 1, borderColor: theme.color.line}
 });

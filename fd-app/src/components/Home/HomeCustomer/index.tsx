@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { userContext } from '../../../util/userInfoContext';
 import { isCustomer } from '../../../util/utilFunctions';
 import { Button } from '../../Button';
@@ -22,39 +22,44 @@ export function HomeCustomer() {
   return (
     <View style={styles.container}>
 
-      <Text style={styles.text}>Bem vindo {getUserName()}!</Text>
+      <ScrollView style={{ width: '100%' }} contentContainerStyle={styles.scrollContainer}>
 
-      {(userInfo.role === 'teacher' || userInfo.role === 'admin') &&
-        <Button
-          style={styles.button}
-          titleText={'Criar Aula'}
-          isLoading={false}
-          onPress={() => navigation.navigate('CreateClass' as never)}
-        />
-      }
+        <Text style={styles.text}>Bem vindo {getUserName()}!</Text>
 
-      {(userInfo.role === 'teacher' || userInfo.role === 'admin') &&
-        <Button
-          style={styles.button}
-          titleText={'Criar Categoria'}
-          isLoading={false}
-          onPress={() => navigation.navigate('CreateCategory' as never)}
-        />
-      }
+        {(userInfo.role === 'teacher' || userInfo.role === 'admin') &&
+          <Button
+            style={styles.button}
+            titleText={'Criar Aula'}
+            isLoading={false}
+            onPress={() => navigation.navigate('CreateClass' as never)}
+          />
+        }
 
-      {userInfo.role === 'admin' &&
-        <Button
-          style={styles.button}
-          titleText={'Criar Usuário'}
-          isLoading={false}
-          onPress={() => navigation.navigate('CreateUser' as never)}
-        />
+        {(userInfo.role === 'teacher' || userInfo.role === 'admin') &&
+          <Button
+            style={styles.button}
+            titleText={'Criar Categoria'}
+            isLoading={false}
+            onPress={() => navigation.navigate('CreateCategory' as never)}
+          />
+        }
 
-      }
-      <Text style={[styles.text, { alignSelf: 'flex-start', marginLeft: 25 }]}>Suas aulas</Text>
+        {userInfo.role === 'admin' &&
+          <Button
+            style={styles.button}
+            titleText={'Criar Usuário'}
+            isLoading={false}
+            onPress={() => navigation.navigate('CreateUser' as never)}
+          />
 
-      <ClassesList userId={userInfo.id} myStyle={styles.listing} />
+        }
+        <Text style={[styles.text, { alignSelf: 'flex-start', marginLeft: 25 }]}>Suas aulas</Text>
 
+        <ScrollView horizontal={true} style={{ width: "100%" }} contentContainerStyle={{ width:'100%', height: '200%'}}>
+          <ClassesList userId={userInfo.id} myStyle={styles.listing} />
+        </ScrollView>
+
+      </ScrollView>
     </View>
   );
 }

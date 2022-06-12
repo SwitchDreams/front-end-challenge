@@ -31,9 +31,13 @@ export function ClassesList({ userId, myStyle }: Props) {
       }
     })
 
-    if(isActive && mySubscriptions.length > 0) {
-      setHaveItems(true)
-    }
+    if(isActive) {
+      if(mySubscriptions.length > 0) {
+        setHaveItems(true)
+      } else {
+        setHaveItems(false)
+      }  
+    } 
     return mySubscriptions;
   }
 
