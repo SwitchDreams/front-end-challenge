@@ -8,34 +8,38 @@ import 'react-native-gesture-handler';
 // importing screens
 import TelaCadastro from './src/screens/TelaCadastro/index';
 import TelaLogin from './src/screens/TelaLogin/index';
-import TelaCriarAulas from './src/screens/CategoriesScreens/TelaCriarAulas';
-import TelaEditDelAulas from './src/screens/CategoriesScreens/TelaEditDelAulas';
-import TelaAulas from './src/screens/CategoriesScreens/TelaAulas';
+import TelaAulas from './src/screens/CategoriesScreens/TelaCategoriasAlunos';
+import { setStatusBarHidden } from 'expo-status-bar';
+import TelaCriarCategoriasProfessores from './src/screens/CategoriesScreens/TelaCriarCategoriasProfessores/index';
+import TelaCriarAulas from './src/screens/GymClassesScreen/TelaCriarAulas/index';
+import TelaCategoriasAlunos from './src/screens/CategoriesScreens/TelaCategoriasAlunos';
+import TelaAulasAlunos from './src/screens/GymClassesScreen/TelaAulas';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-function TelaProfesor(){
+function TelaCategoriaProfesor(){
 
     return(
 
         <Drawer.Navigator>
 
+            {/* Displayed for teachers or adims  */}
+
             <Drawer.Screen
-                name='Criar aulas'
+                name='Criar Categorias'
+                component={TelaCriarCategoriasProfessores}
+                options={{headerShown: false}}
+            />
+
+            <Drawer.Screen
+                name='Aulas Disponiveis'
                 component={TelaCriarAulas}
             />
 
-            <Drawer.Screen
-                name='EditeOuDeleteAulas'
-                component={TelaEditDelAulas}
-            />
 
-            <Drawer.Screen
-                name='Aulas'
-                component={TelaAulas}
 
-            />
+
 
         </Drawer.Navigator>
     );
@@ -50,14 +54,8 @@ export default function App() {
 
             <Stack.Navigator>
 
-                <Stack.Screen
-                    name='CriarAulaProfessor'
-                    component={TelaProfesor}
-                    options={{
-                        headerShown: false
-                    }}
-                />
 
+                {/* Displayed for all users  */}
                 <Stack.Screen
                     name='Cadastro'
                     component={TelaCadastro}
@@ -65,20 +63,40 @@ export default function App() {
                         headerShown: false
                     }}
                 />
-
+                {/* Displayed for all users  */}
                 <Stack.Screen
                     name='Login'
                     component={TelaLogin}
                     options={{
+                        headerShown: false,
+                        setStatusBarHidden
+                    }}
+                />
+                {/*Displayed categories for teachers or admins  */}
+
+                <Stack.Screen
+                    name='CriarCategoriasProfessores'
+                    component={TelaCategoriaProfesor}
+                    options={{
                         headerShown: false
                     }}
                 />
-
-
+                {/*Displayed categories for customers  */}
 
                 <Stack.Screen
-                    name='VerAulaAluno'
-                    component={TelaAulas}
+                    name='Categorias'
+                    component={TelaCategoriasAlunos}
+                />
+
+                {/*Displayed classess for customers  */}
+
+                <Stack.Screen
+                    name='Aulas'
+                    component={TelaAulasAlunos}
+                    options={{
+                        headerShown: false,
+                        setStatusBarHidden
+                    }}
                 />
             </Stack.Navigator>
 
