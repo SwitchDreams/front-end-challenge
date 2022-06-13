@@ -1,25 +1,61 @@
 import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import Logo from '../../../assets/logo.svg'
 import { Feather } from '@expo/vector-icons'
+import CustomInput from '../../components/Input'
 import BackgroundImage from '../../components/BackgroundImage'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import {
   useTheme,
   Box,
-  FormControl,
   Text,
-  Input,
   Link,
   Icon,
   Button,
   KeyboardAvoidingView,
+  Spinner,
 } from 'native-base'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
 type LoginProps = NativeStackScreenProps<RootStackParamList, 'Login'>
 
 const Login = ({ navigation }: LoginProps) => {
+  const [isLoading, setIsLoading] = useState(false)
   const { colors } = useTheme()
   const [show, setShow] = useState(false)
+  const {
+    control,
+    handleSubmit,
+    watch,
+    setError,
+    getValues,
+    formState: { errors },
+  } = useForm()
+
+  const handleLogin = async () => {
+    setIsLoading(true)
+    const response = await fetch(
+      'https://switch-gym.herokuapp.com/api/users/login/',
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({
+          user: getValues(),
+        }),
+      }
+    )
+    setIsLoading(false)
+    if (response.status === 401) {
+      setError('invalidLogin', {
+        type: 'custom',
+        message: 'Email ou senha incorretos',
+      })
+    } else if (response.status === 200) {
+      navigation.navigate('ClassList')
+    }
+  }
 
   return (
     <BackgroundImage screen="Login">
@@ -49,48 +85,51 @@ const Login = ({ navigation }: LoginProps) => {
             acontecer
           </Text>
           <Box mb="1/3" width="full" alignItems="center">
-            <FormControl>
-              <FormControl.Label>Email</FormControl.Label>
-              <Input
-                color={colors.muted[100]}
-                size="md"
-                placeholder="Email"
-                InputLeftElement={
-                  <Icon
-                    as={<Feather name="mail" size={20} />}
-                    size={5}
-                    ml={2}
-                    color={colors.primary[400]}
-                  />
-                }
-              />
-            </FormControl>
-            <FormControl>
-              <FormControl.Label>Senha</FormControl.Label>
-              <Input
-                type={show ? 'text' : 'password'}
-                color={colors.muted[100]}
-                size="md"
-                placeholder="Senha"
-                InputLeftElement={
-                  <Icon
-                    as={<Feather name="lock" size={20} />}
-                    size={5}
-                    ml={2}
-                    color={colors.primary[400]}
-                  />
-                }
-                InputRightElement={
-                  <Icon
-                    as={<Feather name={show ? 'eye' : 'eye-off'} />}
-                    size={5}
-                    mr="2"
-                    color="muted.400"
-                    onPress={() => setShow(!show)}
-                  />
-                }
-              />
-            </FormControl>
+            <CustomInput
+              control={control}
+              label="Email"
+              name="email"
+              errorMessage={errors.email?.message}
+              InputLeftElement={
+                <Icon
+                  as={<Feather name="mail" size={20} />}
+                  size={5}
+                  ml={2}
+                  color={colors.primary[400]}
+                />
+              }
+            />
+            <CustomInput
+              control={control}
+              label="Senha"
+              name="password"
+              errorMessage={errors.email?.message}
+              type={show ? 'text' : 'password'}
+              InputLeftElement={
+                <Icon
+                  as={<Feather name="lock" size={20} />}
+                  size={5}
+                  ml={2}
+                  color={colors.primary[400]}
+                />
+              }
+              InputRightElement={
+                <Icon
+                  as={<Feather name={show ? 'eye' : 'eye-off'} />}
+                  size={5}
+                  mr="2"
+                  color="muted.400"
+                  onPress={() => setShow(!show)}
+                />
+              }
+            />
+
+            {errors.invalidLogin && (
+              <Text mt="4" color={colors.error[500]}>
+                {errors.invalidLogin.message}
+              </Text>
+            )}
+            {/* <Text color={colors.white}>{JSON.stringify(watch(), null, 2)}</Text> */}
             <Link
               mt={4}
               _text={{ color: colors.primary[100] }}
@@ -99,8 +138,12 @@ const Login = ({ navigation }: LoginProps) => {
               Não possui conta? Clique aqui!
             </Link>
           </Box>
-          <Button width="full" onPress={() => navigation.navigate('ClassList')}>
-            Login
+          <Button width="full" onPress={() => handleLogin()}>
+            {isLoading ? (
+              <Spinner color={colors.primary[200]} />
+            ) : (
+              <Text color={colors.white}>Login</Text>
+            )}
           </Button>
         </Box>
       </KeyboardAvoidingView>
