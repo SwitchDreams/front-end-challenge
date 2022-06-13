@@ -1,27 +1,19 @@
 import { FlatList } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
-import { Feather } from '@expo/vector-icons'
 import React, { useState, useEffect } from 'react'
 import ClassCard from '../../components/ClassCard'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { formatDate, formatDuration, formatTime } from '../../utils/Date'
 import {
   useTheme,
-  Box,
-  HStack,
-  VStack,
-  Spacer,
   Text,
   Stack,
-  Icon,
-  Actionsheet,
   useDisclose,
-  IconButton,
   Center,
   Spinner,
 } from 'native-base'
+import CustomActionSheet from '../../components/ActionSheet'
 
 type ClassListProps = NativeStackScreenProps<RootStackParamList, 'ClassList'>
 
@@ -95,73 +87,7 @@ const ClassList = ({ navigation }: ClassListProps) => {
           refreshing={isLoading}
         />
       )}
-      <Actionsheet isOpen={isOpen} onClose={onClose}>
-        <Actionsheet.Content alignItems="flex-start" px="6">
-          <Box py="4" mb="4" width="full">
-            <HStack alignItems="center">
-              <Text fontSize="xl" color={colors.primary[500]} fontWeight="bold">
-                {clickedItem?.name}
-              </Text>
-              <Spacer />
-              <IconButton
-                borderRadius="full"
-                onPress={() =>
-                  navigation.navigate('ClassEdit', {
-                    classId: clickedItem?.id,
-                  })
-                }
-                icon={
-                  <Icon
-                    as={<Feather name="edit" />}
-                    size={6}
-                    color={colors.primary[500]}
-                  />
-                }
-              />
-            </HStack>
-            <Text>{clickedItem?.description}</Text>
-          </Box>
-          <HStack width="full" mb="6">
-            <VStack space="4">
-              <HStack space="3">
-                <Icon
-                  as={<Feather name="user" />}
-                  size={6}
-                  color={colors.muted[800]}
-                />
-                <Text>{clickedItem?.teacher_name}</Text>
-              </HStack>
-              <HStack space="3">
-                <Icon
-                  as={<Feather name="watch" />}
-                  size={6}
-                  color={colors.muted[800]}
-                />
-                <Text>{formatDuration(clickedItem?.duration)}</Text>
-              </HStack>
-            </VStack>
-            <Spacer />
-            <VStack space="4">
-              <HStack space="3">
-                <Icon
-                  as={<Feather name="calendar" />}
-                  size={6}
-                  color={colors.muted[800]}
-                />
-                <Text>{formatDate(clickedItem?.start_time)}</Text>
-              </HStack>
-              <HStack space="3">
-                <Icon
-                  as={<Feather name="clock" />}
-                  size={6}
-                  color={colors.muted[800]}
-                />
-                <Text>{formatTime(clickedItem?.start_time)}</Text>
-              </HStack>
-            </VStack>
-          </HStack>
-        </Actionsheet.Content>
-      </Actionsheet>
+      <CustomActionSheet item={clickedItem} isOpen={isOpen} onClose={onClose} />
     </SafeAreaView>
   )
 }
