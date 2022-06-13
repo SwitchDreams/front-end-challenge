@@ -23,6 +23,7 @@ import { StatusBar } from "expo-status-bar";
 import { Feather } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import ModalInput from "../../../components/Modalnput";
 
 
 export default function TelaCriarAulas(props) {
@@ -249,22 +250,18 @@ export default function TelaCriarAulas(props) {
                             onPress={() => setModalVisible1(false)}
                         />
                         <Text style={styles.modalText}>Editar Aula</Text>
-                        {/* TextInput  category name*/}
-                        <View style={styles.textInputContainer}>
-                            <TextInput
-                                style={styles.textInput}
-                                placeholder="Nome da Aula..."
-                                onChangeText={(text) => setClassName(text)}
-                            />
-                        </View>
-                        {/* TextInput  category description*/}
-                        <View style={styles.textInputContainer}>
-                            <TextInput
-                                style={styles.textInput}
-                                placeholder="Breve Descrição..."
-                                onChangeText={(text) => setClassDescription(text)}
-                            />
-                        </View>
+                        {/* TextInput  Gym class name*/}
+                        <ModalInput
+                            placeholder='Nome da aula...'
+                            setValue={setClassName}
+
+                        />
+                        {/* TextInput  Gym class description*/}
+                        <ModalInput
+                            placeholder='Breve Descrição...'
+                            setValue={setClassDescription}
+
+                        />
 
                         <View style={styles.textInputContainer}>
                             <TextInput
@@ -274,13 +271,11 @@ export default function TelaCriarAulas(props) {
                             />
                         </View>
 
-                        <View style={styles.textInputContainer}>
-                            <TextInput
-                                style={styles.textInput}
-                                placeholder="Nome do professor"
-                                onChangeText={(text) => setTeacherName(text)}
-                            />
-                        </View>
+                        <ModalInput
+                            placeholder='Nome do professor...'
+                            setValue={setTeacherName}
+
+                        />
 
 
                         <Pressable
