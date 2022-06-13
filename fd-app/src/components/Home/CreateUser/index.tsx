@@ -77,7 +77,7 @@ export function CreateUser() {
           placeholder="Senha"
         />
 
-        <View style={styles.alo}>
+        <View style={styles.dropDownWrapper}>
           <Dropdown
 
             label='Tipo de Usuário'
@@ -89,7 +89,6 @@ export function CreateUser() {
             borderRadius={0}
             primaryColor={'white'}
             itemTextStyle={styles.textItem}
-            // textInputStyle={{fontSize: theme.fontSizes.regular, }}
 
             parentDDContainerStyle={styles.dropDown}
             selectedItemTextStyle={{color: theme.color.text}}

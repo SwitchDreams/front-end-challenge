@@ -3,9 +3,14 @@ import axios, { CancelTokenSource } from 'axios';
 import { SmileyXEyes } from 'phosphor-react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, FlatList, RefreshControl, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { MultiselectDropdown } from 'sharingan-rn-modal-dropdown';
+
 import { api } from '../../libs/api';
 import { theme } from '../../theme';
+import { CategoryType } from '../../util/categoryType';
 import { ClassType } from '../../util/ClassInfoType';
+import { myTheme } from '../../util/theme';
+import { feedbackModal } from '../../util/utilFunctions';
 import { ClassThumbnail } from '../ClassThumbnail';
 
 import { styles } from './styles';
@@ -15,7 +20,16 @@ export function ClassIndex() {
   const [pageLoading, isPageLoading] = useState(true)
   const [classes, setClasses] = useState(null)
   const [errorLoading, isErrorLoading] = useState(false)
-  const [haveItems, setHaveItems] = useState(false)
+  const [categoryReqList, setCategoryList] = useState<{ label: string, value: number }[]>([])
+
+  const [selectedCat, setSelectedCat] = useState<Array<number>>([])
+
+  const [filteredClasses, setFilteredClasses] = useState<ClassType[]>();
+  // const [showDD, setShowDD] = useState(false);
+
+  let categoryList: { label: string, value: number }[] = [];
+
+  // const [test, setTest] = useState([])
 
   const navigation = useNavigation()
 
@@ -24,32 +38,51 @@ export function ClassIndex() {
   const source = CancelToken.source()
 
   useFocusEffect(useCallback(() => {
-    fetchClasses(source)
+
     isActive = true
+    fetchCategories();
+    fetchClasses(source)
 
     return () => {
-      source.cancel()
       isActive = false
+      source.cancel()
     }
 
-  }, []))
+  }, []));
+
+  function setCategoriesDD(categoriesList: CategoryType[]) {
+
+    return categoriesList.map((category) => {
+      return { label: category.name, value: category.id };
+    });
+  }
+
+  function getFilteredClasses(categoriesIds: Array<number>) {
+
+    if (categoriesIds.length === 0) {
+      setFilteredClasses((classes as unknown) as ClassType[]);
+    } else {
+
+      setFilteredClasses(((classes as unknown) as ClassType[]).
+        filter((c) => {
+          return categoriesIds.includes(c.category_id);
+        }));
+    }
+  }
 
   async function fetchClasses(source: CancelTokenSource) {
 
-    if (isActive) {
-      isErrorLoading(false)
-      isPageLoading(true)
-    }
-
     try {
+
+      if (isActive) {
+        isErrorLoading(false)
+        isPageLoading(true)
+      }
       const response = await api.get('gym_classes', { cancelToken: source.token })
 
       if (isActive) {
         setClasses(response.data)
-
-        if ((response.data as ClassType[]).length > 0) {
-          setHaveItems(true)
-        }
+        setFilteredClasses(response.data);
       }
     } catch (error) {
 
@@ -61,6 +94,31 @@ export function ClassIndex() {
 
     if (isActive)
       isPageLoading(false);
+  }
+
+  async function fetchCategories() {
+
+    try {
+
+      if (isActive) {
+        isPageLoading(true);
+      }
+      const response = await api.get('/categories', { cancelToken: source.token });
+
+      if (isActive) {
+        setCategoryList(setCategoriesDD(response.data));
+      }
+
+    } catch (error) {
+
+      if (!axios.isCancel(error) && isActive) {
+        feedbackModal(false, () => { }, undefined, "Não foi possivel obter as categorias, tente mais tarde!");
+      }
+    }
+
+    if (isActive) {
+      isPageLoading(false);
+    }
   }
 
   function renderItem(listItem: any) {
@@ -87,25 +145,58 @@ export function ClassIndex() {
           size={theme.iconBigSize}
           weight={'regular'} />}
 
-      {!pageLoading && !haveItems && <Text style={styles.message}>Sem aulas disponiveis</Text>}
-
       {classes && (
         <FlatList
           refreshControl=
           {<RefreshControl
-            refreshing={false}
+            refreshing={pageLoading}
             onRefresh={() => { fetchClasses(source) }}
           />}
+
+          // extraData={undefined}
+
+          ListHeaderComponent={
+            // <View style={styles.input}>
+            <MultiselectDropdown
+
+              value={selectedCat}
+              data={categoryReqList}
+
+              label={"Filtrar por Categorias"}
+              onChange={(selected) => {
+                // console.log(selected);
+                setSelectedCat(selected);
+                getFilteredClasses(selected);
+              }}
+
+              paperTheme={myTheme}
+              borderRadius={0}
+              primaryColor={'white'}
+              itemTextStyle={styles.textItem}
+
+              hideChip={false}
+              parentDDContainerStyle={styles.dropDown}
+              selectedItemTextStyle={styles.textItem}
+
+              chipTextStyle={styles.textItem}
+            // chipStyle={{backgroundColor: theme.color.primary}}
+
+            />
+            // </View>
+          }
+
+          refreshing={pageLoading}
+          ListEmptyComponent={<Text style={styles.message}>Sem aulas disponiveis</Text>}
           style={styles.scroll}
           contentContainerStyle={styles.contentScroll}
-          data={classes}
+          data={filteredClasses}
           renderItem={renderItem}
           keyExtractor={(item) => item.id.toString()
           }
         />
       )}
 
-      {pageLoading && <ActivityIndicator size={'large'} color={'white'} />}
+      {/* {pageLoading && <ActivityIndicator size={'large'} color={'white'} />} */}
 
 
     </View>

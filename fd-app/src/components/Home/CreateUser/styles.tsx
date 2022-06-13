@@ -64,9 +64,9 @@ export const styles = StyleSheet.create({
     borderColor: theme.color.primary
   },
 
-  alo: {
-    // backgroundColor: theme.color.box,
-    // color: theme.color.text,
+  dropDownWrapper: {
+    backgroundColor: theme.color.box,
+    color: theme.color.box,
     width: '100%',
     height: 50,
     marginVertical: 10,

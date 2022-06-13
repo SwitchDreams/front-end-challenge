@@ -15,7 +15,7 @@ export function ClassEdit() {
   const [teacher, setClassTeacher] = useState('')
   const [classTime, setDate] = useState(new Date())
   const [duration, setClassDuration] = useState(0)
-  const [categoryId, setCategoryId] = useState(207)
+  const [categoryId, setCategoryId] = useState(247)
 
   const [buttonLoading, setButtonLoading] = useState(false)
 

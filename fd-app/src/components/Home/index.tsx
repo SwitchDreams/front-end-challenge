@@ -53,7 +53,8 @@ export function Home() {
 
       <Stack.Screen name='EditCategory' component={CreateCategory}
         options={{
-          title: 'Editar Categoria'
+          title: 'Editar Categoria',
+          headerBackVisible: false,
         }}
       />
 

@@ -22,7 +22,7 @@ export function Login({ navigation }: any) {
 
       (api.defaults.headers as any).Authorization = ''
 
-      console.log(userEmail, userPassword)
+      // console.log(userEmail, userPassword)
       const response = await api.post(`/users/login?timestamp=${new Date().getTime()}`, {
         user: {
           email: userEmail,
@@ -30,9 +30,11 @@ export function Login({ navigation }: any) {
         }
       })
 
-      api.defaults.headers.common = { 'Authorization': response.headers['authorization'] }
+      let AUTH_TOKEN = response.headers['authorization'];
+      (api.defaults.headers as any).Authorization = AUTH_TOKEN;
 
-      console.log(response.data)
+      // console.log(api.defaults.headers)
+      // console.log(response.data)
       navigation.navigate('Logged', {
         id: response.data.id,
         email: userEmail,

@@ -63,7 +63,7 @@ export function HomeCustomer() {
         }
         <Text style={[styles.text, { alignSelf: 'flex-start', marginLeft: 25 }]}>Suas aulas</Text>
 
-        <ScrollView horizontal={true} style={{ width: "100%" }} contentContainerStyle={{ width: '100%', height: '200%' }}>
+        <ScrollView horizontal={true} style={{ width: "100%" }} contentContainerStyle={{ width: '100%', height: '100%' }}>
           <ClassesList userId={userInfo.id} myStyle={styles.listing} />
         </ScrollView>
 
