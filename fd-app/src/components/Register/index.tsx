@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Alert, Image, KeyboardAvoidingView, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { api } from '../../libs/api';
 import { theme } from '../../theme';
+import { IsEmail } from '../../util/utilFunctions';
 import { Button } from '../Button';
 import { FormBox } from '../FormBox';
 import { KeyboardAvodingWrapper } from '../KeyboardAvodingWrapper';
@@ -21,6 +22,10 @@ export function Register({ navigation }: any) {
     setIsButtonLoading(true)
 
     try {
+
+      if(!IsEmail(userEmail)) {
+        throw 'error';
+      }
       const response = await api.post('/users', {
         user: {
           email: userEmail,
@@ -35,7 +40,12 @@ export function Register({ navigation }: any) {
 
     } catch (error) {
       setIsButtonLoading(false)
-      Alert.alert('Erro!', 'Ocorreu um erro ao processar a solicitação.')
+
+      if(error === 'error') {
+        Alert.alert("Email inválido", "Digite um email válido");
+      } else {
+        Alert.alert('Erro!', 'Ocorreu um erro ao processar a solicitação.');
+      }
     }
 
   }
@@ -83,25 +93,12 @@ export function Register({ navigation }: any) {
 
             onChangeText={setPassword}
           />
-          {/* <FormBox title='Digite a senha novamente'
-          placeholder='Senha'
-          secureTextEntry={true}
-          returnKeyType='done'
-          caretHidden={true}
-
-          autoCapitalize='none'
-          onChangeText={setRepassword}
-          // onBlur={() => { userPassword === userRepassword ? console.log("igual") : console.log('difere')}}
-        /> */}
 
         </View>
 
-        <Button titleText='Cadastrar' isLoading={false} onPress={handleUserRegister}
+        <Button titleText='Cadastrar' isLoading={isButtonLoading} onPress={handleUserRegister}
           style={{ marginTop: 30 }} />
-        {/* </KeyboardAvoidingView> */}
 
-
-        {/* // </KeyboardAvodingViewWrapper> */}
       </View>
     </KeyboardAvodingWrapper>
   );
