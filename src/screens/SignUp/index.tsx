@@ -1,30 +1,69 @@
 import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { Feather } from '@expo/vector-icons'
+import { login } from '../../services/api'
 import BackgroundImage from '../../components/BackgroundImage'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import ControlledInput from '../../components/ControlledInput'
 import {
   useTheme,
   Box,
-  FormControl,
   Text,
-  Input,
-  Select,
+  Spinner,
   Icon,
   Button,
   KeyboardAvoidingView,
   IconButton,
 } from 'native-base'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { color } from 'native-base/lib/typescript/theme/styled-system'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
+import ControlledSelect from '../../components/ControlledSelect'
 
 type SignUpProps = NativeStackScreenProps<RootStackParamList, 'SignUp'>
 
 const SignUp = ({ navigation }: SignUpProps) => {
+  const [isLoading, setIsLoading] = useState(false)
   const { colors } = useTheme()
   const [showPassword, setShowPassword] = useState(false)
-  const [showPasswordConfirmation, setShowPasswordConfirmation] =
-    useState(false)
   let [role, setRole] = React.useState('')
+  const {
+    control,
+    handleSubmit,
+    watch,
+    setError,
+    getValues,
+    formState: { errors },
+  } = useForm()
+
+  const handleSignUp = async () => {
+    setIsLoading(true)
+    const response = await fetch('https://switch-gym.herokuapp.com/api/users', {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        user: getValues(),
+      }),
+    })
+    if (response.status === 201) {
+      ;(await login(getValues()))
+        ? navigation.navigate('ClassList')
+        : setError('invalidLogin', {
+            type: 'custom',
+            message:
+              'Ocorreu um erro ao fazer o login, tente novamente mais tarde',
+          })
+    } else {
+      console.log(getValues())
+
+      setError('invalidSignUp', {
+        type: 'custom',
+        message: 'Ocorreu um erro ao fazer o cadastro, revise os campos',
+      })
+    }
+
+    setIsLoading(false)
+  }
 
   return (
     <BackgroundImage screen="Sign up">
@@ -55,73 +94,78 @@ const SignUp = ({ navigation }: SignUpProps) => {
               Cadastre-se como aluno, professor ou administrador{' '}
             </Text>
           </Box>
-
-          <Box mb="1/3" width="full" alignItems="center">
-            <FormControl>
-              <FormControl.Label>Email</FormControl.Label>
-              <Input color={colors.muted[100]} size="md" placeholder="Email" />
-            </FormControl>
-            <FormControl>
-              <FormControl.Label>Senha</FormControl.Label>
-              <Input
-                type={showPassword ? 'text' : 'password'}
-                color={colors.muted[100]}
-                size="md"
-                placeholder="Senha"
-                InputRightElement={
-                  <Icon
-                    as={<Feather name={showPassword ? 'eye' : 'eye-off'} />}
-                    size={5}
-                    mr="2"
-                    color="muted.400"
-                    onPress={() => setShowPassword(!showPassword)}
-                  />
-                }
-              />
-            </FormControl>
-            <FormControl>
-              <FormControl.Label>Confirmação Senha</FormControl.Label>
-              <Input
-                type={showPasswordConfirmation ? 'text' : 'password'}
-                color={colors.muted[100]}
-                size="md"
-                placeholder="Confirme sua senha"
-                InputRightElement={
-                  <Icon
-                    as={
-                      <Feather
-                        name={showPasswordConfirmation ? 'eye' : 'eye-off'}
-                      />
-                    }
-                    size={5}
-                    mr="2"
-                    color="muted.400"
-                    onPress={() =>
-                      setShowPasswordConfirmation(!showPasswordConfirmation)
-                    }
-                  />
-                }
-              />
-            </FormControl>
-            <FormControl>
-              <FormControl.Label>Cargo</FormControl.Label>
-              <Select
-                size="md"
-                selectedValue={role}
-                color={colors.muted[400]}
-                placeholder="Escolha um cargo"
-                _selectedItem={{
-                  bg: colors.primary[200],
-                }}
-                onValueChange={(itemValue) => setRole(itemValue)}
-              >
-                <Select.Item label="Aluno" value="customer" />
-                <Select.Item label="Professor" value="teacher" />
-                <Select.Item label="Administrador" value="admin" />
-              </Select>
-            </FormControl>
+          <Box width="full" alignItems="center">
+            <ControlledInput
+              control={control}
+              label="Nome"
+              name="name"
+              errorMessage={errors.name?.message}
+              InputLeftElement={
+                <Icon
+                  as={<Feather name="user" size={20} />}
+                  size={5}
+                  ml={2}
+                  color={colors.primary[400]}
+                />
+              }
+            />
+            <ControlledInput
+              control={control}
+              label="Email"
+              name="email"
+              errorMessage={errors.email?.message}
+              InputLeftElement={
+                <Icon
+                  as={<Feather name="mail" size={20} />}
+                  size={5}
+                  ml={2}
+                  color={colors.primary[400]}
+                />
+              }
+            />
+            <ControlledInput
+              control={control}
+              label="Senha"
+              name="password"
+              errorMessage={errors.password?.message}
+              type={showPassword ? 'text' : 'password'}
+              InputLeftElement={
+                <Icon
+                  as={<Feather name="lock" size={20} />}
+                  size={5}
+                  ml={2}
+                  color={colors.primary[400]}
+                />
+              }
+              InputRightElement={
+                <Icon
+                  as={<Feather name={showPassword ? 'eye' : 'eye-off'} />}
+                  size={5}
+                  mr="2"
+                  color="muted.400"
+                  onPress={() => setShowPassword(!showPassword)}
+                />
+              }
+            />
+            <ControlledSelect
+              control={control}
+              label="Cargo"
+              name="role"
+              errorMessage={errors.role?.message}
+            />
+            {errors.invalidSignUp && (
+              <Text mt="4" color={colors.error[500]}>
+                {errors.invalidSignUp.message}
+              </Text>
+            )}
           </Box>
-          <Button width="full">Cadastrar</Button>
+          <Button width="full" onPress={() => handleSignUp()}>
+            {isLoading ? (
+              <Spinner color={colors.primary[200]} />
+            ) : (
+              <Text color={colors.white}>Cadastrar</Text>
+            )}
+          </Button>
         </Box>
       </KeyboardAvoidingView>
     </BackgroundImage>
