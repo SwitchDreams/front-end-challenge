@@ -22,7 +22,7 @@ import { StatusBar } from "expo-status-bar";
 // icons
 import { Feather } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
-
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 export default function TelaCriarAulas(props) {
@@ -200,10 +200,19 @@ export default function TelaCriarAulas(props) {
                                 </View>
 
                                 <View style={styles.footerimgcard}>
-                                    <Text style={styles.textCard}>{item.name}</Text>
+                                    <Text style={styles.textCard}> {item.name}</Text>
                                     <Text style={styles.descriptionCard}>
-                                        {item.duration/60} min
+                                        - {item.duration/60} min
                                     </Text>
+                                    <MaterialCommunityIcons
+                                        name="timer-outline"
+                                        size={21}
+                                        color="black"
+                                        style={styles.clockIcon}
+                                    />
+                                    <Image source={require('../../../..//assets/imgs/crossfit.png')} style={styles.alterIcon}/>
+
+                                    <Text style={ styles.textHalter}> - Begginer </Text>
 
                                 </View>
                             </View>
