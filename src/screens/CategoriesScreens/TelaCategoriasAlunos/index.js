@@ -1,29 +1,33 @@
-import React, {useState, useEffect} from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, Image, Dimensions, SafeAreaView, FlatList } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StatusBar } from 'expo-status-bar/src/StatusBar';
-import styles from './styles';
+import React, { useState, useEffect } from "react";
+import {
+    View,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    Alert,
+    Image,
+    Dimensions,
+    SafeAreaView,
+    FlatList,
+} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StatusBar } from "expo-status-bar/src/StatusBar";
+import styles from "./styles";
 
-
-
-export default function  TelaCategoriasAlunos(props) {
-
-
-
-
+export default function TelaCategoriasAlunos(props) {
     //  Discovering the dimension of screen to create a responsive screen
-    const {width, heigth} = Dimensions.get('screen');
+    const { width, heigth } = Dimensions.get("screen");
 
-    const [categorydata,setCategoryData] = useState();
+    const [categorydata, setCategoryData] = useState();
     const [isFetching, setFetching] = useState();
 
     // Update the flatlist with the data from categories
 
     useEffect(() => {
         featchData();
-    },[] );
+    }, []);
 
-    const featchData= () => {
+    const featchData = () => {
         setFetching(true);
         fetch(`https://switch-gym.herokuapp.com/api/categories`, {
             method: "GET",
@@ -43,14 +47,11 @@ export default function  TelaCategoriasAlunos(props) {
             });
     };
 
-
-    const {id_user} = props.route.params;
+    const { id_user } = props.route.params;
 
     return (
-
         <SafeAreaView style={styles.centeredView}>
             <FlatList
-
                 data={categorydata}
                 nestedScrollEnabled={true}
                 keyExtractor={(categorydata) => categorydata.id}
@@ -63,7 +64,6 @@ export default function  TelaCategoriasAlunos(props) {
                                 source={require("../../../../assets/imgs/BackgroundImageAulas.png")}
                                 style={styles.imgCard}
                             />
-
                         </View>
 
                         <View style={styles.footerimgcard}>
@@ -73,20 +73,21 @@ export default function  TelaCategoriasAlunos(props) {
                             </Text>
                             <TouchableOpacity
                                 style={styles.btnVerAulas}
-                                onPress={() => props.navigation.navigate("Aulas", {id:item.id, id_user}) }
+                                onPress={() =>
+                                    props.navigation.navigate("Aulas", {
+                                        id: item.id,
+                                        id_user,
+                                    })
+                                }
                             >
                                 <Text style={styles.textBtnVerAulas}>
-                                        AULAS
+                                    AULAS
                                 </Text>
                             </TouchableOpacity>
-
                         </View>
                     </View>
                 )}
             />
-
-
         </SafeAreaView>
-
     );
 }
