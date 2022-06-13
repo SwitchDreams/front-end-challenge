@@ -18,6 +18,7 @@ import { ControllerProps } from 'react-hook-form'
 type ControlledInputProps = ControllerProps &
   IInputProps & {
     label: string
+    textColor: string
   }
 
 const ControlledInput = ({
@@ -28,6 +29,8 @@ const ControlledInput = ({
   InputRightElement,
   errorMessage,
   type = 'text',
+  defaultValue = '',
+  textColor = 'white',
 }: ControlledInputProps) => {
   const { colors } = useTheme()
 
@@ -39,7 +42,7 @@ const ControlledInput = ({
         render={({ field }) => (
           <Input
             type={type}
-            color={colors.muted[100]}
+            color={textColor}
             size="md"
             onBlur={field.onBlur}
             placeholder={label}
