@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Logo from '../../../assets/logo.svg'
 import { Feather } from '@expo/vector-icons'
-import CustomInput from '../../components/Input'
-import * as SecureStore from 'expo-secure-store'
+import { login } from '../../services/api'
+import ControlledInput from '../../components/ControlledInput'
 import BackgroundImage from '../../components/BackgroundImage'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
@@ -93,7 +93,7 @@ const Login = ({ navigation }: LoginProps) => {
             acontecer
           </Text>
           <Box mb="1/3" width="full" alignItems="center">
-            <CustomInput
+            <ControlledInput
               control={control}
               label="Email"
               name="email"
@@ -107,7 +107,7 @@ const Login = ({ navigation }: LoginProps) => {
                 />
               }
             />
-            <CustomInput
+            <ControlledInput
               control={control}
               label="Senha"
               name="password"

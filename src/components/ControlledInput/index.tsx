@@ -15,12 +15,12 @@ import {
 
 import { ControllerProps } from 'react-hook-form'
 
-type CustomInputProps = ControllerProps &
+type ControlledInputProps = ControllerProps &
   IInputProps & {
     label: string
   }
 
-const CustomInput = ({
+const ControlledInput = ({
   control,
   label,
   name,
@@ -28,7 +28,7 @@ const CustomInput = ({
   InputRightElement,
   errorMessage,
   type = 'text',
-}: CustomInputProps) => {
+}: ControlledInputProps) => {
   const { colors } = useTheme()
 
   return (
@@ -57,4 +57,4 @@ const CustomInput = ({
   )
 }
 
-export default CustomInput
+export default ControlledInput
