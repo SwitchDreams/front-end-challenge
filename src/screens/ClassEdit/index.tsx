@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar'
 import React, { useState, useEffect } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
@@ -66,6 +67,7 @@ const ClassEdit = ({ navigation, route }: ClassEditProps) => {
 
   return (
     <>
+      <StatusBar style="dark" />
       {isLoading ? (
         <Center size="full">
           <Spinner size="lg" />
