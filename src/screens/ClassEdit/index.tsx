@@ -1,50 +1,42 @@
+import { useForm } from 'react-hook-form'
 import { StatusBar } from 'expo-status-bar'
+import { Feather } from '@expo/vector-icons'
+import axios from 'axios'
 import React, { useState, useEffect } from 'react'
+import ControlledInput from '../../components/ControlledInput'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import {
   useTheme,
+  useToast,
   VStack,
   HStack,
   FormControl,
   Center,
   Text,
-  Input,
-  TextArea,
   Spinner,
   KeyboardAvoidingView,
   Button,
 } from 'native-base'
+import ControlledDatePicker from '../../components/ControlledDatePicker'
 
 type ClassEditProps = NativeStackScreenProps<RootStackParamList, 'ClassEdit'>
 
 const ClassEdit = ({ navigation, route }: ClassEditProps) => {
-  const [date, setDate] = useState(new Date(1598051730000))
-  const [mode, setMode] = useState('date')
-  const [show, setShow] = useState(false)
-
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate
-    setShow(false)
-    setDate(currentDate)
-  }
-
-  const showMode = (currentMode) => {
-    setShow(true)
-    setMode(currentMode)
-  }
-
-  const showDatepicker = () => {
-    showMode('date')
-  }
-
-  const showTimepicker = () => {
-    showMode('time')
-  }
+  const [gymClass, setGymClass] = useState<Class>()
+  const {
+    control,
+    handleSubmit,
+    watch,
+    setError,
+    getValues,
+    setValue,
+    formState: { errors },
+  } = useForm()
+  const toast = useToast()
 
   const { colors } = useTheme()
   const { classId } = route.params
-  const [gymClass, setGymClass] = useState<Class>()
   const [isLoading, setIsLoading] = useState(true)
 
   const getGymClass = async () => {
@@ -59,6 +51,31 @@ const ClassEdit = ({ navigation, route }: ClassEditProps) => {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  const handleEdit = () => {
+    axios
+      .patch(`https://switch-gym.herokuapp.com/api/gym_classes/${classId}`, {
+        ...getValues(),
+        start_time: getValues().start_time,
+        duration: getValues().duration,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          toast.show({
+            title: 'Alterações salvas com sucesso!',
+            backgroundColor: colors.success[500],
+            placement: 'top',
+            style: { marginTop: 16 },
+          })
+        }
+        if (res.status === 400) {
+          setError('invalidEdit', {
+            type: 'custom',
+            message: 'Ocorreu um erro salvar as alteracoes',
+          })
+        }
+      })
   }
 
   useEffect(() => {
@@ -82,64 +99,65 @@ const ClassEdit = ({ navigation, route }: ClassEditProps) => {
           behavior="padding"
           keyboardVerticalOffset={-200}
         >
-          <VStack justifyContent="center" space="4">
-            <FormControl>
-              <Input
-                color={colors.muted[800]}
-                size="md"
-                placeholder="Nome da aula"
-                value={gymClass?.name}
-              />
-            </FormControl>
-            <FormControl>
-              <TextArea
-                color={colors.muted[800]}
-                size="md"
-                placeholder="Descrição da aula"
-                value={gymClass?.description}
-              />
-            </FormControl>
-            <FormControl>
-              <Input
-                color={colors.muted[800]}
-                size="md"
-                placeholder="Nome do professor"
-                value={gymClass?.teacher_name}
-              />
-            </FormControl>
-            <FormControl>
-              <Input
-                color={colors.muted[800]}
-                size="md"
-                placeholder="Dia da aula"
-                onPressIn={showDatepicker}
-                value={date.toDateString()}
-              />
-            </FormControl>
-            <FormControl>
-              <Input
-                color={colors.muted[800]}
-                size="md"
-                placeholder="Horário de início"
-                onPressIn={showTimepicker}
-                value={date.toTimeString()}
-              />
-            </FormControl>
-            <FormControl>
-              <Input
-                color={colors.muted[800]}
-                size="md"
-                placeholder="Duração"
-              />
-            </FormControl>
-            {show && (
-              <DateTimePicker
-                testID="dateTimePicker"
-                value={date}
-                mode={mode}
-                is24Hour={true}
-                onChange={onChange}
-              />
+          <VStack justifyContent="center" space="3">
+            <ControlledInput
+              textColor="black"
+              control={control}
+              label="Nome da aula"
+              name="name"
+              errorMessage={errors.name?.message}
+              defaultValue={gymClass?.name}
+            />
+            <ControlledInput
+              textColor="black"
+              control={control}
+              label="Descrição da aula"
+              name="description"
+              errorMessage={errors.description?.message}
+              defaultValue={gymClass?.description}
+            />
+            <ControlledInput
+              textColor="black"
+              control={control}
+              label="Professor"
+              name="teacher_name"
+              errorMessage={errors.teacher_name?.message}
+              defaultValue={gymClass?.teacher_name}
+            />
+            <ControlledInput
+              textColor="black"
+              control={control}
+              label="Duração (segundos)"
+              name="duration"
+              errorMessage={errors.duration?.message}
+              defaultValue={
+                gymClass.duration !== null ? gymClass?.duration.toString() : ''
+              }
+            />
+            <ControlledDatePicker
+              textColor="black"
+              control={control}
+              label="Dia da aula"
+              name="class_day"
+              mode="date"
+              errorMessage={errors.class_day?.message}
+              defaultValue={gymClass?.start_time}
+              setValue={setValue}
+            />
+            <ControlledDatePicker
+              textColor="black"
+              control={control}
+              label="Horário de início"
+              name="start_time"
+              mode="time"
+              errorMessage={errors.start_time?.message}
+              defaultValue={gymClass?.start_time}
+              setValue={setValue}
+            />
+            {errors.invalidEdit && (
+              <Text mt="4" color={colors.error[500]}>
+                {errors.invalidEdit.message}
+              </Text>
             )}
           </VStack>
           <HStack space="8" width="full" mb="8">
@@ -147,10 +165,11 @@ const ClassEdit = ({ navigation, route }: ClassEditProps) => {
               borderWidth={1}
               borderColor={colors.error[500]}
               backgroundColor={colors.white}
+              onPress={() => navigation.goBack()}
             >
               <Text color={colors.error[500]}>Cancelar</Text>
             </Button>
-            <Button flex={1} onPress={() => navigation.navigate('ClassList')}>
+            <Button flex={1} onPress={() => handleEdit()}>
               Salvar
             </Button>
           </HStack>
