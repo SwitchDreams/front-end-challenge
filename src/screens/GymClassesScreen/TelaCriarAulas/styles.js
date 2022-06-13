@@ -107,6 +107,28 @@ const styles = StyleSheet.create({
         top:36,
         right:10
     },
+
+    clockIcon:{
+        position:'absolute',
+        paddingTop:1,
+        left:118,
+        bottom:30,
+    },
+    alterIcon:{
+        position:'absolute',
+        paddingTop:1,
+        left:17,
+        bottom:24.5,
+        width:30,
+        height:30
+
+    },
+    textHalter:{
+        position:'absolute',
+        paddingTop:1,
+        left:44,
+        bottom:32,
+    },
     buttonOpen: {
         backgroundColor: "#F194FF",
     },
@@ -151,16 +173,16 @@ const styles = StyleSheet.create({
         lineHeight:20,
         position:'absolute',
         left:17,
-        top:14,
+        top:5,
     },
     descriptionCard:{
         color:'#000',
-        fontWeight:'normal',
+        fontFamily: 'Lato_100Thin_Italic',
         fontSize:14,
         lineHeight:20,
         position:'absolute',
-        left:17,
-        bottom:28,
+        left:140,
+        bottom:27,
     },
     imgCard:{
 
