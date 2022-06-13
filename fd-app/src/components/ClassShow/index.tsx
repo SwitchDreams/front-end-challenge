@@ -125,7 +125,9 @@ export function ClassShow({ navigation }: any) {
 
         {classData && !loadingError &&
           (<>
-            < Image source={{ uri: (classData.imgSource ? classData.imgSource : testImg) }}
+            < Image source={classData.imgSource ?
+              { uri: classData.imgSource } : require('../../assets/closeup-of-athlete-running-on-a-gym.jpg')}
+              // {{ uri: (classData.imgSource ? classData.imgSource : testImg) }}
               style={styles.img} />
 
             <View style={styles.classDataContainer}>
@@ -216,7 +218,7 @@ export function ClassShow({ navigation }: any) {
                     },
                   ], { cancelable: true })
 
-                  if(isActive) {
+                  if (isActive) {
                     setButtonLoading(false)
                   }
                 }}

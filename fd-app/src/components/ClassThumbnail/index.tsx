@@ -25,7 +25,9 @@ export function ClassThumbnail({ className, professorName, startTime, imgSource,
   return (
     <View style={styles.container}>
 
-      <Image source={{ uri: imgSource ? imgSource : testImg }} style={styles.thumb} />
+      <Image source={imgSource ?
+        { uri: imgSource } : require('../../assets/closeup-of-athlete-running-on-a-gym.jpg') 
+        } style={styles.thumb} />
 
       <View style={styles.classInfo}>
 

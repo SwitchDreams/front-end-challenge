@@ -57,7 +57,7 @@ export function TabBar() {
           tabBarIcon: ({ focused, color, size }) => <SignOut size={size} color={color} weight={focused ? 'fill' : 'regular'} />,
           tabBarButton: (props) => {
             return (
-              <TouchableOpacity {...props} onPress={() => logout(navigation)} />)
+              <TouchableOpacity {...props} activeOpacity={0.5} onPress={() => logout(navigation)} />)
           },
         }} />
 
