@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from "react";
 import {
     View,
-    TextInput,
     Text,
     Alert,
-    ImageBackground,
     Dimensions,
     FlatList,
-    Pressable,
-    ScrollView,
+
     Image,
     TouchableOpacity
 
 } from "react-native";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import Modal from "react-native-modal";
+
 import styles from "./styles";
 import { StatusBar } from "expo-status-bar";
 

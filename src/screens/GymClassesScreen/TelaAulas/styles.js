@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         position:'absolute',
         paddingTop:1,
         left:118,
-        bottom:28,
+        bottom:30,
     },
     alterIcon:{
         position:'absolute',
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
         lineHeight:20,
         position:'absolute',
         left:140,
-        bottom:26,
+        bottom:27,
     },
     imgCard:{
 

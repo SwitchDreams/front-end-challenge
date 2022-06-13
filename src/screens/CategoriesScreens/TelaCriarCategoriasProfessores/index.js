@@ -83,7 +83,7 @@ export default function TelaCriarCategorias(props) {
         today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     const dateTime = date + " " + time;
 
-    // Function responsible for creating category
+    // Function responsible for creating gymclass
     async function createGymclass() {
         // from Login screen, this will be used to set teacher name automatically
 
@@ -117,9 +117,8 @@ export default function TelaCriarCategorias(props) {
 
             return;
         }
-        Alert.alert("Sucesso", "Categoria criada");
-        featchData;
-
+        Alert.alert("Sucesso", "Aula criada");
+        featchData();
         toggleModal;
     }
 
@@ -296,7 +295,7 @@ export default function TelaCriarCategorias(props) {
                         <View style={styles.footerimgcard}>
                             <Text style={styles.textCard}>{item.name}</Text>
                             <Text style={styles.descriptionCard}>
-                                {item.id}
+                                {item.description}
                             </Text>
                             <TouchableOpacity
                                 style={styles.btnVerAulas}
