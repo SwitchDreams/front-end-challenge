@@ -82,7 +82,11 @@ export default function App() {
               component={ClassList}
               options={{ headerShown: false }}
             />
-            <Stack.Screen name="ClassEdit" component={ClassEdit} />
+            <Stack.Screen
+              name="ClassEdit"
+              component={ClassEdit}
+              options={{ title: 'Edição de aula' }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>
