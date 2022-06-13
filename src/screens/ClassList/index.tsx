@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { StatusBar } from 'expo-status-bar'
 import { FlatList } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
 import { Feather } from '@expo/vector-icons'
+import React, { useState, useEffect } from 'react'
 import ClassCard from '../../components/ClassCard'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { formatDate, formatDuration, formatTime } from '../../utils/Date'
 import {
@@ -25,6 +26,7 @@ import {
 type ClassListProps = NativeStackScreenProps<RootStackParamList, 'ClassList'>
 
 const ClassList = ({ navigation }: ClassListProps) => {
+  const [username, setUsername] = useState('')
   const [classes, setClasses] = useState<Class[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const { colors } = useTheme()
@@ -45,8 +47,15 @@ const ClassList = ({ navigation }: ClassListProps) => {
     }
   }
 
+  const getUserInfo = async () => {
+    const data = await AsyncStorage.getItem('userInfo')
+    const parsedData = JSON.parse(data)
+    setUsername(parsedData.name)
+  }
+
   useEffect(() => {
     getClasses()
+    getUserInfo()
   }, [])
 
   const renderItem = ({ item }: { item: Class }) => (
@@ -66,7 +75,8 @@ const ClassList = ({ navigation }: ClassListProps) => {
       <StatusBar style="light" backgroundColor={colors.primary[500]} />
       <Stack space="4" py="8" px="6" backgroundColor={colors.primary[500]}>
         <Text fontSize="2xl" fontWeight="bold" color={colors.white}>
-          Olá,{'\n'}Leo Ribas!
+          Olá,{'\n'}
+          {username}!
         </Text>
         <Text fontSize="lg" color={colors.white}>
           Veja aqui as aula disponíveis.{'\n'}Bora treinar?
