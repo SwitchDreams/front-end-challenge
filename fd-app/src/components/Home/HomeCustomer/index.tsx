@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useContext } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import { Alert, ScrollView, Text, View } from 'react-native';
+import { logout } from '../../../util/logout';
 import { userContext } from '../../../util/userInfoContext';
 import { Button } from '../../Button';
 import { ClassesList } from './ClassesList';
@@ -12,6 +13,22 @@ export function HomeCustomer() {
   const userInfo = useContext(userContext)
 
   const navigation = useNavigation()
+
+    useEffect(() => {
+    navigation.addListener('beforeRemove', (e) => {
+      console.log(e)
+
+      if(e.data.action.type !== 'NAVIGATE'){
+        e.preventDefault()
+
+        Alert.alert("Saindo...", "Deseja realmente sair?",
+        [{ text: 'Sim', onPress: () => navigation.dispatch(e.data.action) },
+        { text: 'Não', onPress: () => { return } }
+        ])
+        
+      } 
+    })
+  }, [navigation])
 
   function getUserName() {
     const end = userInfo.email.lastIndexOf('@')
