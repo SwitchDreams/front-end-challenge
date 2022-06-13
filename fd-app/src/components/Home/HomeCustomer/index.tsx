@@ -16,7 +16,7 @@ export function HomeCustomer() {
 
     useEffect(() => {
     navigation.addListener('beforeRemove', (e) => {
-      console.log(e)
+      // console.log(e)
 
       if(e.data.action.type !== 'NAVIGATE'){
         e.preventDefault()

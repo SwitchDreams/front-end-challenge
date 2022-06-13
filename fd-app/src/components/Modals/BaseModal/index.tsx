@@ -10,7 +10,7 @@ export function BaseModal({ navigation }: any) {
   const route = useRoute()
   let { requestSuccess } = route.params? route.params : { requestSucess: true } as any
 
-  console.log(requestSuccess)
+  // console.log(requestSuccess)
   requestSuccess = true
   return (
     <View style={styles.container}>

@@ -43,7 +43,7 @@ export function Login({ navigation }: any) {
 
     } catch (error: any) {
 
-      console.log(error)
+      // console.log(error)
       Alert.alert('Dados inválidos', 'Email ou senha estão incorretos! Digite novamente.')
     }
     setIsButtonLoading(false)
