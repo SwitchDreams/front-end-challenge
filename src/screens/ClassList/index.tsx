@@ -91,6 +91,8 @@ const ClassList = ({ navigation }: ClassListProps) => {
           data={classes}
           renderItem={renderItem}
           keyExtractor={({ id }) => id.toString()}
+          onRefresh={() => getClasses()}
+          refreshing={isLoading}
         />
       )}
       <Actionsheet isOpen={isOpen} onClose={onClose}>
