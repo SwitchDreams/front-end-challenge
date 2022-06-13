@@ -3,7 +3,9 @@ import { useForm } from 'react-hook-form'
 import Logo from '../../../assets/logo.svg'
 import { Feather } from '@expo/vector-icons'
 import CustomInput from '../../components/Input'
+import * as SecureStore from 'expo-secure-store'
 import BackgroundImage from '../../components/BackgroundImage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import {
   useTheme,
@@ -53,6 +55,12 @@ const Login = ({ navigation }: LoginProps) => {
         message: 'Email ou senha incorretos',
       })
     } else if (response.status === 200) {
+      await SecureStore.setItemAsync(
+        'bearer-token',
+        response.headers.map.authorization
+      )
+      const data = await response.json()
+      await AsyncStorage.setItem('userInfo', JSON.stringify(data))
       navigation.navigate('ClassList')
     }
   }
