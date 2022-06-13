@@ -53,7 +53,7 @@ const ControlledInput = ({
           />
         )}
         name={name}
-        defaultValue=""
+        defaultValue={defaultValue}
       />
       <FormControl.ErrorMessage>{errorMessage}</FormControl.ErrorMessage>
     </FormControl>
