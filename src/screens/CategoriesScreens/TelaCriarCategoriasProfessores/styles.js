@@ -1,11 +1,14 @@
+import {Dimensions}  from "react-native";
 import { StyleSheet } from "react-native";
-
+const { width, heigth } = Dimensions.get("screen");
 const styles = StyleSheet.create({
     welcomeView:{
         flexDirection: 'row',
         justifyContent:'center',
-        width:'100%',
         marginTop:'10%',
+        width:'97%'
+
+
 
     },
 
@@ -16,6 +19,7 @@ const styles = StyleSheet.create({
         fontWeight:'300',
         lineHeight:40,
         marginLeft:50,
+        position:'absolute'
     },
     card:{
 
@@ -49,7 +53,8 @@ const styles = StyleSheet.create({
     },
     centeredView: {
         flex: 1,
-
+        width:width,
+        height:heigth,
 
         backgroundColor:'#000'
 
@@ -86,21 +91,21 @@ const styles = StyleSheet.create({
 
     },
     btnAddIcon:{
-        position:'relative',
-        right:0,
-        top:4,
-        marginLeft:20,
+
+
     },
+    btnEditIcon:{
+        position:'absolute',
+        top:45,
+        right:11
+    },
+
     btnTrashIcon:{
         position:'absolute',
         top:8,
         right:10
     },
-    btnEditIcon:{
-        position:'absolute',
-        top:36,
-        right:10
-    },
+
     btnVerAulas:{
         position:'absolute',
         top:10,
@@ -154,6 +159,7 @@ const styles = StyleSheet.create({
 
     },
     categoriesCard:{
+        position:'relative',
         borderRadius:20,
         marginVertical:30,
         marginHorizontal:10,
@@ -196,7 +202,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         resizeMode:'contain',
         backgroundColor:'#7F3FBF',
-        bottom:0
+        bottom:0,
+        position:'relative'
     },
     footerimgcard:{
 

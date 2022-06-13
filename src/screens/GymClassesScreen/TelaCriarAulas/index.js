@@ -236,7 +236,7 @@ export default function TelaCriarAulas(props) {
                             name="close"
                             size={24}
                             color="white"
-                            style={styles.btnCloseIcon}
+                            style={styles.closeicon}
                             onPress={() => setModalVisible1(false)}
                         />
                         <Text style={styles.modalText}>Editar Aula</Text>

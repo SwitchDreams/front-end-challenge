@@ -1,4 +1,7 @@
+import {Dimensions}  from "react-native";
 import { StyleSheet } from "react-native";
+const { width, heigth } = Dimensions.get("screen");
+
 
 const styles = StyleSheet.create({
     welcomeView:{
@@ -49,7 +52,8 @@ const styles = StyleSheet.create({
     },
     centeredView: {
         flex: 1,
-
+        width:width,
+        height:heigth,
 
         backgroundColor:'#000'
 
@@ -115,7 +119,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
     },
-    
+
     modalText: {
         marginBottom: 15,
         textAlign: "center",

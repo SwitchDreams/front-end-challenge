@@ -56,7 +56,7 @@ export default function TelaAulasAlunos(props) {
                 console.log(error);
                 setFetching(false);
             });
-        
+
 
 
 
@@ -77,7 +77,7 @@ export default function TelaAulasAlunos(props) {
                     "gym_class_id": id_class,
                     "user_id": id_user
                 }
-            
+
             })
         });
         if (res.status != 201) {
@@ -90,7 +90,7 @@ export default function TelaAulasAlunos(props) {
 
     }
 
-    
+
 
 
     const [gym_class_users_id, setGymClassUsersId] = useState('');
@@ -102,7 +102,7 @@ export default function TelaAulasAlunos(props) {
 
                 Accept: "application/json",
             })
-           
+
 
         })
 
@@ -113,9 +113,9 @@ export default function TelaAulasAlunos(props) {
             })
             .catch((error) => {
                 console.log(error);
-                
+
             });
-        
+
 
 
     }
@@ -126,12 +126,12 @@ export default function TelaAulasAlunos(props) {
 
         const res = await fetch(`http://switch-gym.herokuapp.com/api/gym_class_users/${id_class}`,{
             method:'Delete',
-            
+
             headers: new Headers({
 
                 'Content-Type': "application/json;charset=utf-8"
             }),
-         
+
         });
         if (res.status != 201) {
             Alert.alert('Erro ao cadastrar', 'Não foi possivel concluir o cadastro, certifique-se de ter prenchido todos os dados corretamente');
@@ -144,7 +144,7 @@ export default function TelaAulasAlunos(props) {
     }
 
 
-      
+
 
 
 
@@ -164,7 +164,7 @@ export default function TelaAulasAlunos(props) {
 
         <View style={styles.centeredView} nestedScrollEnabled={true}>
             <StatusBar style="light" />
-           
+
 
             <FlatList
                 data={gymclassdata}
@@ -185,14 +185,14 @@ export default function TelaAulasAlunos(props) {
                                 </View>
 
                                 <View style={styles.footerimgcard}>
-                                    
+
                                     <Text style={styles.textCard}>{item.name}</Text>
                                     <Text style={styles.descriptionCard}>
-                                        -{item.duration/60} min
+                                        - {item.duration/60} min
                                     </Text>
-                                    <MaterialCommunityIcons     
-                                        name="timer-outline" 
-                                        size={21}  
+                                    <MaterialCommunityIcons
+                                        name="timer-outline"
+                                        size={21}
                                         color="black"
                                         style={styles.clockIcon}
                                     />
@@ -201,7 +201,7 @@ export default function TelaAulasAlunos(props) {
                                     <Text style={ styles.textHalter}> - Begginer </Text>
                                     <TouchableOpacity
                                         style={styles.btnComecar}
-                                        onPress={() => deleteGymClassUsers(item.id) }
+                                        onPress={() => createGymClassUsers(item.id) }
                                     >
                                         <Text style={styles.textBtnComecar}>
                                             INSCREVER-SE

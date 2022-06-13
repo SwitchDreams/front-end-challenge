@@ -83,13 +83,13 @@ const styles = StyleSheet.create({
     clockIcon:{
         position:'absolute',
         paddingTop:1,
-        left:98,
+        left:118,
         bottom:28,
     },
     alterIcon:{
         position:'absolute',
         paddingTop:1,
-        left:2,
+        left:17,
         bottom:24.5,
         width:30,
         height:30
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     textHalter:{
         position:'absolute',
         paddingTop:1,
-        left:29,
+        left:44,
         bottom:32,
     },
     btnComecar:{
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         right:5,
         borderRadius:10,
         backgroundColor:'#000',
-        width:114    ,
+        width:104    ,
         height:40,
         color:'#fff',
         alignItems:'center',
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
     },
-    
+
     modalText: {
         marginBottom: 15,
         textAlign: "center",
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
         fontSize:14,
         lineHeight:20,
         position:'absolute',
-        left:120,
+        left:140,
         bottom:26,
     },
     imgCard:{

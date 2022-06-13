@@ -1,10 +1,16 @@
 import { StyleSheet } from "react-native";
 import { Lato_300Light, Lato_400Regular, Lato_700Bold, Lato_700Bold_Italic } from "@expo-google-fonts/lato";
+import { Dimensions } from "react-native";
+
+//  Discovering the dimension of screen to create a responsive screen
+const {width, heigth} = Dimensions.get('screen');
+
 const styles = StyleSheet.create({
+
     centeredView: {
         flex: 1,
-
-
+        width:width,
+        height:heigth,
         backgroundColor:'#000'
 
     },
