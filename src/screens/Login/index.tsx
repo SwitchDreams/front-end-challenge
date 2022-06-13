@@ -5,7 +5,6 @@ import { Feather } from '@expo/vector-icons'
 import { login } from '../../services/api'
 import ControlledInput from '../../components/ControlledInput'
 import BackgroundImage from '../../components/BackgroundImage'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import {
   useTheme,
@@ -35,34 +34,13 @@ const Login = ({ navigation }: LoginProps) => {
 
   const handleLogin = async () => {
     setIsLoading(true)
-    const response = await fetch(
-      'https://switch-gym.herokuapp.com/api/users/login/',
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify({
-          user: getValues(),
-        }),
-      }
-    )
+    ;(await login(getValues()))
+      ? navigation.navigate('ClassList')
+      : setError('invalidLogin', {
+          type: 'custom',
+          message: 'Email ou senha incorretos!',
+        })
     setIsLoading(false)
-    if (response.status === 401) {
-      setError('invalidLogin', {
-        type: 'custom',
-        message: 'Email ou senha incorretos',
-      })
-    } else if (response.status === 200) {
-      await SecureStore.setItemAsync(
-        'bearer-token',
-        response.headers.map.authorization
-      )
-      const data = await response.json()
-      await AsyncStorage.setItem('userInfo', JSON.stringify(data))
-      navigation.navigate('ClassList')
-    }
   }
 
   return (
@@ -137,7 +115,6 @@ const Login = ({ navigation }: LoginProps) => {
                 {errors.invalidLogin.message}
               </Text>
             )}
-            {/* <Text color={colors.white}>{JSON.stringify(watch(), null, 2)}</Text> */}
             <Link
               mt={4}
               _text={{ color: colors.primary[100] }}
