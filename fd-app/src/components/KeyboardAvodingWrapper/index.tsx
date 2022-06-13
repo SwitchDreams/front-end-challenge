@@ -9,11 +9,13 @@ interface Props {
 
 export function KeyboardAvodingWrapper({ children }: Props) {
   return (
-    <KeyboardAvoidingView style={styles.container}
-      // behavior={Platform.OS == 'ios' ? 'padding' : 'position'}
-    >
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <TouchableWithoutFeedback style={styles.innerContainer} onPress={Keyboard.dismiss}>
+    <KeyboardAvoidingView style={styles.container}>
+      
+      <ScrollView style={{ width: '100%' }}
+        contentContainerStyle={styles.innerContainer}
+      >
+
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           {children}
         </TouchableWithoutFeedback>
       </ScrollView>

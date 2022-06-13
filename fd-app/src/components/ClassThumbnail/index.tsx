@@ -31,12 +31,11 @@ export function ClassThumbnail({ className, professorName, startTime, imgSource,
 
         <View style={[styles.classData, styles.nameInfo]}>
 
-          <Text style={[styles.text, { fontSize: theme.fontSizes.medium }]}>
+          <Text numberOfLines={1} style={[styles.text, { fontSize: theme.fontSizes.medium }]}>
             {className}
-            {/* Zumbadashdiashdiashdaishdasiudhasi */}
           </Text>
 
-          <Text style={[styles.text, { fontSize: theme.fontSizes.small }]}>
+          <Text  numberOfLines={1} style={[styles.text, { fontSize: theme.fontSizes.small }]}>
             Prof. {professorName? professorName : 'não especificado'}
           </Text>
         </View>
@@ -44,14 +43,11 @@ export function ClassThumbnail({ className, professorName, startTime, imgSource,
         <View style={[styles.classData, styles.timeInfo]}>
 
           <Text style={[styles.text, { fontSize: theme.fontSizes.regular }]}>
-            {/* {weekDays} */}
 
             {getWeekDay(classDate.getDay())}
-            {/* Seg - Qua - Sex */}
           </Text>
-          <Text style={[styles.text, { fontSize: theme.fontSizes.small }]}>
+          <Text numberOfLines={1} style={[styles.text, { fontSize: theme.fontSizes.small }]}>
             {getPaddedTime(classDate)} as {getPaddedTime(classEnd)}
-            {/* Começa as 12h */}
           </Text>
 
         </View>

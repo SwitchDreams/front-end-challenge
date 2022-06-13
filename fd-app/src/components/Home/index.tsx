@@ -3,6 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useContext } from 'react';
 import { myScreenOptions } from '../../util/screenOptions';
 import { userContext } from '../../util/userInfoContext';
+import { CategoryIndex } from '../CategoryIndex';
+import { CategoryShow } from '../CategoryShow';
 import { ClassEdit } from '../ClassEdit';
 import { ClassShow } from '../ClassShow';
 import { Logo } from '../Logo';
@@ -49,9 +51,29 @@ export function Home() {
         }}
       />
 
+      <Stack.Screen name='EditCategory' component={CreateCategory}
+        options={{
+          title: 'Editar Categoria'
+        }}
+      />
+
       <Stack.Screen name='CreateClass' component={ClassEdit}
         options={{
           title: 'Criar aula'
+        }}
+      />
+
+      <Stack.Screen name='IndexCategory' component={CategoryIndex}
+        options={{
+          title: 'Categorias'
+        }}
+      />
+
+      <Stack.Screen name='ShowCategory' component={CategoryShow}
+        options={{
+          headerShown: false,
+          presentation: 'transparentModal',
+          animation: 'fade',
         }}
       />
 

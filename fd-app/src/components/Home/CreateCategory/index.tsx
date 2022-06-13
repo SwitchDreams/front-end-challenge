@@ -72,8 +72,15 @@ export function CreateCategory() {
 
       let response;
 
+
       if (editing) {
-        response = await api.patch(`/categories/${category_id}`);
+        response = await api.patch(`/categories/${category_id}`, {
+          "category": {
+            "name": name,
+            "description": description
+        }
+        });
+
       } else {
         response = await api.post('/categories', {
           "category": {
@@ -83,9 +90,13 @@ export function CreateCategory() {
         });
       }
 
-      feedbackModal(true, navigation.goBack, 'Categoria criada/alterada com sucesso!')
+      
+      feedbackModal(true, editing? () => navigation.navigate('IndexCategory' as never) :
+         navigation.goBack, 
+         'Categoria criada/alterada com sucesso!')
     } catch (error) {
 
+      // console.log(JSON.stringify(error));
       feedbackModal(false, navigation.goBack, undefined, "Falha ao criar/alterar a categoria. Tente mais tarde!")
     }
 
@@ -119,6 +130,7 @@ export function CreateCategory() {
           style={styles.containerForm}
           formStyle={styles.biggerForm}
 
+          multiline
           defaultValue={description}
           onChangeText={(t) => setDescription(t)}
         />

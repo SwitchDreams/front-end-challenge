@@ -19,7 +19,10 @@ export function Login({ navigation }: any) {
     setIsButtonLoading(true)
 
     try {
-      // console.log(userEmail, userPassword)
+
+      (api.defaults.headers as any).Authorization = ''
+
+      console.log(userEmail, userPassword)
       const response = await api.post(`/users/login?timestamp=${new Date().getTime()}`, {
         user: {
           email: userEmail,
@@ -29,7 +32,7 @@ export function Login({ navigation }: any) {
 
       api.defaults.headers.common = { 'Authorization': response.headers['authorization'] }
 
-      // console.log(response)
+      console.log(response.data)
       navigation.navigate('Logged', {
         id: response.data.id,
         email: userEmail,

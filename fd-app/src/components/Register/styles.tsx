@@ -3,30 +3,31 @@ import { theme } from '../../theme';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'column',
 
-    height: 525,
+    // height: '100%',
     width: "85%",
-    alignSelf: 'center',
-    top: '8%',
+    // alignSelf: 'center',
+    // top: '8%',
 
     // backgroundColor: theme.color.box,
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    position: 'absolute',
+    // position: 'absolute',
   },
 
   logo: {
-    height: "10%",
     width: '90%',
+    marginVertical: 5,
+    
   },
 
   header: {
 
     alignItems: 'center',
     // backgroundColor: theme.color.box,
-    marginBottom: 10,
+    marginVertical: 15,
   },
 
   headerTitle: {
@@ -45,20 +46,19 @@ export const styles = StyleSheet.create({
 
   registerForm: {
     width: '100%',
-    marginBottom: 10,
+    // marginBottom: 20,
     // maxHeight: '50%',
     // backgroundColor: theme.color.box
   },
 
-  footer: {
-    fontFamily: theme.fonts.bold,
-    fontSize: theme.fontSizes.regular,
-    color: theme.color.text,
-  },
-
   backButton: {
     alignSelf: 'flex-start',
+    marginBottom: '12%',
     // backgroundColor: 'black',
+  },
+
+  formBox: {
+    marginVertical: 10,
   }
 
 });

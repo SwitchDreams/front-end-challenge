@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { userContext } from '../../../util/userInfoContext';
-import { isCustomer } from '../../../util/utilFunctions';
 import { Button } from '../../Button';
 import { ClassesList } from './ClassesList';
 
@@ -44,6 +43,15 @@ export function HomeCustomer() {
           />
         }
 
+        {(userInfo.role === 'teacher' || userInfo.role === 'admin') &&
+          <Button
+            style={styles.button}
+            titleText={'Mostrar Categorias'}
+            isLoading={false}
+            onPress={() => navigation.navigate('IndexCategory' as never)}
+          />
+        }
+
         {userInfo.role === 'admin' &&
           <Button
             style={styles.button}
@@ -55,7 +63,7 @@ export function HomeCustomer() {
         }
         <Text style={[styles.text, { alignSelf: 'flex-start', marginLeft: 25 }]}>Suas aulas</Text>
 
-        <ScrollView horizontal={true} style={{ width: "100%" }} contentContainerStyle={{ width:'100%', height: '200%'}}>
+        <ScrollView horizontal={true} style={{ width: "100%" }} contentContainerStyle={{ width: '100%', height: '200%' }}>
           <ClassesList userId={userInfo.id} myStyle={styles.listing} />
         </ScrollView>
 

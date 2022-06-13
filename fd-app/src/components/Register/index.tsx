@@ -1,6 +1,6 @@
 import { ArrowLeft } from 'phosphor-react-native';
 import React, { useState } from 'react';
-import { Alert, Image, KeyboardAvoidingView, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, KeyboardAvoidingView, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { api } from '../../libs/api';
 import { theme } from '../../theme';
 import { Button } from '../Button';
@@ -41,8 +41,9 @@ export function Register({ navigation }: any) {
   }
 
   return (
-    // <KeyboardAvodingViewWrapper>
+    <KeyboardAvodingWrapper>
       <View style={styles.container}>
+        {/* // <KeyboardAvoidingView style={styles.container}> */}
 
         <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
           <ArrowLeft
@@ -52,8 +53,8 @@ export function Register({ navigation }: any) {
           />
         </TouchableOpacity>
 
-    {/* <KeyboardAvoidingView  style={{ width: '100%', height: '100%'}} behavior='padding'> */}
-        <Logo />
+        {/* <KeyboardAvoidingView  style={{ width: '100%', height: '100%'}} behavior='padding'> */}
+        <Logo logoStyle={styles.logo} />
 
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Cadastro</Text>
@@ -68,7 +69,7 @@ export function Register({ navigation }: any) {
             autoCorrect={false}
             autoCapitalize='none'
             keyboardType='email-address'
-            style={{ marginBottom: 5 }}
+            style={styles.formBox}
 
             onChangeText={setEmail}
           />
@@ -77,7 +78,7 @@ export function Register({ navigation }: any) {
             secureTextEntry={true}
             returnKeyType='next'
             caretHidden={true}
-            style={{ marginBottom: 5 }}
+            style={styles.formBox}
             autoCapitalize='none'
 
             onChangeText={setPassword}
@@ -95,12 +96,13 @@ export function Register({ navigation }: any) {
 
         </View>
 
-        <Button titleText='Cadastrar' isLoading={false} onPress={handleUserRegister} />
+        <Button titleText='Cadastrar' isLoading={false} onPress={handleUserRegister}
+          style={{ marginTop: 30 }} />
         {/* </KeyboardAvoidingView> */}
 
 
+        {/* // </KeyboardAvodingViewWrapper> */}
       </View>
-    // </KeyboardAvodingViewWrapper>
-
+    </KeyboardAvodingWrapper>
   );
 }
