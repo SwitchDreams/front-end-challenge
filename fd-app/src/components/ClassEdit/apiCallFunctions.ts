@@ -1,5 +1,6 @@
 import { Alert } from "react-native";
 import { api } from "../../libs/api";
+import { CategoryType } from "../../util/categoryType";
 import { ClassType } from "../../util/ClassInfoType";
 
 export async function getClassInfo(classId: number) {
@@ -16,6 +17,25 @@ export async function getClassInfo(classId: number) {
   }
   return classInfo
 }
+
+
+export async function getCategories() {
+  let categoriesList : CategoryType[] | undefined = undefined;
+
+  try {
+
+    const response = await api.get('/categories');
+
+    categoriesList = response.data;
+
+  } catch (error) {
+
+    console.log("Erro ao obter os dados de categorias em ClassEdit");
+  }
+
+  return categoriesList;
+}
+
 
 export async function sendClassInfo(classInfo : ClassType, classId? : number) {
   // If classId is passed, an patch is made to the class, else, a new class will be created

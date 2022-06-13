@@ -19,5 +19,5 @@ export const myTheme: Theme = {
     ...DefaultTheme.fonts,    
   },
   
-  roundness: 5,
+  roundness: 0,
 }

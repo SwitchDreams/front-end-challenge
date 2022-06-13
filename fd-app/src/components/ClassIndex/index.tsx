@@ -23,13 +23,7 @@ export function ClassIndex() {
   const [categoryReqList, setCategoryList] = useState<{ label: string, value: number }[]>([])
 
   const [selectedCat, setSelectedCat] = useState<Array<number>>([])
-
   const [filteredClasses, setFilteredClasses] = useState<ClassType[]>();
-  // const [showDD, setShowDD] = useState(false);
-
-  let categoryList: { label: string, value: number }[] = [];
-
-  // const [test, setTest] = useState([])
 
   const navigation = useNavigation()
 
@@ -150,7 +144,7 @@ export function ClassIndex() {
           refreshControl=
           {<RefreshControl
             refreshing={pageLoading}
-            onRefresh={() => { fetchClasses(source) }}
+            onRefresh={() => { fetchCategories(); fetchClasses(source) }}
           />}
 
           // extraData={undefined}

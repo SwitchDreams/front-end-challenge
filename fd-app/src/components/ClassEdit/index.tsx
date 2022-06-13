@@ -1,11 +1,15 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Alert, ScrollView, View } from 'react-native';
+import { Dropdown } from 'sharingan-rn-modal-dropdown';
+import { theme } from '../../theme';
+import { CategoryType } from '../../util/categoryType';
 import { ClassType } from '../../util/ClassInfoType';
+import { myTheme } from '../../util/theme';
 import { Button } from '../Button';
 import { FormBox } from '../FormBox';
 import { TimeForm } from '../TimeForm';
-import { getClassInfo, sendClassInfo } from './apiCallFunctions';
+import { getCategories, getClassInfo, sendClassInfo } from './apiCallFunctions';
 
 import { styles } from './styles';
 
@@ -15,18 +19,39 @@ export function ClassEdit() {
   const [teacher, setClassTeacher] = useState('')
   const [classTime, setDate] = useState(new Date())
   const [duration, setClassDuration] = useState(0)
-  const [categoryId, setCategoryId] = useState(247)
+  const [categoryId, setCategoryId] = useState(0)
 
   const [buttonLoading, setButtonLoading] = useState(false)
+  const [categoriesIdsList, setCategoriesIdsList] = useState<{ label: string, value: number }[]>([]);
 
   let isActive = true
-  useEffect(() => { isActive = true; fetchData(); return () => { isActive = false } }, [])
+  useEffect(() => { isActive = true; fetchData(); fetchCategories(); return () => { isActive = false } }, [])
 
   const route = useRoute()
   const navigation = useNavigation()
 
   if (route.params) {
     var { class_id, editing } = route.params as { class_id: number | undefined, editing: boolean | undefined }
+  }
+
+  function setCategoriesDD(categoriesList: CategoryType[]) {
+
+    return categoriesList.map((category) => {
+      return { label: category.name, value: category.id };
+    });
+  }
+
+  async function fetchCategories() {
+
+    if (isActive) {
+      const respData = await getCategories();
+
+      if (respData !== undefined) {
+        setCategoriesIdsList(setCategoriesDD(respData))
+      } else {
+        Alert.alert("Erro", "Impossível obter os dados do servidor, tente mais tarde!");
+      }
+    }
   }
 
   async function fetchData() {
@@ -64,6 +89,25 @@ export function ClassEdit() {
           defaultValue={editing ? teacher : ''}
 
         />
+
+        <View style={styles.dropDownWrapper}>
+          <Dropdown
+
+            label='Categoria'
+            data={categoriesIdsList}
+            value={categoryId}
+            onChange={(catId) => setCategoryId(catId as number)}
+
+            paperTheme={myTheme}
+            borderRadius={0}
+            primaryColor={'white'}
+            itemTextStyle={styles.textItem}
+
+            parentDDContainerStyle={styles.dropDown}
+            selectedItemTextStyle={{ color: theme.color.text }}
+
+          />
+        </View>
 
         <TimeForm formTitle='Horário' myStyle={styles.formBox} mode='time' setTime={setDate} />
         <TimeForm formTitle='Dia da aula' myStyle={styles.formBox} mode='date' setTime={

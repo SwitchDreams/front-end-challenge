@@ -1,6 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Alert, FlatList, RefreshControl, Text, TouchableOpacity, View } from 'react-native';
 import { api } from '../../libs/api';
 import { CategoryType } from '../../util/categoryType';
@@ -19,10 +19,12 @@ export function CategoryIndex() {
 
   const navigation = useNavigation();
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     const CancelToken = axios.CancelToken
     const source = CancelToken.source()
 
+    screenActive = true;
+    console.log('CategoryIdx requisitando...');
     async function fetchData() {
 
       try {
@@ -66,7 +68,7 @@ export function CategoryIndex() {
       screenActive = false;
       source.cancel();
     }
-  }, [refresh]);
+  }, [refresh]));
 
   function renderItem(listItem: any) {
     const categoryData = listItem.item as CategoryType
