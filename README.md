@@ -1,6 +1,6 @@
 # Switch Dreams Challenge
 
-Aplicativo desenvolvido para desafio técnico do processo seletivo na Sweet Dreams.
+Aplicativo desenvolvido para o desafio técnico do processo seletivo na Switch Dreams.
 
 ## Problema
 
@@ -14,15 +14,6 @@ As informações das aulas estão disponíveis na API informada via email, assim
 - Show da aula
 - Edit da aula
 
-Cada aula contém as informações:
-
-- Nome da aula
-- Nome do professor
-- Horário
-- Dias da semana
-- Imagem de capa da aula
-- Descrição
-
 ## Aplicativo Feito
 
 O aplicativo foi feito usando React Native, Expo, e algumas bibliotecas adicionais. O projeto está pronto. Além disso, também é possível criar novos usuários, fazer autenticação, listar aulas por categorias, etc.. Para testar o app, acesse os links abaixo.
@@ -33,6 +24,6 @@ Abaixo alguns links úteis:
 
 - Design no figma: [https://www.figma.com/file/OYVMRxbVg00HMj2K2vnNh0/Fit-Dreams-Prototype?node-id=0%3A1](https://www.figma.com/file/OYVMRxbVg00HMj2K2vnNh0/Fit-Dreams-Prototype?node-id=0%3A1)
 
-- Link para a aplicação no Expo: [https://expo.dev/@cezari0o/fd-app?serviceType=classic&distribution=expo-go](https://expo.dev/@cezari0o/fd-app?serviceType=classic&distribution=expo-go)
+- Aplicação no Expo: [https://expo.dev/@cezari0o/fd-app?serviceType=classic&distribution=expo-go](https://expo.dev/@cezari0o/fd-app?serviceType=classic&distribution=expo-go)
 
-- Link do vídeo no youtube: [https://youtu.be/sQe32TWHzrs](https://youtu.be/sQe32TWHzrs)
+- Vídeo demonstrativo: [https://youtu.be/sQe32TWHzrs](https://youtu.be/sQe32TWHzrs)
