@@ -35,3 +35,4 @@ Abaixo alguns links úteis:
 
 - Link para a aplicação no Expo: [https://expo.dev/@cezari0o/fd-app?serviceType=classic&distribution=expo-go](https://expo.dev/@cezari0o/fd-app?serviceType=classic&distribution=expo-go)
 
+- Link do vídeo no youtube: [https://youtu.be/sQe32TWHzrs](https://youtu.be/sQe32TWHzrs)
