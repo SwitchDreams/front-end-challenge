@@ -1,16 +1,6 @@
 # Switch Dreams Challenge
 
-O desafio proposto visa avaliar suas habilidades com o React Native, sendo isso parte do processo seletivo para vaga de desenvolvedor frontend da Switch Dreams.
-
-Esperamos que você tenha uma boa noção nos seguintes tópicos:
-
-- HTTP e estrutura básica da web
-- Linguagem de programação Javascript
-- Framework React Native
-- Ferramenta [Expo](https://docs.expo.dev/)
-- Consumo de API
-
-Além disso é sempre interessante estar atento aos padrões usuais de qualidade de código.
+Aplicativo desenvolvido para o desafio técnico do processo seletivo na Switch Dreams.
 
 ## Problema
 
@@ -24,45 +14,16 @@ As informações das aulas estão disponíveis na API informada via email, assim
 - Show da aula
 - Edit da aula
 
-Cada aula contém as informações:
+## Aplicativo Feito
 
-- Nome da aula
-- Nome do professor
-- Horário
-- Dias da semana
-- Imagem de capa da aula
-- Descrição
+O aplicativo foi feito usando React Native, Expo, e algumas bibliotecas adicionais. O projeto está pronto. Além disso, também é possível criar novos usuários, fazer autenticação, listar aulas por categorias, etc.. Para testar o app, acesse os links abaixo.
 
-## API
-Para obter as informações que utilizará no aplicativo utilize a API fornecida:
+## Links de acesso
 
-Documentação: [https://documenter.getpostman.com/view/12265896/Uz59MeAK](https://documenter.getpostman.com/view/12265896/Uz59MeAK)
+Abaixo alguns links úteis:
 
-API: https://switch-gym.herokuapp.com/
+- Design no figma: [https://www.figma.com/file/OYVMRxbVg00HMj2K2vnNh0/Fit-Dreams-Prototype?node-id=0%3A1](https://www.figma.com/file/OYVMRxbVg00HMj2K2vnNh0/Fit-Dreams-Prototype?node-id=0%3A1)
 
-## Requisitos
+- Aplicação no Expo: [https://expo.dev/@cezari0o/fd-app?serviceType=classic&distribution=expo-go](https://expo.dev/@cezari0o/fd-app?serviceType=classic&distribution=expo-go)
 
-Para iniciar o desafio, crie um fork a partir do presente repositório e inicie seu projeto react native nele. Altere o readme com todas as informações que julgar pertinente para o desafio. Para entregar a sua implementação você deve criar uma PR e inserir no readme um link de um vídeo demonstrativo de todas as telas e do fluxo criado para o projeto.
-
-
-## Avaliação
-
-Avaliaremos as seguintes habilidades
-
-- Nível de conhecimento em Javascript
-- Nível de conhecimento em React Native
-- Nível de conhecimento em consumo de APIs
-- Qualidade do código
-- Utilização do github
-
-## Entrega
-Deve-se fazer uma [Publish](https://docs.expo.dev/workflow/publishing/#how-to-publish) através do Expo para que o aplicativo seja mais facilmente testado, além de deixar o link no readme de um vídeo demonstrando o aplicativo.
-
-## Diferenciais
-- Testes automatizados (para os testes recomenda-se o uso do Jest)
-- Linter
-- Prototipação das telas no Figma
-
-## Observações
-Ao enviar o desafio você declara que a solução implementada foi 100% feita por você, sem violar nenhuma licença de software de terceiros.
-
+- Vídeo demonstrativo: [https://youtu.be/sQe32TWHzrs](https://youtu.be/sQe32TWHzrs)
