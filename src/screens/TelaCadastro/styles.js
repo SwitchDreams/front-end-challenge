@@ -1,22 +1,39 @@
-import { Lato_700Bold } from "@expo-google-fonts/lato";
+
 import { StyleSheet } from "react-native";
+import { Dimensions } from "react-native-web";
+const { width, heigth } = Dimensions.get("screen");
 const styles = StyleSheet.create({
 
-    imgLogo:{
-        marginTop:'5%',
-        width:"60%",
-        height:'30%',
+    imgBackground:{
+
+        width:width,
+        height:'100%',
         resizeMode: 'contain',
-        alignSelf:'center',
-    },
-    title:{
-        fontFamily: 'Lato_700Bold',
-        textAlign:'center',
-        fontSize:20,
-        marginBottom:'0.5%',
-        marginTop:'3%',
+        backgroundColor:'#000',
+        flex:1
 
     },
+    containerInputs:{
+        width:width,
+        marginVertical:'5%'
+
+
+
+
+
+    },
+
+    titleSpinner:{
+        color:'#fff',
+        position: 'absolute',
+        left: 140,
+        top: 380,
+        opacity:0.5,
+        backgroundColor: 'black',
+        justifyContent: 'center',
+        alignItems: 'center'
+
+    }
 
 });
 

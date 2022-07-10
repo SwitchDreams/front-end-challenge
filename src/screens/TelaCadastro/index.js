@@ -8,6 +8,9 @@ import {
     Alert,
     Dimensions,
     SafeAreaView,
+    ActivityIndicator,
+    ImageBackground,
+    ScrollView
 } from "react-native";
 
 import { StatusBar } from "expo-status-bar/src/StatusBar";
@@ -20,6 +23,8 @@ import PasswordInput from "../../components/PasswordInput";
 import DropDownRoles from "../../components/DropDownRoles";
 import SignInSignUpBtn from "../../components/SignInSignUpBtn";
 import BtnHelpUser from "../../components/BtnHelpUser";
+import ImgSignUp from "../../../assets/imgs/ImgSignUp.jpg";
+
 
 export default function TelaCadastro({ navigation }) {
     const { width, heigth } = Dimensions.get("screen");
@@ -30,6 +35,8 @@ export default function TelaCadastro({ navigation }) {
     const [role, setRole] = useState();
 
     async function signUp() {
+        startLoading();
+
         const res = await fetch("http://switch-gym.herokuapp.com/api/users", {
             method: "POST",
             mode: "cors",
@@ -54,49 +61,94 @@ export default function TelaCadastro({ navigation }) {
             return;
         }
 
-        navigation.navigate("Login");
+
     }
 
+    const [loading, setLoading] = useState(false);
+
+    const startLoading = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000);
+    };
 
     return (
+
+
         <SafeAreaView style={{ width: width, height:heigth, flex:1}}>
             <StatusBar hidden />
 
-            {/* Image logo */}
-            <Image
-                style={styles.imgLogo}
-                source={require("../../../assets/imgs/FitDreams2.png")}
-            />
+            {loading ? (
+                <View style={{ backgroundColor:'#000000', flex:1}}>
+                    <ActivityIndicator
+                        style={{position: 'absolute',
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                            opacity: 0.5,
+                            backgroundColor: 'black',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
+                        color={'#5038AE'}
+                        size='large'
 
-            <Text style={styles.title}>
-                Registre-se
-            </Text>
+                        //visibility of Overlay Loading Spinner
+                        visible={loading}
+                        //Text with the Spinner
+                        textContent={'Loading...'}
+                        //Text style of the Spinner Text
+                        textStyle={styles.titleSpinner}
+                    />
 
-            {/*Name Text Input*/}
-            <NameInput
-                setValue={setName} />
-            {/*Email Text Input*/}
-            <EmailInput
-                setValue={setEmail} />
+                    <Text style={styles.titleSpinner}> Carregando...</Text>
+                </View>
+            ) : (
 
-            {/* TextInput senha */}
+                <View style={{width:width, height:heigth, backgroundColor:'#000', flex:1}}>
 
-            <PasswordInput
-                setValue={setPassword} />
+                    <ImageBackground source={ImgSignUp} style={styles.imgBackground}>
+                    </ImageBackground>
 
-            {/* DropDownBox  the user can select your role, i put this just for tests because in a real app the role  is altered in data base or with a diferent form.*/}
 
-            <DropDownRoles
-                pickerValue={role}
-                setValue={setRole} />
 
-            <SignInSignUpBtn onpress={signUp} labelBtn="Registrar-se" />
 
-            <BtnHelpUser
-                onpress={() => navigation.navigate("Login")}
-                txt="Já possui uma conta?"
-                txtBtn=" Fazer login"
-            />
+                    <View style={styles.containerInputs}>
+
+
+                        {/*Name Text Input*/}
+                        <NameInput
+                            setValue={setName} />
+                        {/*Email Text Input*/}
+                        <EmailInput
+                            setValue={setEmail} />
+
+                        {/* TextInput senha */}
+
+                        <PasswordInput
+                            setValue={setPassword} />
+
+                        {/* DropDownBox  the user can select your role, i put this just for tests because in a real app the role  is altered in data base or with a diferent form.*/}
+
+                        <DropDownRoles
+                            pickerValue={role}
+                            setValue={setRole} />
+
+                        <SignInSignUpBtn onpress={signUp} labelBtn="Registrar-se" />
+
+                        <BtnHelpUser
+                            onpress={() => navigation.navigate("Login")}
+                            txt="Já possui uma conta?"
+                            txtBtn=" Fazer login" />
+
+                    </View>
+                </View>
+
+
+            )}
+
         </SafeAreaView>
     );
 }
