@@ -1,9 +1,17 @@
-import { React } from "react";
+import { React, useEffect} from "react";
 import { TextInput, View, StyleSheet } from "react-native";
-
+import * as Font from 'expo-font';
 
 
 const NameInput = ({ setValue }) => {
+
+    useEffect(() => {
+        return Font.loadAsync({
+            'poppins-regular': require('../../assets/fonts/Poppins/Poppins-Regular.ttf'),
+
+        });
+    });
+
     return (
         <View style={styles.textInputContainer}>
 
@@ -14,7 +22,9 @@ const NameInput = ({ setValue }) => {
             />
         </View>
     );
+
 };
+
 
 const styles = StyleSheet.create({
     textInputContainer: {
@@ -24,10 +34,9 @@ const styles = StyleSheet.create({
         width: 233,
         height:47,
         borderRadius: 15,
-        marginTop: 21,
+        marginTop: 0,
         paddingRight: 15,
     },
-
     textInput: {
         flex: 1,
         borderRadius: 20,
@@ -37,7 +46,7 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         paddingLeft: 5,
         marginLeft: 10,
-        backgroundColor: "#191919",
+        fontFamily:'poppins-regular',
         color: "#4C4C4C",
     },
 });

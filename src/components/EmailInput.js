@@ -1,10 +1,17 @@
-import { React } from "react";
+import { React, useEffect} from "react";
 import { TextInput, View, StyleSheet } from "react-native";
+import * as Font from 'expo-font';
 
-// Icon
-import { MaterialCommunityIcons } from "@expo/vector-icons/build/Icons";
 
 const EmailInput = ({ setValue }) => {
+
+    useEffect(() => {
+        return Font.loadAsync({
+            'poppins-regular': require('../../assets/fonts/Poppins/Poppins-Regular.ttf'),
+
+        });
+    });
+
     return (
         <View style={styles.textInputContainer}>
 
@@ -37,7 +44,7 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         paddingLeft: 5,
         marginLeft: 10,
-        backgroundColor: "#191919",
+        fontFamily:'poppins-regular',
         color: "#4C4C4C",
     },
 });

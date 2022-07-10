@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     imgBackground:{
 
         width:width,
-        height:'100%',
+        height:'95%',
         resizeMode: 'contain',
         backgroundColor:'#000',
         flex:1

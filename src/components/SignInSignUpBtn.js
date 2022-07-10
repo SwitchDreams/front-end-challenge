@@ -1,11 +1,24 @@
-import { React } from "react";
+import { React, useState, useEffect} from "react";
 import { TouchableOpacity,Text,StyleSheet } from "react-native";
+import * as Font from 'expo-font';
+
+
+
+
 
 
 
 
 
 const SignInSignUpBtn = ({labelBtn,onpress }) => {
+
+    useEffect(() => {
+        return Font.loadAsync({
+            'poppins-bold': require('../../assets/fonts/Poppins/Poppins-Bold.ttf'),
+
+        });
+    });
+
     return (
         <TouchableOpacity
             onPress={onpress}
@@ -14,11 +27,14 @@ const SignInSignUpBtn = ({labelBtn,onpress }) => {
 
             <Text style={styles.titleBtn}>
                 {labelBtn}
+
             </Text>
 
         </TouchableOpacity>
     );
 };
+
+
 
 const styles = StyleSheet.create({
     btn:{
@@ -30,11 +46,14 @@ const styles = StyleSheet.create({
         height:40,
         marginTop: 21.5,
         alignSelf:'center',
+        marginBottom:20
 
     },
     titleBtn:{
         color: '#191919',
-        textAlign:'center'
+        textAlign:'center',
+        fontFamily: 'poppins-bold'
+
     },
 });
 

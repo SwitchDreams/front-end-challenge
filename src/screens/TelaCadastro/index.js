@@ -22,7 +22,7 @@ import SignInSignUpBtn from "../../components/SignInSignUpBtn";
 import ImgSignUp from "../../../assets/imgs/ImgSignUp.jpg";
 
 
-export default function TelaCadastro({ navigation }) {
+export default function TelaCadastro({ navigation}) {
     const { width, heigth } = Dimensions.get("screen");
     // States of function
     const [name, setName] = useState("");

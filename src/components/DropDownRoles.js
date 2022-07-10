@@ -1,10 +1,17 @@
-import { React } from "react";
+import { React, useEffect} from "react";
 import { View, StyleSheet } from "react-native";
+import * as Font from 'expo-font';
 import { Picker } from "@react-native-picker/picker";
 
 // Icon
 
 const DropDownRoles = ({ pickerValue, setValue }) => {
+    useEffect(() => {
+        return Font.loadAsync({
+            'poppins-regular': require('../../assets/fonts/Poppins/Poppins-Regular.ttf'),
+
+        });
+    });
     return (
         <View style={styles.textInputContainer}>
 
@@ -45,6 +52,9 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         backgroundColor: "#191919",
         color: "#4C4C4C",
+        fontFamily:'poppins-regular'
+
+
     },
 });
 
