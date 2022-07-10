@@ -2,15 +2,12 @@ import React, { useState } from "react";
 import {
     View,
     Text,
-    Image,
-    TextInput,
-    TouchableOpacity,
     Alert,
     Dimensions,
     SafeAreaView,
     ActivityIndicator,
     ImageBackground,
-    ScrollView
+
 } from "react-native";
 
 import { StatusBar } from "expo-status-bar/src/StatusBar";
@@ -22,7 +19,6 @@ import EmailInput from "../../components/EmailInput";
 import PasswordInput from "../../components/PasswordInput";
 import DropDownRoles from "../../components/DropDownRoles";
 import SignInSignUpBtn from "../../components/SignInSignUpBtn";
-import BtnHelpUser from "../../components/BtnHelpUser";
 import ImgSignUp from "../../../assets/imgs/ImgSignUp.jpg";
 
 
@@ -138,10 +134,7 @@ export default function TelaCadastro({ navigation }) {
 
                         <SignInSignUpBtn onpress={signUp} labelBtn="Registrar-se" />
 
-                        <BtnHelpUser
-                            onpress={() => navigation.navigate("Login")}
-                            txt="Já possui uma conta?"
-                            txtBtn=" Fazer login" />
+
 
                     </View>
                 </View>

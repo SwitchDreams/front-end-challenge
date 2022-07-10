@@ -7,12 +7,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons/build/Icons";
 const EmailInput = ({ setValue }) => {
     return (
         <View style={styles.textInputContainer}>
-            <MaterialCommunityIcons
-                name="email-outline"
-                size={24}
-                color="black"
-                style={styles.icons}
-            />
 
             <TextInput
                 style={styles.textInput}
@@ -27,17 +21,12 @@ const styles = StyleSheet.create({
     textInputContainer: {
         flexDirection: "row",
         alignSelf: "center",
-        backgroundColor: "#fff",
-        width: "80%",
-        borderRadius: 20,
-        marginTop: "2.5%",
+        backgroundColor: "#191919",
+        width: 233,
+        height:47,
+        borderRadius: 15,
+        marginTop: 15,
         paddingRight: 15,
-    },
-    icons: {
-        color: "blue",
-        paddingLeft: "4%",
-        paddingTop: "0.5%",
-        alignSelf: "center",
     },
     textInput: {
         flex: 1,
@@ -48,8 +37,8 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         paddingLeft: 5,
         marginLeft: 10,
-        backgroundColor: "#fff",
-        color: "#000",
+        backgroundColor: "#191919",
+        color: "#4C4C4C",
     },
 });
 

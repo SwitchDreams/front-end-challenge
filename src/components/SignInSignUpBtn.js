@@ -22,19 +22,18 @@ const SignInSignUpBtn = ({labelBtn,onpress }) => {
 
 const styles = StyleSheet.create({
     btn:{
-        Color:'#FFF',
-        backgroundColor:'#1317DD',
+        backgroundColor:'#5038AE',
         justifyContent:'center',
         alignItems:'center',
-        marginTop:'4%',
         borderRadius:20,
-        width:'50%',
-        aspectRatio: 10/2.5,
+        width:232,
+        height:40,
+        marginTop: 21.5,
         alignSelf:'center',
 
     },
     titleBtn:{
-        color: '#FFF',
+        color: '#191919',
         textAlign:'center'
     },
 });

@@ -14,7 +14,7 @@ import styles from "./styles";
 import EmailInput from "../../components/EmailInput";
 import PasswordInput from "../../components/PasswordInput";
 import SignInSignUpBtn from "../../components/SignInSignUpBtn";
-import BtnHelpUser from "../../components/BtnHelpUser";
+
 
 export default function TelaLogin(props) {
     //  Discovering the dimension of screen to create a responsive screen
@@ -112,11 +112,7 @@ export default function TelaLogin(props) {
 
             {/* TouchableOpacity SignUp */}
 
-            <BtnHelpUser
-                txt="Não possui conta?"
-                txtBtn=" Registre-se"
-                onpress={() => props.navigation.navigate("Cadastro")}
-            />
+            
         </SafeAreaView>
     );
 }
