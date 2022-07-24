@@ -6,34 +6,22 @@ const styles = StyleSheet.create({
 
     imgBackground:{
 
-        width:width,
+        width:'100%',
         height:'95%',
-        resizeMode: 'contain',
+        resizeMode: 'cover',
         backgroundColor:'#000',
-        flex:1
+        flex:0.9
 
     },
+
     containerInputs:{
-        width:width,
+        width:'100%',
+        height:heigth,
+        flex:1,
         marginVertical:'5%'
-
-
-
-
-
     },
 
-    titleSpinner:{
-        color:'#fff',
-        position: 'absolute',
-        left: 140,
-        top: 380,
-        opacity:0.5,
-        backgroundColor: 'black',
-        justifyContent: 'center',
-        alignItems: 'center'
 
-    }
 
 });
 

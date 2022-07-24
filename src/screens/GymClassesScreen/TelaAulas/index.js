@@ -5,7 +5,6 @@ import {
     Alert,
     Dimensions,
     FlatList,
-
     Image,
     TouchableOpacity
 

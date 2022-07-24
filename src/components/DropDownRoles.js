@@ -1,58 +1,48 @@
-import { React, useEffect} from "react";
+import React, {useState } from 'react';
+import * as SplashScreen from 'expo-splash-screen';
 import { View, StyleSheet } from "react-native";
 import * as Font from 'expo-font';
+import Poppins_Regular from '../../assets/fonts/Poppins-Regular.ttf';
 import { Picker } from "@react-native-picker/picker";
 
-// Icon
 
-const DropDownRoles = ({ pickerValue, setValue }) => {
-    useEffect(() => {
-        return Font.loadAsync({
-            'poppins-regular': require('../../assets/fonts/Poppins/Poppins-Regular.ttf'),
+SplashScreen.preventAutoHideAsync();
 
-        });
-    });
+const DropDownRoles = ({ pickerValue, setValue}) => {
+
     return (
-        <View style={styles.textInputContainer}>
 
 
-            <Picker
-                selectedValue={pickerValue}
-                style={styles.textInput}
-                onValueChange={(itemValue) => setValue(itemValue)}
-            >
-                <Picker.Item label="Professor" value="teacher" />
 
-                <Picker.Item label="Cliente" value="customer" />
-            </Picker>
-        </View>
+        <Picker
+            selectedValue={pickerValue}
+            style={styles.textInput}
+            onValueChange={(itemValue) => setValue(itemValue)}
+
+        >
+            <Picker.Item label="Professor" value="teacher" />
+
+            <Picker.Item label="Cliente" value="customer" />
+        </Picker>
+
     );
+
 };
 
 const styles = StyleSheet.create({
-    textInputContainer: {
+
+    textInput: {
         flexDirection: "row",
         alignSelf: "center",
         backgroundColor: "#191919",
-        width: 233,
+        width: '65%',
         height:47,
         borderRadius: 15,
         marginTop: 15,
         paddingRight: 15,
-    },
-
-    textInput: {
-        flex: 1,
-        borderRadius: 20,
-        borderWidth: 0,
-        paddingTop: 15,
-        paddingRight: 0,
-        paddingBottom: 10,
-        paddingLeft: 5,
-        marginLeft: 10,
-        backgroundColor: "#191919",
+        paddingHorizontal:13,
         color: "#4C4C4C",
-        fontFamily:'poppins-regular'
+        borderColor:'#000',
 
 
     },

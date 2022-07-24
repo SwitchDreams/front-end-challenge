@@ -1,25 +1,21 @@
-import React, { useState } from "react";
+import * as Font from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
-    View,
-    Text,
-    Alert,
-    Dimensions,
-    SafeAreaView,
-    ActivityIndicator,
-    ImageBackground,
-
+    ActivityIndicator, Alert,
+    Dimensions, ImageBackground, SafeAreaView, Text, View
 } from "react-native";
 
 import { StatusBar } from "expo-status-bar/src/StatusBar";
 import styles from "./styles";
 
 // Components
-import NameInput from "../../components/NameInput";
-import EmailInput from "../../components/EmailInput";
-import PasswordInput from "../../components/PasswordInput";
 import DropDownRoles from "../../components/DropDownRoles";
+import EmailInput from "../../components/EmailInput";
+import NameInput from "../../components/NameInput";
+import PasswordInput from "../../components/PasswordInput";
 import SignInSignUpBtn from "../../components/SignInSignUpBtn";
-import ImgSignUp from "../../../assets/imgs/ImgSignUp.jpg";
+import AltScreenBtn from '../../components/AlternateScreenButton';
 
 
 export default function TelaCadastro({ navigation}) {
@@ -31,7 +27,6 @@ export default function TelaCadastro({ navigation}) {
     const [role, setRole] = useState();
 
     async function signUp() {
-        startLoading();
 
         const res = await fetch("http://switch-gym.herokuapp.com/api/users", {
             method: "POST",
@@ -57,91 +52,66 @@ export default function TelaCadastro({ navigation}) {
             return;
         }
 
+        navigation.navigate("Login");
+
 
     }
 
-    const [loading, setLoading] = useState(false);
 
-    const startLoading = () => {
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-        }, 3000);
-    };
+
 
     return (
 
+        <View style={{width:width, height:heigth, backgroundColor:'#000', flex:1}}>
+            <StatusBar hidden/>
+            <ImageBackground
 
-        <SafeAreaView style={{ width: width, height:heigth, flex:1}}>
-            <StatusBar hidden />
+                style={styles.imgBackground}
+                source={{uri: "https://images.unsplash.com/photo-1534367899781-0d696bebc1d2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDF8fGd5bXxlbnwwfHwwfGJsYWNrX2FuZF93aGl0ZXw%3D&auto=format&fit=crop&w=500&q=60"}}
+            >
+                <AltScreenBtn
+                    setTop={46}
+                    setLeft={132 }
+                    onpressLogin={()=> navigation.navigate('Login')}
 
-            {loading ? (
-                <View style={{ backgroundColor:'#000000', flex:1}}>
-                    <ActivityIndicator
-                        style={{position: 'absolute',
-                            left: 0,
-                            right: 0,
-                            top: 0,
-                            bottom: 0,
-                            opacity: 0.5,
-                            backgroundColor: 'black',
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}
-                        color={'#5038AE'}
-                        size='large'
 
-                        //visibility of Overlay Loading Spinner
-                        visible={loading}
-                        //Text with the Spinner
-                        textContent={'Loading...'}
-                        //Text style of the Spinner Text
-                        textStyle={styles.titleSpinner}
-                    />
-
-                    <Text style={styles.titleSpinner}> Carregando...</Text>
-                </View>
-            ) : (
-
-                <View style={{width:width, height:heigth, backgroundColor:'#000', flex:1}}>
-
-                    <ImageBackground source={ImgSignUp} style={styles.imgBackground}>
-                    </ImageBackground>
+                />
+            </ImageBackground>
 
 
 
 
-                    <View style={styles.containerInputs}>
-
-
-                        {/*Name Text Input*/}
-                        <NameInput
-                            setValue={setName} />
-                        {/*Email Text Input*/}
-                        <EmailInput
-                            setValue={setEmail} />
-
-                        {/* TextInput senha */}
-
-                        <PasswordInput
-                            setValue={setPassword} />
-
-                        {/* DropDownBox  the user can select your role, i put this just for tests because in a real app the role  is altered in data base or with a diferent form.*/}
-
-                        <DropDownRoles
-                            pickerValue={role}
-                            setValue={setRole} />
-
-                        <SignInSignUpBtn onpress={signUp} labelBtn="Registrar-se" />
+            <View style={styles.containerInputs}>
 
 
 
-                    </View>
-                </View>
+                {/*Name Text Input*/}
+                <NameInput
+                    setValue={setName} />
+                {/*Email Text Input*/}
+                <EmailInput
+                    setValue={setEmail} />
+
+                {/* TextInput senha */}
+
+                <PasswordInput
+                    setValue={setPassword} />
+
+                {/* DropDownBox  the user can select your role, i put this just for tests because in a real app the role  is altered in data base or with a diferent form.*/}
+
+                <DropDownRoles
+                    pickerValue={role}
+                    setValue={setRole} />
+
+                <SignInSignUpBtn onpress={signUp} labelBtn="REGISTRAR-SE" />
 
 
-            )}
 
-        </SafeAreaView>
-    );
-}
+
+            </View>
+        </View>
+
+
+    );}
+
+

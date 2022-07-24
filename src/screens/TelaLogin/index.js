@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import {
-    Text,
     Alert,
-    Image,
     Dimensions,
-    SafeAreaView,
+    View,
+    ImageBackground
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar/src/StatusBar";
@@ -14,6 +13,7 @@ import styles from "./styles";
 import EmailInput from "../../components/EmailInput";
 import PasswordInput from "../../components/PasswordInput";
 import SignInSignUpBtn from "../../components/SignInSignUpBtn";
+import AltScreenBtn from "../../components/AlternateScreenButton";
 
 
 export default function TelaLogin(props) {
@@ -79,40 +79,49 @@ export default function TelaLogin(props) {
 
 
     return (
-        <SafeAreaView style={{ width: width, height: heigth, flex: 1 }}>
-            <StatusBar hidden />
 
-            {/* Image logo */}
-            <Image
-                style={styles.imgLogo}
-                source={require("../../../assets/imgs/FitDreams2.png")}
-            />
+        <View style={{width:width, height:heigth, backgroundColor:'#000', flex:1}}>
+            <StatusBar hidden/>
+            <ImageBackground
+                style={styles.imgBackground}
+                source={{uri: "https://images.unsplash.com/photo-1550345332-09e3ac987658?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"}}>
 
-            <Text style={styles.title}>
-                Faça Login
-            </Text>
+                <AltScreenBtn
+                    setTop={46}
+                    setLeft={52}
+                    onpressSignUp= {() => props.navigation.navigate("Cadastro")}
 
-            {/* TextInput  email*/}
+                />
+            </ImageBackground>
 
-            <EmailInput
-                setValue={setEmail}
-            />
 
-            {/* TextInput password */}
 
-            <PasswordInput
-                setValue={setPassword}
-            />
 
-            {/* Button Login */}
-            <SignInSignUpBtn
-                labelBtn="Login"
-                onpress={login}
-            />
+            <View style={styles.containerInputs}>
 
-            {/* TouchableOpacity SignUp */}
+                {/*Email Text Input*/}
+                <EmailInput
+                    setValue={setEmail}
+                />
 
-            
-        </SafeAreaView>
+                {/* TextInput senha */}
+
+                <PasswordInput
+                    setValue={setPassword}
+                />
+
+
+
+                <SignInSignUpBtn
+                    onpress={login}
+                    labelBtn="LOGIN"
+                />
+
+
+
+
+
+            </View>
+        </View>
     );
 }
