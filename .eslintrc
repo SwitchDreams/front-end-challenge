@@ -1,0 +1,52 @@
+{
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 8,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "react-native"
+    ],
+
+    "rules": {
+        "no-console": "off",
+        "guard-for-in": "error",
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-loop-func": "error",
+        "no-sync": "error",
+        "no-template-curly-in-string": "error",
+        "block-scoped-var": "error",
+        "dot-notation": "error",
+        "curly": [
+            "error",
+            "multi-line",
+            "consistent"
+        ],
+        "indent": 2,
+        "react/prop-types": [
+            "error",
+            {
+                "ignore": [
+                    "navigation",
+                    "route"
+                ]
+            }
+        ]
+    }
+}
