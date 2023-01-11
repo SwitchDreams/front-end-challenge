@@ -36,9 +36,9 @@ Cada aula contém as informações:
 ## API
 Para obter as informações que utilizará no aplicativo utilize a API fornecida:
 
-Documentação: [https://documenter.getpostman.com/view/12265896/Uz59MeAK](https://documenter.getpostman.com/view/12265896/Uz59MeAK)
+API: https://gym.switchdreams.com.br/
 
-API: https://switch-gym.herokuapp.com/
+[:memo: Docs](https://documenter.getpostman.com/view/12265896/Uz59MeAK#57d01a84-2799-4754-a891-7f08936f2a5e)
 
 ## Requisitos
 
