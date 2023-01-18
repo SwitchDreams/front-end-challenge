@@ -1,14 +1,10 @@
 import { View, TextInput, Text, Pressable } from "react-native";
-import { createUser } from "../services/api";
+import { loginUser } from "../services/api";
 import { useState } from "react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const UserCreation = () => {
-    createUser(email, password, "teacher");
-  };
 
   return (
     <View>
@@ -24,11 +20,11 @@ const Login = () => {
       <TextInput
         style={{ backgroundColor: "red" }}
         secureTextEntry={true}
-        onChange={(value) => {
+        onChangeText={(value) => {
           setPassword(value);
         }}
       />
-      <Pressable onPress={() => UserCreation()} style={{paddingTop: 50, backgroundColor: "blue"}}>
+      <Pressable onPress={() => loginUser(email, password)} style={{paddingTop: 50, backgroundColor: "blue"}}>
         <Text>Login</Text>
       </Pressable>
     </View>
