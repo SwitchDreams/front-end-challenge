@@ -2,7 +2,7 @@ import { View, TextInput, Text, Pressable } from "react-native";
 import { loginUser } from "../services/api";
 import { useState } from "react";
 
-const Login = () => {
+const Login = ({navigation}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -24,7 +24,14 @@ const Login = () => {
           setPassword(value);
         }}
       />
-      <Pressable onPress={() => loginUser(email, password)} style={{paddingTop: 50, backgroundColor: "blue"}}>
+      <Pressable
+        onPress={() => {
+          loginUser(email, password)
+            .then((res) => {navigation.navigate("Home")})
+            .catch((err) => {alert("impossível de fazer login")});
+        }}
+        style={{ paddingTop: 50, backgroundColor: "blue" }}
+      >
         <Text>Login</Text>
       </Pressable>
     </View>
