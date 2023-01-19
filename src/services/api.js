@@ -4,35 +4,46 @@ const api = axios.create({
   baseURL: "https://gym.switchdreams.com.br/api",
 });
 
-export const createUser = (email, password, role) => {
-  api
+export const createUser = async (email, password, role) => {
+  await api
     .post("/users", {
       user: {
         email: email,
         password: password,
-        role: role
+        role: role,
       },
     })
-    .then((res) => console.log("deu certo", res))
-    .catch((err) => console.log(err));
+    .then((res) => {
+      return res, alert("sucesso");
+    })
+    .catch((err) => {
+      return err, alert("Erro");
+    });
 };
 
-
-export const loginUser = (email, password) => {
-  api
+export const loginUser = async (email, password) => {
+  await api
     .post("/users/login", {
       user: {
         email: email,
         password: password,
       },
     })
-    .then((res) => console.log("deu certo", res))
-    .catch((err) => console.log(err));
+    .then((res) => {
+      return res, alert("sucesso");
+    })
+    .catch((err) => {
+      return err, alert("Erro");
+    });
 };
 
-export const showGymClasses = () => {
-  api
+export const showGymClasses = async () => {
+  await api
     .get("/gym_classes")
-    .then((res) => console.log("deu certo", res))
-    .catch((err) => console.log(err));
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
 };

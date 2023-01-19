@@ -1,4 +1,5 @@
-import { View, TextInput, Text, Pressable, Picker } from "react-native";
+import { View, TextInput, Text, Pressable } from "react-native";
+import {Picker} from "@react-native-picker/picker"
 import { createUser } from "../services/api";
 import { useState } from "react";
 
