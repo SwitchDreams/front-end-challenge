@@ -2,6 +2,8 @@ import { Button, ScrollView, View } from "react-native";
 import { useEffect, useState } from "react";
 import ClassBox from "../components/classBox";
 import { api } from "../services/api";
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 const ShowClass = ({ navigation }) => {
   const [classes, setClasses] = useState([]);
@@ -18,22 +20,21 @@ const ShowClass = ({ navigation }) => {
   };
 
   return (
-    <View>
-      <ScrollView>
-        {classes !== undefined ? (
-          classes.map((group, index) => (
-            <ClassBox key={index} group={group}></ClassBox>
-          ))
-        ) : (
-          <></>
-        )}
-      </ScrollView>
-      <Button title="Login" onPress={() => navigation.navigate("Login")} />
-      <Button
-        title="Register"
-        onPress={() => navigation.navigate("Register")}
-      />
-    </View>
+    <>
+      <Header></Header>
+      <View>
+        <ScrollView>
+          {classes !== undefined ? (
+            classes.map((group, index) => (
+              <ClassBox key={index} group={group}></ClassBox>
+            ))
+          ) : (
+            <></>
+          )}
+        </ScrollView>
+      </View>
+      <Footer></Footer>
+    </>
   );
 };
 
