@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { View, ActivityIndicator } from 'react-native';
 import AppRoutes from "./app.routes";
 import AuthRoutes from "./auth.routes";
@@ -12,7 +12,7 @@ function Routes(){
             <View 
               style={{
                 flex: 1, 
-                backgroundColor: '#CEA2A2', 
+                backgroundColor: '#26254D', 
                 justifyContent: 'center',
                 alignItems: 'center'
               }}
@@ -21,7 +21,6 @@ function Routes(){
             </View>
         )
     }
-
 
     return(
         isAuthenticated ? <AppRoutes/> : <AuthRoutes/>
