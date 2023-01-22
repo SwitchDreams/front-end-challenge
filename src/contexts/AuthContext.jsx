@@ -16,9 +16,13 @@ export function AuthProvider({ children }){
 
     const isAuthenticated = !!user.email;
 
+    async function signIn({ email, password }){
+        alert("Email e senha: " + email + " " + password);
+    }
+
 
     return(
-        <AuthContext.Provider value={{ user, isAuthenticated }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
             {children}
         </AuthContext.Provider>
     )
