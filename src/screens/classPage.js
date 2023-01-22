@@ -94,13 +94,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   text: {
-    fontSize: 32,
+    fontSize: 24,
     fontFamily: "Roboto",
     fontWeight: "bold",
     color: "#230E49",
   },
   textInfo: {
-    fontSize: 32,
+    fontSize: 24,
     fontFamily: "Roboto",
     fontWeight: "bold",
     color: "#230E49",
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   },
 
   textDescription: {
-    fontSize: 24,
+    fontSize: 16,
     fontFamily: "Roboto",
     fontWeight: "bold",
     color: "#230E49",

@@ -1,10 +1,12 @@
-import { Text, Pressable, StyleSheet } from "react-native";
+import { Text, Pressable, StyleSheet, View } from "react-native";
 
-export default function Button({label, onPress}) {
+export default function Button({ label, onPress }) {
   return (
-    <Pressable onPress={onPress} style={styles.container}>
-      <Text style={styles.text}>{label}</Text>
-    </Pressable>
+    <View style={styles.container}>
+      <Pressable onPress={onPress}>
+        <Text style={styles.text}>{label}</Text>
+      </Pressable>
+    </View>
   );
 }
 
@@ -13,12 +15,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#230E49",
     flex: 1,
     justifyContent: "center",
-    alignContent: "center",
+    alignItems: "center",
     borderColor: "black",
     borderRadius: 8,
     width: 144,
     maxHeight: 54,
-    opacity: 0.7
+    opacity: 0.7,
   },
   text: {
     fontSize: 24,
@@ -27,6 +29,6 @@ const styles = StyleSheet.create({
     lineHeight: 47,
     color: "#ffffff",
     padding: 5,
-    textAlign: "center"
+    textAlign: "center",
   },
 });
