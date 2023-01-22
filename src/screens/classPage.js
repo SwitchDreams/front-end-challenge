@@ -8,7 +8,7 @@ import moment from "moment";
 const ClassPage = ({ navigation, route }) => {
   const [time, setTime] = useState();
   const [duration, setDuration] = useState();
-  const {user, isLogged} = useContext(AuthContext);
+  const {user} = useContext(AuthContext);
 
   useEffect(() => {
     const time = route.params.class.start_time;
@@ -59,7 +59,7 @@ const ClassPage = ({ navigation, route }) => {
           <></>
         )}
       </View>
-      <Footer isLogged={route.params?.isLogged}></Footer>
+      <Footer></Footer>
     </>
   );
 };
