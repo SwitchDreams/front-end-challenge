@@ -1,48 +1,90 @@
-import { View, TextInput, Text, Pressable } from "react-native";
-import {Picker} from "@react-native-picker/picker"
-import { createUser } from "../services/api";
-import { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  KeyboardAvoidingView,
+} from "react-native";
+import { Picker } from "@react-native-picker/picker";
+import { AuthContext } from "../context/auth";
+import { useState, useContext } from "react";
+import Button from "../components/button";
+import Input from "../components/input";
 
-const Register = () => {
+const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("customer");
+  const {register} = useContext(AuthContext);
 
   return (
-    <View>
-      <Text>email</Text>
-      <TextInput
-        style={{ backgroundColor: "red" }}
-        onChangeText={(value) => {
-          setEmail(value);
-          console.log(value);
-        }}
-      />
-      <Text>password</Text>
-      <TextInput
-        style={{ backgroundColor: "red" }}
-        secureTextEntry={true}
-        onChangeText={(value) => {
-          setPassword(value);
-        }}
-      />
-      <Picker
-        selectedValue={role}
-        onValueChange={(Value) => setRole(Value)}
-        style={{ height: 50, width: 150, backgroundColor: "blue"}}
-      >
-        <Picker.Item label="Professor" value="teacher" />
-        <Picker.Item label="Administrador" value="admin" />
-        <Picker.Item label="Usuário" value="customer" />
-      </Picker>
-      <Pressable
-        onPress={() => createUser(email, password, role)}
-        style={{ paddingTop: 50, backgroundColor: "blue" }}
-      >
-        <Text>Login</Text>
-      </Pressable>
-    </View>
+    <KeyboardAvoidingView style={styles.container} behavior="none" enabled>
+      <Text style={styles.loginText}>Cadastro</Text>
+      <View style={styles.inputBox}>
+        <Input
+          label="Email"
+          secureTextEntry={false}
+          onChangeText={(value) => {
+            setEmail(value);
+          }}
+        />
+        <Input
+          label="Password"
+          secureTextEntry={true}
+          onChangeText={(value) => {
+            setPassword(value);
+          }}
+        />
+        <Picker
+          selectedValue={role}
+          onValueChange={(Value) => setRole(Value)}
+          style={{
+            width: 300,
+            height: 45,
+            backgroundColor: "#230E49",
+            paddingLeft: 15,
+            color: "#ffffff",
+            fontSize: 16,
+            marginTop: 10,
+          }}
+        >
+          <Picker.Item label="Professor" value="teacher" />
+          <Picker.Item label="Aluno" value="customer" />
+        </Picker>
+        <Button
+          label="Registrar"
+          onPress={() =>
+            register(email, password, role)
+          }
+        />
+        <Image source={require("../../src/assets/run.png")} />
+      </View>
+    </KeyboardAvoidingView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 56,
+    flex: 1,
+    alignItems: "center",
+    backgroundColor: "#ECFFF8",
+    width: "100%",
+    height: "100%",
+  },
+  loginText: {
+    fontSize: 40,
+    fontFamily: "Roboto",
+    fontWeight: "bold",
+    lineHeight: 47,
+  },
+  inputBox: {
+    flex: 1,
+    alignItems: "center",
+    marginTop: 66,
+    justifyContent: "space-between",
+    postion: "absolute",
+  },
+});
 
 export default Register;
