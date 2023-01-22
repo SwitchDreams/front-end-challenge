@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#230E49",
     flex: 1,
     justifyContent: "flex-end",
-    alignContent: "center",
+    alignItens: "center",
     borderColor: "black",
     width: "100%",
     maxHeight: 90,
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     left: 0,
   },
   text: {
-    fontSize: 32,
+    fontSize: 24,
     fontFamily: "Roboto",
     fontWeight: "bold",
     lineHeight: 47,

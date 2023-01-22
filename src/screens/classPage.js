@@ -39,7 +39,7 @@ const ClassPage = ({ navigation, route }) => {
           <Text style={styles.text}>Início:</Text>
           <Text style={styles.textInfo}>{time}</Text>
         </View>
-        <View>
+        <View Text style={{marginLeft: 10}}>
           <Text style={styles.text}>Descrição:</Text>
           <Text style={styles.textDescription}>
             {route.params.class.description}
@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
     maxHeight: 40,
     width: "40%",
     marginBottom: 10,
+    marginLeft: 10,
   },
   image: {
     width: "100%",
@@ -96,13 +97,13 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontFamily: "Roboto",
     fontWeight: "bold",
-    color: "#2BB39C",
+    color: "#230E49",
   },
   textInfo: {
     fontSize: 32,
     fontFamily: "Roboto",
     fontWeight: "bold",
-    color: "#2BB39C",
+    color: "#230E49",
     marginLeft: 10,
   },
 
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: "Roboto",
     fontWeight: "bold",
-    color: "#2BB39C",
+    color: "#230E49",
     marginLeft: 10,
   },
 });

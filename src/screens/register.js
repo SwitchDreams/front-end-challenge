@@ -15,7 +15,7 @@ const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("customer");
-  const {register} = useContext(AuthContext);
+  const { register } = useContext(AuthContext);
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="none" enabled>
@@ -35,27 +35,46 @@ const Register = ({ navigation }) => {
             setPassword(value);
           }}
         />
-        <Picker
-          selectedValue={role}
-          onValueChange={(Value) => setRole(Value)}
-          style={{
-            width: 300,
-            height: 45,
-            backgroundColor: "#230E49",
-            paddingLeft: 15,
-            color: "#ffffff",
-            fontSize: 16,
-            marginTop: 10,
-          }}
-        >
-          <Picker.Item label="Professor" value="teacher" />
-          <Picker.Item label="Aluno" value="customer" />
-        </Picker>
+        <View>
+          <Text
+            style={{
+              fontSize: 16,
+              fontFamily: "Roboto",
+              fontWeight: "bold",
+              color: "#230E49",
+              marginBottom: -5
+            }}
+          >
+            Tipo de cadastro
+          </Text>
+          <View
+            style={{
+              borderRadius: 10,
+              width: 300,
+              height: 45,
+              backgroundColor: "#230E49",
+              paddingLeft: 15,
+              color: "#ffffff",
+              fontSize: 16,
+              marginTop: 10,
+              opacity: 0.7
+            }}
+          >
+            <Picker
+              selectedValue={role}
+              onValueChange={(Value) => setRole(Value)}
+              style={{
+                color: "#ffffff",
+              }}
+            >
+              <Picker.Item label="Professor" value="teacher" />
+              <Picker.Item label="Aluno" value="customer" />
+            </Picker>
+          </View>
+        </View>
         <Button
-          label="Registrar"
-          onPress={() =>
-            register(email, password, role)
-          }
+          label="Cadastrar"
+          onPress={() => register(email, password, role)}
         />
         <Image source={require("../../src/assets/run.png")} />
       </View>
