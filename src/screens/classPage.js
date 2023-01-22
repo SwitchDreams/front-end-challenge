@@ -1,12 +1,14 @@
-import { View, Text, StyleSheet, Image } from "react-native";
-import { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../context/auth";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import moment from "moment";
 
-const ClassPage = ({ route }) => {
+const ClassPage = ({ navigation, route }) => {
   const [time, setTime] = useState();
   const [duration, setDuration] = useState();
+  const {user, isLogged} = useContext(AuthContext);
 
   useEffect(() => {
     const time = route.params.class.start_time;
@@ -43,8 +45,16 @@ const ClassPage = ({ route }) => {
             {route.params.class.description}
           </Text>
         </View>
-        {route.params.user === "teacher" || route.params.user === "admin" ? (
-          <Text>{route.params?.user}</Text>
+        {user.role === "teacher" || user.role === "admin" ? (
+          <View style={styles.editContainer}>
+            <Pressable
+              onPress={() =>
+                navigation.navigate("editPage", { class: route.params.class })
+              }
+            >
+              <Image source={require("../../src/assets/pencil.png")}></Image>
+            </Pressable>
+          </View>
         ) : (
           <></>
         )}
@@ -61,6 +71,14 @@ const styles = StyleSheet.create({
     marginBottom: 90,
     width: "100%",
     backgroundColor: "#ECFFF8",
+  },
+  editContainer: {
+    flex: 1,
+    position: "absolute",
+    bottom: 10,
+    width: "100%",
+    justifyContent: "center",
+    flexDirection: "row",
   },
   infoBox: {
     flex: 1,
@@ -89,7 +107,7 @@ const styles = StyleSheet.create({
   },
 
   textDescription: {
-    fontSize: 16,
+    fontSize: 24,
     fontFamily: "Roboto",
     fontWeight: "bold",
     color: "#2BB39C",

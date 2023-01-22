@@ -6,8 +6,8 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import { createUser } from "../services/api";
-import { useState } from "react";
+import { AuthContext } from "../context/auth";
+import { useState, useContext } from "react";
 import Button from "../components/button";
 import Input from "../components/input";
 
@@ -15,6 +15,7 @@ const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("customer");
+  const {register} = useContext(AuthContext);
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="none" enabled>
@@ -53,13 +54,7 @@ const Register = ({ navigation }) => {
         <Button
           label="Registrar"
           onPress={() =>
-            createUser(email, password, role)
-              .then((res) => {
-                navigation.navigate("Home");
-              })
-              .catch((err) => {
-                alert("impossível de criar sua conta");
-              })
+            register(email, password, role)
           }
         />
         <Image source={require("../../src/assets/run.png")} />

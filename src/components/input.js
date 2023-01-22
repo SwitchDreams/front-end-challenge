@@ -1,6 +1,6 @@
 import { Text, TextInput, StyleSheet, View } from "react-native";
 
-export default function Input({ label, onChangeText, secureTextEntry }) {
+export default function Input({ label, onChangeText, secureTextEntry, value }) {
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
@@ -8,6 +8,7 @@ export default function Input({ label, onChangeText, secureTextEntry }) {
         secureTextEntry={secureTextEntry}
         onChangeText={onChangeText}
         style={styles.input}
+        value={value}
       />
     </View>
   );

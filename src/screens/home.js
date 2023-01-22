@@ -5,12 +5,12 @@ import { api } from "../services/api";
 import Header from "../components/header";
 import Footer from "../components/footer";
 
-const Home = ({ navigation, route }) => {
+const Home = ({ navigation }) => {
   const [classes, setClasses] = useState([]);
 
   useEffect(() => {
     showGymClasses();
-  }, []);
+  }, [classes]);
 
   const showGymClasses = async () => {
     await api.get("/gym_classes").then((res) => {
@@ -22,7 +22,6 @@ const Home = ({ navigation, route }) => {
   return (
     <>
       <Header></Header>
-      {console.log(route)}
       <View style={styles.container}>
         <ScrollView>
           {classes !== undefined ? (
@@ -35,8 +34,6 @@ const Home = ({ navigation, route }) => {
                     name: "classPage",
                     params: {
                       class: group,
-                      user: route.params?.user,
-                      isLogged: route.params?.isLogged,
                     },
                   });
                 }}
@@ -47,7 +44,7 @@ const Home = ({ navigation, route }) => {
           )}
         </ScrollView>
       </View>
-      <Footer isLogged={route.params?.isLogged}></Footer>
+      <Footer></Footer>
     </>
   );
 };

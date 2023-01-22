@@ -5,13 +5,13 @@ import {
   Image,
   KeyboardAvoidingView,
 } from "react-native";
-import { api } from "../services/api";
-import { loginUser } from "../services/api";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../context/auth";
 import Button from "../components/button";
 import Input from "../components/input";
 
-const Login = ({ navigation }) => {
+const Login = () => {
+  const {signIn} = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -35,24 +35,8 @@ const Login = ({ navigation }) => {
         />
         <Button
           label="Login"
-          onPress={async () => {
-            await api
-              .post("/users/login", {
-                user: {
-                  email: email,
-                  password: password,
-                },
-              })
-              .then((res) => {
-                alert("sucesso");
-                navigation.navigate({
-                  name: "Home",
-                  params: { user: res.data.role, isLogged: true },
-                });
-              })
-              .catch((err) => {
-                alert("Erro");
-              });
+          onPress={() => {
+            signIn(email, password);
           }}
           style={{ paddingTop: 50, backgroundColor: "blue" }}
         />
