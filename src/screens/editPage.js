@@ -52,7 +52,7 @@ const ClassPage = ({ route, navigation }) => {
             }}
           />
           <Input
-            label="Duração da aula"
+            label="Duração da aula (segundos)"
             secureTextEntry={false}
             value={gymClass.duration}
             onChangeText={(value) => {
