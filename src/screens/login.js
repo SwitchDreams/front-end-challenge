@@ -22,6 +22,7 @@ const Login = () => {
         <Input
           label="Email"
           secureTextEntry={false}
+          value={email}
           onChangeText={(value) => {
             setEmail(value);
           }}
@@ -29,6 +30,7 @@ const Login = () => {
         <Input
           label="Password"
           secureTextEntry={true}
+          value={password}
           onChangeText={(value) => {
             setPassword(value);
           }}

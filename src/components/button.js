@@ -17,14 +17,15 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderRadius: 8,
     width: 144,
-    maxHeight: 54
+    maxHeight: 54,
+    opacity: 0.7
   },
   text: {
-    fontSize: 32,
+    fontSize: 24,
     fontFamily: "Roboto",
     fontWeight: "bold",
     lineHeight: 47,
-    color: "#2BB39C",
+    color: "#ffffff",
     padding: 5,
     textAlign: "center"
   },

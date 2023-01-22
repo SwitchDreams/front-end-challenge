@@ -29,5 +29,6 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     color: "#ffffff",
     fontSize: 16,
+    opacity: 0.7
   }
 });

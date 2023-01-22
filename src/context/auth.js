@@ -18,7 +18,7 @@ function AuthProvider({ children }) {
         },
       })
       .then((res) => {
-        alert("sucesso");
+        alert("Bem vindo!");
         setUser(res.data);
         setIsLogged(true);
         navigation.navigate({
@@ -26,7 +26,7 @@ function AuthProvider({ children }) {
         });
       })
       .catch((err) => {
-        alert("Erro");
+        alert("Não conseguimos fazer seu login, por favor verifique suas credenciais.");
       });
   }
 
@@ -53,10 +53,10 @@ function AuthProvider({ children }) {
         navigation.navigate({
           name: "Home",
         });
-        return res, alert("sucesso");
+        alert("Bem vindo!");
       })
       .catch((err) => {
-        return err, alert("Erro");
+        alert("Não conseguimos efetuar o seu cadastro, tente novamente!");
       });
   }
 
