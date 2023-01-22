@@ -16,7 +16,10 @@ const styles = StyleSheet.create({
     alignContent: "center",
     borderColor: "black",
     width: "100%",
-    maxHeight: 90
+    maxHeight: 90,
+    position: "absolute",
+    top: 30,
+    left: 0,
   },
   text: {
     fontSize: 32,

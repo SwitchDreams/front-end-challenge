@@ -5,6 +5,7 @@ import {
   Image,
   KeyboardAvoidingView,
 } from "react-native";
+import { api } from "../services/api";
 import { loginUser } from "../services/api";
 import { useState } from "react";
 import Button from "../components/button";
@@ -34,13 +35,23 @@ const Login = ({ navigation }) => {
         />
         <Button
           label="Login"
-          onPress={() => {
-            loginUser(email, password)
+          onPress={async () => {
+            await api
+              .post("/users/login", {
+                user: {
+                  email: email,
+                  password: password,
+                },
+              })
               .then((res) => {
-                navigation.navigate("Home");
+                alert("sucesso");
+                navigation.navigate({
+                  name: "Home",
+                  params: { user: res.data.role, isLogged: true },
+                });
               })
               .catch((err) => {
-                alert("impossível de fazer login");
+                alert("Erro");
               });
           }}
           style={{ paddingTop: 50, backgroundColor: "blue" }}

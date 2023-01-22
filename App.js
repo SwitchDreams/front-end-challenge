@@ -17,9 +17,9 @@ const MyStack = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="classPage" component={ClassPage} />
       </Stack.Navigator>
     </NavigationContainer>

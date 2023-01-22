@@ -21,21 +21,21 @@ export const createUser = async (email, password, role) => {
     });
 };
 
-export const loginUser = async (email, password) => {
-  await api
-    .post("/users/login", {
-      user: {
-        email: email,
-        password: password,
-      },
-    })
-    .then((res) => {
-      return res, alert("sucesso");
-    })
-    .catch((err) => {
-      return err, alert("Erro");
-    });
-};
+// export const loginUser = async (email, password) => {
+//   await api
+//     .post("/users/login", {
+//       user: {
+//         email: email,
+//         password: password,
+//       },
+//     })
+//     .then((res) => {
+//       return res.data
+//     })
+//     .catch((err) => {
+//       return err, alert("Erro");
+//     });
+// };
 
 // export const showGymClasses = async () => {
 //   await api.get("/gym_classes").then((res) => {

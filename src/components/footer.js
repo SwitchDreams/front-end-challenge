@@ -1,7 +1,7 @@
 import { Text, View, StyleSheet, Image, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-export default function () {
+export default function footer({isLogged}) {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -11,24 +11,24 @@ export default function () {
           <Text style={styles.text}>Home</Text>
         </Pressable>
       </View>
-      <View>
-        <Pressable onPress={() => navigation.navigate("Home")}>
-          <Image source={require("../../src/assets/dance.png")}></Image>
-          <Text style={styles.text}>Aulas</Text>
-        </Pressable>
-      </View>
-      <View>
-        <Pressable onPress={() => navigation.navigate("Login")}>
-          <Image source={require("../../src/assets/login.png")}></Image>
-          <Text style={styles.text}>Login</Text>
-        </Pressable>
-      </View>
-      <View>
-        <Pressable onPress={() => navigation.navigate("Register")}>
-          <Image source={require("../../src/assets/register.png")}></Image>
-          <Text style={styles.text}>cadastrar</Text>
-        </Pressable>
-      </View>
+      {isLogged === true ? (
+        <></>
+      ) : (
+        <>
+          <View>
+            <Pressable onPress={() => navigation.navigate("Login")}>
+              <Image source={require("../../src/assets/login.png")}></Image>
+              <Text style={styles.text}>Login</Text>
+            </Pressable>
+          </View>
+          <View>
+            <Pressable onPress={() => navigation.navigate("Register")}>
+              <Image source={require("../../src/assets/register.png")}></Image>
+              <Text style={styles.text}>cadastrar</Text>
+            </Pressable>
+          </View>
+        </>
+      )}
     </View>
   );
 }
