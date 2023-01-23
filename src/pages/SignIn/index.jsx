@@ -20,8 +20,7 @@ export default function SignIn(){
             return;
         }
           
-        await signIn({ email, password });
-        //alert("Email digitado: " + email);
+        await signIn({ email, password }); // função signIn do contexto
     }
 
     return(
