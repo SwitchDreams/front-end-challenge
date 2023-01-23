@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import { api } from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -16,16 +16,42 @@ export function AuthProvider({ children }){
         token: ''
     })
 
-    const [loading, setLoadingAuth] = useState(false);
+    const [loadingAuth, setLoadingAuth] = useState(false);
+    const [loading, setloading] = useState(true);
 
-    const isAuthenticated = !!user.email; // se email passar a ter algum valor diferente de '', então o usuário fez login.
+    const isAuthenticated = !!user.email;
+
+    useEffect(() => {
+        async function getUser(){
+            const userInfo = await AsyncStorage.getItem('@fitdreams');
+            let hasUser = JSON.parse(userInfo || '{}');
+
+            if(Object.keys(hasUser).length > 0){
+                api.defaults.headers.common['Authorization'] = `Bearer ${hasUser.token}`;
+
+                setUser({
+                    id: hasUser.id,
+                    name: hasUser.name,
+                    email: hasUser.email,
+                    birthday: hasUser.birthday,
+                    role: hasUser.role,
+                    created_at: hasUser.created_at,
+                    updated_at: hasUser.updated_at,
+                    token: hasUser.token
+                });
+            }
+
+            setloading(false);
+        }
+
+        getUser();
+    }, [])
 
     async function signIn({ email, password }){
-        //alert("Email e senha: " + email + " " + password);
-
         setLoadingAuth(true);
+
         try{
-            const response = await api.post('/api/users/login', {
+            const response = await api.post('api/users/login', {
                 "user": {
                     email,
                     password
@@ -46,6 +72,7 @@ export function AuthProvider({ children }){
                 updated_at,
                 token
             }
+            //console.log(data);
 
             await AsyncStorage.setItem('@fitdreams', JSON.stringify(data));
 
@@ -64,16 +91,31 @@ export function AuthProvider({ children }){
 
             setLoadingAuth(false);
 
-            console.log(response.data);
-            console.log(token);
+            //console.log(response.data);
+            //console.log(token);
         }catch(err){
             console.log('erro ao acessar!', err);
             setLoadingAuth(false);
         }
     }
 
+    async function signOut(){
+        await AsyncStorage.clear().then(() => {
+          setUser({
+            id: 0,
+            name: null,
+            email: '',
+            birthday: null,
+            role: '',
+            created_at: '',
+            updated_at: '',
+            token: '',
+          })
+        })
+      }
+
     return(
-        <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signIn, loading, loadingAuth, signOut }}>
             {children}
         </AuthContext.Provider>
     )

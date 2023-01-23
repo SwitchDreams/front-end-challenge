@@ -6,8 +6,8 @@ import { AuthContext } from "../contexts/AuthContext";
 
 function Routes(){
     //const isAuthenticated = false;
-    const { isAuthenticated } = useContext(AuthContext);
-    const loading = false;
+    //const loading = false;
+    const { isAuthenticated, loading } = useContext(AuthContext);
 
     if(loading){
         return(
