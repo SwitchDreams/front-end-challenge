@@ -1,12 +1,11 @@
 import React from "react";
-import { NativeBaseProvider, Box } from "native-base";
+import { NativeBaseProvider } from "native-base";
+import LoginScreen from "./src/screens/LoginScreen";
 
 export default function App() {
   return (
     <NativeBaseProvider>
-      <Box safeArea>
-        Switch Gym
-      </Box>
+      <LoginScreen />
     </NativeBaseProvider>
   );
 }
