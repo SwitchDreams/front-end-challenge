@@ -114,8 +114,39 @@ export function AuthProvider({ children }){
         })
       }
 
+    async function registerUserCustormer({ email, password }){
+        try{
+            const response = await api.post('api/users', {
+                "user": {
+                    email,
+                    password
+                }
+            })
+            console.log(response.data)
+            alert('Usuário cadastrado com sucesso!');
+        }catch(err){
+            console.log('Erro ao cadastrar', err);
+        }
+    }
+
+    async function registerUserTeaAdm({ email, password, role }){
+        try{
+            const response = await api.post('api/users', {
+                "user": {
+                    email,
+                    password,
+                    role
+                }
+            })
+            console.log(response.data)
+            alert('Usuário cadastrado com sucesso!');
+        }catch(err){
+            console.log('Erro ao cadastrar', err);
+        }
+    }
+
     return(
-        <AuthContext.Provider value={{ user, isAuthenticated, signIn, loading, loadingAuth, signOut }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signIn, loading, loadingAuth, signOut, registerUserCustormer, registerUserTeaAdm }}>
             {children}
         </AuthContext.Provider>
     )

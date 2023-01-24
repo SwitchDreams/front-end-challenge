@@ -1770,6 +1770,11 @@
   dependencies:
     nanoid "^3.1.23"
 
+"@redmin_delishaj/react-native-select@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@redmin_delishaj/react-native-select/-/react-native-select-1.0.6.tgz#37137ed058c016f24af4e0b704003415a9d1fb6e"
+  integrity sha512-YEpA8wEaOWTjkF5VkNXB7k+yuqxzlqQczlL8kaKtV30AS2uURV+0gk7ZPrKrSOEroc8xoWsTv5V4nJcYYiBfZw==
+
 "@segment/loosely-validate-event@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@segment/loosely-validate-event/-/loosely-validate-event-2.0.0.tgz#87dfc979e5b4e7b82c5f1d8b722dfd5d77644681"

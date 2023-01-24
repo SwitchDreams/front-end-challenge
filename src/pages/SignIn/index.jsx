@@ -6,11 +6,15 @@ import {
     Image,
     TextInput,
     TouchableOpacity,
-    ActivityIndicator
+    ActivityIndicator,
+    Button
 } from 'react-native';
 import { AuthContext } from '../../contexts/AuthContext';
+import { useNavigation } from '@react-navigation/native';
 
 export default function SignIn(){
+    const navigation = useNavigation();
+
     const { signIn, loadingAuth } = useContext(AuthContext);
 
     const [email, setEmail] = useState('');
@@ -58,7 +62,15 @@ export default function SignIn(){
                     )}
                     
                 </TouchableOpacity>
+
+                {/* <Button title='Faça o seu cadastro' onPress={() => navigation.navigate('SignUp')} /> */}
+
+                <TouchableOpacity style={styles.buttonLogin} onPress={() => navigation.navigate('SignUp')}>
+                    <Text style={styles.text}>Não tem conta? Cadastre-se</Text>
+                </TouchableOpacity>
             </View>
+
+            
         </View>
     )
 }
@@ -82,7 +94,7 @@ const styles = StyleSheet.create({
     },
     input:{
         width: '95%',
-        height: 40,
+        height: 54,
         backgroundColor: '#484888',
         marginBottom: 12,
         borderRadius: 8,
@@ -94,7 +106,7 @@ const styles = StyleSheet.create({
     },
     button:{
         width: '95%',
-        height: 40,
+        height: 54,
         backgroundColor: '#8d8786',
         borderRadius: 8,
         alignItems: 'center',
@@ -104,5 +116,8 @@ const styles = StyleSheet.create({
     buttonText:{
         fontSize: 18,
         color: '#FFF'
+    },
+    buttonLogin:{
+        marginTop: 8
     }
 })
