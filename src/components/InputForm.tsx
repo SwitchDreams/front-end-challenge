@@ -5,7 +5,6 @@ import {
   Input,
   Pressable,
   VStack,
-  WarningOutlineIcon
 }
 from "native-base";
 import {Feather} from "@expo/vector-icons";

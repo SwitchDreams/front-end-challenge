@@ -4,18 +4,10 @@ import {
   Center,
   Box,
   VStack,
-  FormControl,
-  Input,
   Button,
-  HStack,
-  Text,
   Link,
   IInputProps,
-  Icon,
-  Pressable,
-  WarningOutlineIcon,
 } from "native-base"
-import { Feather } from "@expo/vector-icons"
 import {InputFormEmail, InputFormPassword} from "../components/InputForm";
 
 export default function LoginScreen({ ...rest }: IInputProps) {
