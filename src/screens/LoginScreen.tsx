@@ -10,50 +10,46 @@ import {
   HStack,
   Text,
   Link,
-  IInputProps
+  IInputProps,
+  Icon,
+  Pressable,
+  WarningOutlineIcon,
 } from "native-base"
 import { Feather } from "@expo/vector-icons"
+import {InputFormEmail, InputFormPassword} from "../components/InputForm";
 
-export default function LoginScreen() {
+export default function LoginScreen({ ...rest }: IInputProps) {
   const [show, setShow] = useState(false)
-  return <Center w="100%">
-    <Box safeArea p="2" py="8" w="90%" maxW="290">
-      <Heading size="lg" fontWeight="600" color="coolGray.800" _dark={{
+  return (
+  <Center flex={1}>
+    <Box safeArea p="2" py="8" w="90%" maxW="350">
+      <Heading size="4xl" fontWeight="600" color="coolGray.800" _dark={{
         color: "warmGray.50"
       }}>
         Switch Gym
       </Heading>
       <Heading mt="1" _dark={{
         color: "warmGray.200"
-      }} color="coolGray.600" fontWeight="medium" size="xs">
+      }} color="coolGray.600" fontWeight="medium" size="md">
         Entre para mudar seu estilo de vida!
       </Heading>
 
-      <VStack space={3} mt="5">
-        <FormControl>
-          <Input />
-        </FormControl>
-        <FormControl>
-          <Input type="password" />
-        </FormControl>
+      <InputFormEmail />
+      <InputFormPassword />
+
+      <VStack space={3} mt="5" >
         <Button mt="2" colorScheme="indigo">
-          Sign in
+          Entrar
         </Button>
-        <HStack mt="6" justifyContent="center">
-          <Text fontSize="sm" color="coolGray.600" _dark={{
-            color: "warmGray.200"
-          }}>
-            I'm a new user.{" "}
-          </Text>
-          <Link _text={{
-            color: "indigo.500",
+          <Link mt="6" justifyContent="center" _text={{
+            color: "indigo.400",
             fontWeight: "medium",
             fontSize: "sm"
           }} href="#">
-            Sign Up
+            Ainda não tem uma conta? Cadastre-se!
           </Link>
-        </HStack>
       </VStack>
     </Box>
   </Center>
+  )
 }
