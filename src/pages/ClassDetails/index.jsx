@@ -1,40 +1,49 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { AuthContext } from '../../contexts/AuthContext';
-import { useRoute } from "@react-navigation/native";
+import { useRoute, useNavigation } from "@react-navigation/native";
 import { api } from "../../services/api";
 import { AntDesign } from '@expo/vector-icons'; 
 
 export default function ClassDetails(){
     const route = useRoute();
-    const { signOut } = useContext(AuthContext);
+    const navigation = useNavigation();
+    const { signOut, user, setSavedId } = useContext(AuthContext);
     const [detail, setDetail] = useState({});
-    const idDetail = route.params.id;
+    const { id } = route.params;
+
+    const { role } = user;
 
     useEffect(() => {
-        console.log('O idDetail é: ' + idDetail)
+
         async function handleDetail(){
             try {
-                const response = await api.get(`api/gym_classes/${idDetail}`);
-                console.log(response.data);
+                const response = await api.get(`api/gym_classes/${id}`);
                 setDetail(response.data);
+               
 
             } catch (error) {
                 console.log('Erro ao pegar os detalhes do usuário', error)
             }
         }
-
         handleDetail();
-        console.log('último: ' + detail);
     }, [])
 
+    function handleClick(){
+        if (id !== undefined) {
+            console.log(id);
+            navigation.navigate('EditClass', { id });  
+        }
+    }
+
     return(
-        <>
-        <TouchableOpacity onPress={signOut} style={styles.button}><AntDesign name="logout" size={24} color="#FFF" style={styles.logout} /></TouchableOpacity>
         <View style={styles.container}>
+            <TouchableOpacity onPress={signOut} style={styles.button}><AntDesign name="logout" size={24} color="#FFF" /></TouchableOpacity>
             <Text style={styles.title}>Detalhes da aula</Text>
             
             <View key={detail.id} style={styles.card}>
+                <Text style={styles.text}>Id da aula: {detail.id}</Text>
+
                 <Text style={styles.text}>Nome da aula: {detail.name}</Text>
 
                 <Text style={styles.text}>Descrição: {detail.description}</Text>
@@ -46,9 +55,9 @@ export default function ClassDetails(){
                 <Text style={styles.text}>Duração: {detail.duration}</Text>
 
                 <Text style={styles.text}>Categoria: {detail.category_id}</Text>
-            </View>         
+            </View>
+            {role !== 'customer' ? (<TouchableOpacity style={styles.buttonEdit} onPress={handleClick}><Text style={styles.textEdit}>Editar Aula</Text></TouchableOpacity>) : (<View></View>)}      
         </View>
-        </>
     )
 }
 
@@ -68,18 +77,32 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: '#FFF',
         marginBottom: 12,
+        marginTop: 100
     },
     card:{
         backgroundColor: '#484888',
         padding: 20,
-        borderRadius: 8
+        borderRadius: 8,
+        height: 260,
+        width: '90%'
     },
     button:{
         backgroundColor: '#26254D',
-        height: 54,
-        justifyContent: 'center'
+        height: 30,
+        width: 27,
+        marginLeft: 270
     },
-    logout:{
-        marginLeft: 300
+    buttonEdit:{
+        backgroundColor: '#8d8786',
+        height: 54,
+        borderRadius: 8,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 12,
+        width: '90%',
+        marginBottom: 210
+    },
+    textEdit:{
+        color: '#FFF'
     }
 })

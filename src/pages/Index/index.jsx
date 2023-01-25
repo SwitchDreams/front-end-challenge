@@ -18,7 +18,6 @@ export default function Index(){
                 if(response){
                     console.log('sucesso!');
                 }
-                console.log(response.data);
                 setList(response.data);
             } catch (error) {
                 console.log('erro ao puxar a lista de aulas', error)
@@ -29,21 +28,18 @@ export default function Index(){
     }, [])
 
     function handleClick(id){
-        console.log(id);
         navigation.navigate('ClassDetails', { id });
     }
 
     return (
-        <ScrollView>
         <View style={styles.container}>
-            <TouchableOpacity onPress={signOut} style={styles.button}><AntDesign name="logout" size={24} color="#FFF" style={styles.logout} /></TouchableOpacity>
+            <TouchableOpacity onPress={signOut} style={styles.button}><AntDesign name="logout" size={24} color="#FFF" /></TouchableOpacity>
             <Text style={styles.title}>Lista de aulas disponíveis</Text>
             
             {list ? (
                 list.map(item => <Class key="{item}" name={item.name} navigateDetail={ () => handleClick(item.id) }/>)
-            ) : (<View key="{item}"><Text style={styles.text}>...Carregando visualização de aulas disponíveis</Text></View>)}
+            ) : (<View key="{item}"><Text style={styles.text}></Text></View>)}
         </View>
-        </ScrollView>
     )
 }
 
@@ -63,7 +59,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: '#FFF',
         marginBottom: 20,
-        marginTop: 50
+        marginTop: 30
     },
     textLoading:{
         fontSize: 20,
@@ -71,12 +67,8 @@ const styles = StyleSheet.create({
         marginBottom: 12,
     },
     button:{
-        width: '100%',
-        height: 54,
-        borderRadius: 8,
-        justifyContent: 'center',
-    },
-    logout:{
-        marginLeft: 300
+        width: 27,
+        height: 30,
+        marginLeft: 270
     }
 })

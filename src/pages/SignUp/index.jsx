@@ -6,8 +6,8 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function SignUp(){
     const navigation = useNavigation();
-    const { loadingAuth, registerUserCustormer, registerUserTeaAdm  } = useContext(AuthContext);
-    const [selectItem, setSelectItem] = useState('');
+    const { loadingAuth, registerUserTeaAdm  } = useContext(AuthContext);
+    const [selectItem, setSelectItem] = useState();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -33,11 +33,13 @@ export default function SignUp(){
             return;
         }
 
-        if(selectItem === '' || selectItem === 'customer'){
-            await registerUserCustormer({email, password});
-        } else if(selectItem === 'teacher' || selectItem === 'admin'){
-            await registerUserTeaAdm({ email, password, selectItem });
+        const data = {
+            email: email,
+            password: password,
+            role: selectItem
         }
+
+        await registerUserTeaAdm(data);
     }
 
     return(
@@ -72,7 +74,7 @@ export default function SignUp(){
                     { loadingAuth ? (
                         <ActivityIndicator size={25} color="#FFF"/>
                     ) : (
-                      <Text style={styles.buttonText}>Acessar</Text>  
+                      <Text style={styles.buttonText}>Cadastrar</Text>  
                     )}
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonLogin} onPress={() => navigation.navigate('SignIn')}>
