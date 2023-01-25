@@ -12,14 +12,20 @@ import {
   Select,
   VStack
 } from "native-base";
-import {InputFormPassword} from "../components/InputForm";
 import {Feather} from "@expo/vector-icons";
+import {useNavigation} from "@react-navigation/native";
 
 export default function SignUp() {
+  const navigation = useNavigation();
+  function handleGoBack() {
+    navigation.goBack()
+  }
   const [service, setService] = useState("")
   const [show, setShow] = useState(false)
     return (
-      <Center flex={1}>
+      <Box safeArea flex={1}>
+      <Icon as={Feather} name="chevron-left" size="2xl" ml="2" mt={2} color="coolGray.400" onPress={handleGoBack}/>
+      <Center>
         <Box safeArea p="2" w="90%" maxW="290" py="8">
           <Heading size="lg" color="coolGray.800" _dark={{
             color: "warmGray.50"
@@ -72,5 +78,6 @@ export default function SignUp() {
           </VStack>
         </Box>
       </Center>
+      </Box>
     );
 }

@@ -9,8 +9,16 @@ import {
   IInputProps,
 } from "native-base"
 import {InputFormEmail, InputFormPassword} from "../components/InputForm";
+import {useNavigation} from "@react-navigation/native";
+
+
 
 export default function LoginScreen({ ...rest }: IInputProps) {
+  const navigation = useNavigation();
+
+  function handleSignUp() {
+    navigation.navigate("SignUp")
+  }
   const [show, setShow] = useState(false)
   return (
   <Center flex={1}>
@@ -37,7 +45,7 @@ export default function LoginScreen({ ...rest }: IInputProps) {
             color: "indigo.400",
             fontWeight: "medium",
             fontSize: "sm"
-          }} href="#">
+          }} onPress={handleSignUp}>
             Ainda não tem uma conta? Cadastre-se!
           </Link>
       </VStack>
