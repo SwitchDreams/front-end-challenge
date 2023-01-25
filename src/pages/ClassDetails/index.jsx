@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { api } from "../../services/api";
@@ -8,7 +8,7 @@ import { AntDesign } from '@expo/vector-icons';
 export default function ClassDetails(){
     const route = useRoute();
     const navigation = useNavigation();
-    const { signOut, user, setSavedId } = useContext(AuthContext);
+    const { signOut, user } = useContext(AuthContext);
     const [detail, setDetail] = useState({});
     const { id } = route.params;
 

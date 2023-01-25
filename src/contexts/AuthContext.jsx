@@ -48,7 +48,7 @@ export function AuthProvider({ children }){
     }, [])
 
     async function signIn({ email, password }){
-        setLoadingAuth(true);
+        //setLoadingAuth(true);
 
         try{
             const response = await api.post('api/users/login', {
@@ -89,13 +89,13 @@ export function AuthProvider({ children }){
                 token
             })
 
-            setLoadingAuth(false);
+            //setLoadingAuth(false);
 
             //console.log(response.data);
             //console.log(token);
         }catch(err){
             console.log('erro ao acessar!', err);
-            setLoadingAuth(false);
+            //setLoadingAuth(false);
         }
     }
 
