@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { View, Text, StyleSheet, TextInput,  TouchableOpacity, ActivityIndicator } from "react-native";
-import Select, { SelectItem, SelectConfig } from '@redmin_delishaj/react-native-select';
+import Select from '@redmin_delishaj/react-native-select';
 import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 
@@ -79,7 +79,6 @@ export default function SignUp(){
                     <Text style={styles.textLogin}>Já tem conta? Faça login</Text>
                 </TouchableOpacity>
             </View>
-            
         </View>
     )
 }
