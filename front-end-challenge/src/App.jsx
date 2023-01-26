@@ -1,5 +1,5 @@
-import Router from "./assets/Routes"
-import GlobalStyle from "./assets/GlobalStyles/resetCSS"
+import Router from "./Routes"
+import GlobalStyle from "./GlobalStyles/resetCSS"
 
 function App() {
 
