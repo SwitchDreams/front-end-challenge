@@ -86,7 +86,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     border: 0;
     font-size: 100%;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-weight: 300;
     vertical-align: baseline;
     text-decoration: none;
