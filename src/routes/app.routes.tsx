@@ -10,6 +10,7 @@ export function AppRoutes() {
     <Navigator screenOptions={{headerShown: false}}>
       <Screen name="Login" component={LoginScreen} />
       <Screen name="SignUp" component={SignUp} />
+      <Screen name="Aulas" component={AulasScreen} />
     </Navigator>
   );
 }

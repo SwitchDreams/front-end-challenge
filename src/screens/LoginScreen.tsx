@@ -16,6 +16,10 @@ import {useNavigation} from "@react-navigation/native";
 export default function LoginScreen({ ...rest }: IInputProps) {
   const navigation = useNavigation();
 
+  function handleHomeTest() {
+    navigation.navigate("Aulas")
+  }
+
   function handleSignUp() {
     navigation.navigate("SignUp")
   }
@@ -48,6 +52,9 @@ export default function LoginScreen({ ...rest }: IInputProps) {
           }} onPress={handleSignUp}>
             Ainda não tem uma conta? Cadastre-se!
           </Link>
+        <Button mt="2" colorScheme="indigo" onPress={handleHomeTest}>
+          Home test
+        </Button>
       </VStack>
     </Box>
   </Center>

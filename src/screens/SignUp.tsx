@@ -27,7 +27,7 @@ export default function SignUp() {
       <Icon as={Feather} name="chevron-left" size="2xl" ml="2" mt={2} color="coolGray.400" onPress={handleGoBack}/>
       <Center>
         <Box safeArea p="2" w="90%" maxW="290" py="8">
-          <Heading size="lg" color="coolGray.800" _dark={{
+          <Heading size="2xl" color="coolGray.800" _dark={{
             color: "warmGray.50"
           }} fontWeight="semibold">
           Cadastre-se
@@ -63,7 +63,7 @@ export default function SignUp() {
                 </Pressable>}/>
             </FormControl>
             <Box maxW="300">
-              <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose Service" _selectedItem={{
+              <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Service" placeholder="Escolha o tipo de conta" _selectedItem={{
                 bg: "teal.600",
                 endIcon: <CheckIcon size="5" />
               }} mt={1} onValueChange={itemValue => setService(itemValue)}>
