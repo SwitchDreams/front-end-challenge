@@ -6,10 +6,11 @@ import {
   VStack,
   Button,
   Link,
-  IInputProps,
+  IInputProps, Icon, Pressable,
 } from "native-base"
-import {InputFormEmail, InputFormPassword} from "../components/InputForm";
 import {useNavigation} from "@react-navigation/native";
+import {InputBase} from "../components/InputBase";
+import {Feather} from "@expo/vector-icons";
 
 
 
@@ -33,12 +34,28 @@ export default function LoginScreen({ ...rest }: IInputProps) {
       }} color="coolGray.600" fontWeight="medium" size="md">
         Entre para mudar seu estilo de vida!
       </Heading>
-
-      <InputFormEmail />
-      <InputFormPassword />
+    <VStack space={2} mt="5" px={1}>
+      <InputBase
+        placeholder="Email" size="xl"
+        InputLeftElement={
+        <Icon as={Feather} name="user" size="sm" ml="2" color="coolGray.400" />}
+      />
+      <InputBase
+        placeholder="Senha"
+        size="xl"
+        InputLeftElement={
+          <Icon as={Feather} name="lock" size="sm" ml="2" color="coolGray.400" />
+        }
+        type={show ? "text" : "password"}
+        InputRightElement={
+        <Pressable onPress={() => setShow(!show)}>
+          <Icon as={<Feather name={show ? "eye" : "eye-off"} />} size={5} mr="2" color="muted.400" />
+        </Pressable>}
+      />
+    </VStack>
 
       <VStack space={3} mt="5" >
-        <Button mt="2" colorScheme="indigo">
+        <Button mt="2" colorScheme="purple">
           Entrar
         </Button>
           <Link mt="6" justifyContent="center" _text={{
