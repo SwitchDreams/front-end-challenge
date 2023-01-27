@@ -1,9 +1,27 @@
-import {Center, Text} from "native-base";
+import { Button, Center, Heading, IButtonProps, Input, ScrollView, VStack } from "native-base";
+import { InputBase } from "../components/InputBase";
+import { ScreenHeader } from "../components/ScreenHeader";
 
-export default function Profile() {
+export default function Profile({...rest} : IButtonProps) {
   return (
-    <Center>
-      <Text>Profile</Text>
-    </Center>
-  )
+    <VStack flex={1}>
+      <ScreenHeader title="Perfil" />
+      <ScrollView contentContainerStyle={{ paddingBottom: 36 }}>
+          <InputBase placeholder="Nome" />
+          <InputBase placeholder="Email" isDisabled />
+          <Heading color="gray.600" fontSize="md" mb={2} alignSelf="flex-start" mt={12} ml={10}  fontFamily="heading">
+              Alterar senha
+          </Heading>
+          <InputBase placeholder="Senha antiga" secureTextEntry />
+
+          <InputBase placeholder="Nova senha" secureTextEntry />
+
+          <InputBase placeholder="Confirme a nova senha" secureTextEntry />
+
+          <Button {...rest} mt={4} alignSelf="center" w="80%" colorScheme="purple">
+              Atualizar
+          </Button>
+      </ScrollView>
+    </VStack>
+  );
 }
