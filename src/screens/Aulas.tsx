@@ -18,7 +18,7 @@ export default function Aulas() {
         <TouchableOpacity onPress={handleGoBack}>
           <Icon
             as={Feather}
-            name="arrow-left"
+            name="chevron-left"
             color="white"
             size={6}
           />
