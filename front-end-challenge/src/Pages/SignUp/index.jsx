@@ -74,7 +74,8 @@ export default function SignUp() {
                             required
                             onChange = {(e) => setSignUp({...signUp, password: e.target.value})}
                         />
-                        {!hiddenPassword ? 
+                        {
+                            !hiddenPassword ? 
                             <ion-icon onClick={() => setHiddenPassword(!hiddenPassword)} name="eye-outline"></ion-icon> 
                             : 
                             <ion-icon onClick={() => setHiddenPassword(!hiddenPassword)} name="eye-off-outline"></ion-icon>
@@ -92,7 +93,8 @@ export default function SignUp() {
                             onChange = {(e) => setSignUp({...signUp, repeatedPassword: e.target.value})}
                         >
                         </input>
-                        {!hiddenRepetedPassword ? 
+                        {
+                            !hiddenRepetedPassword ? 
                             <ion-icon onClick={() => setHiddenRepetedPassword(!hiddenRepetedPassword)} name="eye-outline"></ion-icon> 
                             : 
                             <ion-icon onClick={() => setHiddenRepetedPassword(!hiddenRepetedPassword)} name="eye-off-outline"></ion-icon>

@@ -5,7 +5,7 @@ import SignIn from "../Pages/SignIn";
 import SignUp from "../Pages/SignUp";
 
 export default function Router() {
-    return(
+    return (
         <BrowserRouter>
             <ClassesProvider>
                 <Routes>
