@@ -12,6 +12,7 @@ export const ClassesProvider = ({ children }) => {
     const getClasses = (token) => {
         axios.get(`${URL}/categories`, token)
         .then((answer) => {
+            console.log(answer.data);
             setClassesInfos(answer.data);
         })
         .catch((e) => {
@@ -23,7 +24,8 @@ export const ClassesProvider = ({ children }) => {
     return (
         <ClassesContext.Provider
             value = {{
-
+                getClasses,
+                classesInfos
             }}
         >
             { children }

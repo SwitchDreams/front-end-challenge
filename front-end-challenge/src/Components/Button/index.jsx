@@ -6,7 +6,6 @@ import { ThemeProvider } from "@mui/material";
 
 export default function SubmitButton(props) {
     const { label, disabled } = props;
-    console.log(disabled)
     
     return (
         <ThemeProvider theme={theme}>
