@@ -3,7 +3,7 @@ import Home from "../screens/Home";
 import Profile from "../screens/Profile";
 import Aulas from "../screens/Aulas";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import {MaterialCommunityIcons} from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 type AppRoutesProps = {
     Home: undefined;
@@ -11,7 +11,7 @@ type AppRoutesProps = {
     Profile: undefined;
 }
 
-export type AuthNavigatorRoutesProps = NativeStackNavigationProp<AppRoutesProps>
+export type AppNavigatorRoutesProps = NativeStackNavigationProp<AppRoutesProps>
 
 const {Navigator, Screen} = createBottomTabNavigator<AppRoutesProps>();
 
@@ -21,18 +21,18 @@ export function AppRoutes() {
       headerShown: false,
       tabBarShowLabel: false,
     }}>
-      <Screen
-        name="Home"
-        component={Home}
-        options={{
-          tabBarIcon: ({color, size, focused}) => {
-            if (focused) {
-                return <MaterialCommunityIcons name="home" size={size} color={color} />
-            }
-
-            return <MaterialCommunityIcons name="home-outline" size={size} color={color} />
+    <Screen
+      name="Home"
+      component={Home}
+      options={{
+        tabBarIcon: ({color, size, focused}) => {
+          if (focused) {
+              return <MaterialCommunityIcons name="home" size={size} color={color} />
           }
-        }}
+
+          return <MaterialCommunityIcons name="home-outline" size={size} color={color} />
+        }
+      }}
       />
       <Screen
         name="Aulas"
@@ -60,7 +60,6 @@ export function AppRoutes() {
           }
         }}
       />
-
     </Navigator>
   );
 }
