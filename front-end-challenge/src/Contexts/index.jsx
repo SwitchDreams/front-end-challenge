@@ -24,7 +24,6 @@ export const ClassesProvider = ({ children }) => {
         axios.post(`${URL}/users`, body)
         .then(() => navigate("/"))
         .catch((e) => {
-            console.log(e.response.data.status);
             setErroSignUp(true);
         })
     }
@@ -36,7 +35,7 @@ export const ClassesProvider = ({ children }) => {
                 password: signIn.password,
             },
         }
-        
+
         axios.post(`${URL}/users/login`, body)
         .then((answer) => {
             localStorage.setItem("user", JSON.stringify({
@@ -45,7 +44,6 @@ export const ClassesProvider = ({ children }) => {
             navigate('/homepage');
         })
         .catch((e) => {
-            console.log(e.response.data);
             setErroSignIn(true);
         })
     }

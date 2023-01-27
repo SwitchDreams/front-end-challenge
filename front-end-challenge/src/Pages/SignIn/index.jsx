@@ -32,6 +32,7 @@ export default function SignUp() {
         setDisabled(false);
     }
 
+    console.log(erroSignIn)
     return (
         <style.Container>
             <style.Logo>
