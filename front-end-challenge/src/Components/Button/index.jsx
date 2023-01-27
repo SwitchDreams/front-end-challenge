@@ -5,14 +5,15 @@ import { ThemeProvider } from "@mui/material";
 
 
 export default function SubmitButton(props) {
-    const { label } = props;
+    const { label, disabled } = props;
+    console.log(disabled)
     
     return (
         <ThemeProvider theme={theme}>
             <Button 
                 variant="contained"
                 color="disabled"
-                disabled={false}
+                disabled={disabled}
                 sx={muiStyle.Button}
                 type="submit"
             >

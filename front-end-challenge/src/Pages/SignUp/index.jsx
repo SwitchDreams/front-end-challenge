@@ -100,7 +100,7 @@ export default function SignUp() {
                             <ion-icon onClick={() => setHiddenRepetedPassword(!hiddenRepetedPassword)} name="eye-off-outline"></ion-icon>
                         }
                     </div>
-                    <SubmitButton label="Cadastre-se" ></SubmitButton>
+                    <SubmitButton label="Cadastre-se" disabled={disabled}></SubmitButton>
                     <style.SignIn onClick={() => navigate("/")}>Já possui cadastro? Faça login!</style.SignIn>
                 </style.Form >
             </style.SignUp>

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SubmitButton from "../../Components/Button";
 import { ClassesContext } from "../../Contexts";
@@ -25,6 +25,7 @@ export default function SignUp() {
 
     const navigate = useNavigate();
 
+
     function OnSubmit(e) {
         setDisabled(true);
         e.preventDefault();
@@ -32,7 +33,6 @@ export default function SignUp() {
         setDisabled(false);
     }
 
-    console.log(erroSignIn)
     return (
         <style.Container>
             <style.Logo>
@@ -68,7 +68,7 @@ export default function SignUp() {
                             <ion-icon onClick={() => setHiddenPassword(!hiddenPassword)} name="eye-off-outline"></ion-icon>
                         }
                     </div>
-                    <SubmitButton label="Entrar" ></SubmitButton>
+                    <SubmitButton label="Entrar" disabled={disabled}></SubmitButton>
                     <style.SignUp onClick={() => navigate("/signup")}>Primeira vez? Cadastre-se!</style.SignUp>
                 </style.Form >
             </style.SignIn>
