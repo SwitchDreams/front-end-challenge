@@ -66,3 +66,7 @@ Deve-se fazer uma [Publish](https://docs.expo.dev/workflow/publishing/#how-to-pu
 ## Observações
 Ao enviar o desafio você declara que a solução implementada foi 100% feita por você, sem violar nenhuma licença de software de terceiros.
 
+Video de demonstração:
+https://drive.google.com/file/d/1A7Ii_R7s0l8WNqjNskdUX5YcYBdmCRnx/view?usp=sharing
+
+Obs: não consegui imprementar o consumo da api no prazo, então o login não funciona
