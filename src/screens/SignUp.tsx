@@ -19,11 +19,15 @@ import {InputBase} from "../components/InputBase";
 import {Controller, useForm} from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
+import {api} from "../service/api";
+import {useAuth} from "../hooks/useAuth";
 
 type FormDataProps = {
   name: string;
   email: string;
   password: string;
+
+  role: string;
   password_confirm: string;
 }
 
@@ -35,23 +39,32 @@ const signUpSchema = yup.object({
 });
 
 export default function SignUp() {
-  const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
+  const [show, setShow] = useState(false);
+  const [service, setService] = useState("");
+
+  const { signIn } = useAuth();
 
   const { control, handleSubmit, formState: { errors } } = useForm<FormDataProps>({
     resolver: yupResolver(signUpSchema),
   });
 
+  const navigation = useNavigation();
+
   function handleGoBack() {
-    navigation.goBack()
+    navigation.goBack();
   }
 
-  function handleSignUp({ name, email, password, password_confirm }: FormDataProps) {
-    console.log({ name, email, password, password_confirm })
+  async function handleSignUp({ email, password, role }: FormDataProps) {
+    try {
+      setIsLoading(true)
+
+      await api.post('/users', { email, password, role });
+      await signIn(email, password)
+    } catch (error) {
+      setIsLoading(false);
+    }
   }
-
-  const [service, setService] = useState("")
-  const [show, setShow] = useState(false)
-
     return (
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
         <Box safeArea flex={1}>
@@ -119,8 +132,6 @@ export default function SignUp() {
                     onChangeText={onChange}
                     value={value}
                     errorMessage={errors.password_confirm?.message}
-                    onSubmitEditing={handleSubmit(handleSignUp)}
-                    returnKeyType="send"
                     type={show ? "text" : "password"}
                     InputRightElement={<Pressable onPress={() => setShow(!show)}>
                       <Icon as={<Feather name={show ? "eye" : "eye-off"} />} size={5} mr="2" color="muted.400" />
@@ -137,7 +148,7 @@ export default function SignUp() {
                   <Select.Item label="Administrador" value="admin" />
                 </Select>
               </Box>
-              <Button mt="2" colorScheme="purple" onPress={handleSubmit(handleSignUp)}>
+              <Button mt="2" colorScheme="purple" onPress={handleSubmit(handleSignUp)} isLoading={isLoading}>
                 Cadastrar-se
               </Button>
             </VStack>

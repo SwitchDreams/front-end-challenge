@@ -35,19 +35,6 @@ export function AppRoutes() {
       }}
       />
       <Screen
-        name="Aulas"
-        component={Aulas}
-        options={{
-          tabBarIcon: ({color, size, focused}) => {
-            if (focused) {
-              return <MaterialCommunityIcons name="table-of-contents" size={size} color={color} />
-            }
-
-            return <MaterialCommunityIcons name="table-of-contents" size={size} color={color} />
-          }
-        }}
-      />
-      <Screen
         name="Profile"
         component={Profile}
         options={{
