@@ -8,6 +8,7 @@ export const ClassesContext = createContext({});
 
 export const ClassesProvider = ({ children }) => {
     const [ erroSignUp, setErroSignUp ] = useState(false);
+    const [ erroSignIn, setErroSignIn ] = useState(false);
 
     const navigate = useNavigate();
 
@@ -16,7 +17,7 @@ export const ClassesProvider = ({ children }) => {
             user: {
                 email: signUp.email,
                 password: signUp.password,
-                role: "admin"
+                role: "admin",
             },
         }
 
@@ -28,12 +29,37 @@ export const ClassesProvider = ({ children }) => {
         })
     }
 
+    const postSignIn = (signIn) => {
+        const body = {
+            user: {
+                email: signIn.email,
+                password: signIn.password,
+            },
+        }
+        
+        axios.post(`${URL}/users/login`, body)
+        .then((answer) => {
+            localStorage.setItem("user", JSON.stringify({
+                token: answer.headers.authorization,
+            }));
+            navigate('/homepage');
+        })
+        .catch((e) => {
+            console.log(e.response.data);
+            setErroSignIn(true);
+        })
+    }
+
+
     return (
         <ClassesContext.Provider
             value = {{
                 postSignUp,
                 setErroSignUp,
                 erroSignUp,
+                postSignIn,
+                erroSignIn,
+                setErroSignIn
             }}
         >
             { children }

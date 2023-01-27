@@ -7,9 +7,9 @@ import style from "./styles";
 
 export default function SignUp() {
     const { 
-        postSignUp,
-        setErroSignUp, 
-        erroSignUp 
+        postSignIn,
+        erroSignIn,
+        setErroSignIn
     } = useContext(ClassesContext);
 
     const [ disabled, setDisabled ] = useState(false);
@@ -28,7 +28,7 @@ export default function SignUp() {
     function OnSubmit(e) {
         setDisabled(true);
         e.preventDefault();
-        // postSignUp(signUp);
+        postSignIn(signIn);
         setDisabled(false);
     }
 
@@ -47,7 +47,7 @@ export default function SignUp() {
                         placeholder = "Email"
                         autoComplete="on"
                         required
-                        onChange = {(e) => setSignIn({...setSignIn, email: e.target.value})}
+                        onChange = {(e) => setSignIn({...signIn, email: e.target.value})}
                     />
                     <div>
                         <input className="password"
@@ -58,7 +58,7 @@ export default function SignUp() {
                             title = "A senha deve conter no mínimo 4 caracteres"
                             placeholder = "Senha"
                             required
-                            onChange = {(e) => setSignIn({...setSignIn, password: e.target.value})}
+                            onChange = {(e) => setSignIn({...signIn, password: e.target.value})}
                         />
                         {
                             !hiddenPassword ? 
@@ -68,15 +68,15 @@ export default function SignUp() {
                         }
                     </div>
                     <SubmitButton label="Entrar" ></SubmitButton>
-                    <style.SignUp onClick={() => navigate("/signup")}>Já possui cadastro? Faça login!</style.SignUp>
+                    <style.SignUp onClick={() => navigate("/signup")}>Primeira vez? Cadastre-se!</style.SignUp>
                 </style.Form >
             </style.SignIn>
             {
-                erroSignUp ?
+                erroSignIn ?
                 <MessageAlert 
                     label="Verifique se seus dados então corretos"
-                    disabled={erroSignUp}
-                    setDisabled={setErroSignUp}
+                    disabled={erroSignIn}
+                    setDisabled={setErroSignIn}
                     severity="error"
                 ></MessageAlert>
                 :

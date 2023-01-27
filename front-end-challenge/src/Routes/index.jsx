@@ -3,6 +3,7 @@ import { ClassesProvider } from "../Contexts";
 
 import SignIn from "../Pages/SignIn";
 import SignUp from "../Pages/SignUp";
+import HomePage from "../Pages/HomePage";
 
 export default function Router() {
     return (
@@ -11,6 +12,7 @@ export default function Router() {
                 <Routes>
                     <Route path="/" element={<SignIn />}/>
                     <Route path="/signup" element={<SignUp />}/>
+                    <Route path="/homepage" element={<HomePage />}/>
                 </Routes>
             </ClassesProvider>
         </BrowserRouter>
