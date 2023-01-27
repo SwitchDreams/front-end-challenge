@@ -27,7 +27,7 @@ export function AuthProvider({ children }){
             let hasUser = JSON.parse(userInfo || '{}');
 
             if(Object.keys(hasUser).length > 0){
-                api.defaults.headers.common['Authorization'] = `Bearer ${hasUser.token}`;
+                //api.defaults.headers.common['Authorization'] = `Bearer ${hasUser.token}`;
 
                 setUser({
                     id: hasUser.id,
@@ -76,7 +76,7 @@ export function AuthProvider({ children }){
 
             await AsyncStorage.setItem('@fitdreams', JSON.stringify(data));
 
-            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            //api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
             setUser({
                 id,

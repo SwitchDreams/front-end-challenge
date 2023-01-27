@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, Button, StyleSheet, TextInput,  TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TextInput,  TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { api } from "../../services/api";
@@ -57,11 +57,6 @@ export default function EditClass(){
     }
 
     return(
-        // <View>
-        //     <Text>Tela de edição de aula</Text>
-        //     <Button title="Sair do app" onPress={signOut} />
-        //     <View><Text>O id é: {id}</Text></View>
-        // </View>
         <ScrollView>
         <View style={styles.container}>
              <TouchableOpacity onPress={signOut} style={styles.buttonLogout}><AntDesign name="logout" size={24} color="#FFF" /></TouchableOpacity>
