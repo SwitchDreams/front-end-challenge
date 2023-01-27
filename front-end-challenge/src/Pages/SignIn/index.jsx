@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SubmitButton from "../../Components/Button";
-import { ClassesContext } from "../../Contexts";
+import { AuthContext } from "../../Contexts/AuthContexts";
 import MessageAlert from "../../Components/Alert";
 import style from "./styles";
 
@@ -10,7 +10,7 @@ export default function SignUp() {
         postSignIn,
         erroSignIn,
         setErroSignIn
-    } = useContext(ClassesContext);
+    } = useContext(AuthContext);
 
     const [ disabled, setDisabled ] = useState(false);
     const [ hiddenPassword, setHiddenPassword ] = useState(true);
@@ -24,7 +24,6 @@ export default function SignUp() {
     } = signIn;
 
     const navigate = useNavigate();
-
 
     function OnSubmit(e) {
         setDisabled(true);

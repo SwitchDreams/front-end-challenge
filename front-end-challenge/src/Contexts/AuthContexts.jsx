@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 const URL = import.meta.env.VITE_URL_API;
 
-export const ClassesContext = createContext({});
+export const AuthContext = createContext({});
 
-export const ClassesProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
     const [ erroSignUp, setErroSignUp ] = useState(false);
     const [ erroSignIn, setErroSignIn ] = useState(false);
 
@@ -50,7 +50,7 @@ export const ClassesProvider = ({ children }) => {
 
 
     return (
-        <ClassesContext.Provider
+        <AuthContext.Provider
             value = {{
                 postSignUp,
                 setErroSignUp,
@@ -61,6 +61,6 @@ export const ClassesProvider = ({ children }) => {
             }}
         >
             { children }
-        </ClassesContext.Provider>
+        </AuthContext.Provider>
     )
 }
