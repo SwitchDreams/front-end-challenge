@@ -21,13 +21,12 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding-bottom: 20px;
 
     .loading {
         width: 100%;
         height: 100%;
         display: flex;
-        margin-top: 200px;
+        margin-top: 300px;
         justify-content: center;
     }
 `

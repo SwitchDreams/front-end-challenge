@@ -10,6 +10,7 @@ export const ClassesProvider = ({ children }) => {
     const [ classesInfos, setClassesInfos ] = useState({});
     const [ categories, setCategories ] = useState({});
     const [ filter, setFilter ] = useState("");
+    const [ classInfo, setClassInfo ] = useState({});
 
     const getClasses = (token) => {
         axios.get(`${URL}/gym_classes`, token)
@@ -31,10 +32,10 @@ export const ClassesProvider = ({ children }) => {
         })
     }
 
-    const getCategoryById = (token, value) => {
-        axios.get(`${URL}/categories/${value}`, token)
+    const getClassById = (token, id) => {
+        axios.get(`${URL}/gym_classes/${id}`, token)
         .then((answer) => {
-            setClassesInfos(answer.data);
+            setClassInfo(answer.data);
         })
         .catch((e) => {
             console.log(e);
@@ -49,7 +50,10 @@ export const ClassesProvider = ({ children }) => {
                 categories,
                 getCategories,
                 filter,
-                setFilter
+                setFilter,
+                getClassById,
+                classInfo,
+                setClassInfo
             }}
         >
             { children }

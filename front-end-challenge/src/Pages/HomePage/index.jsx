@@ -10,15 +10,18 @@ export default function HomePage() {
     const {
         getClasses, 
         classesInfos,
-        filter
+        filter,
+        setClassInfo
     } = useContext(ClassesContext);
+
     const token = Token();
+
 
     useEffect(() => {
         getClasses(token);
+        setClassInfo({});
     },[filter]);
-
-
+    
     return (
         <>
             <style.Header>
@@ -32,13 +35,20 @@ export default function HomePage() {
                         {
                             if(answer.category_id == filter && filter != "") {
                                 return (
-                                    <Classes description={answer.description} name={answer.name}/>
+                                    <Classes 
+                                        description={answer.description} 
+                                        name={answer.name}
+                                        id={answer.id}
+                                    />
                                 )
                             }
                             if(filter == "") {
                                 return (
-                                    <Classes description={answer.description} name={answer.name}/>
-                                )
+                                    <Classes 
+                                        description={answer.description} 
+                                        name={answer.name}
+                                        id={answer.id}
+                                    />                                )
                             }
                         }
                     )

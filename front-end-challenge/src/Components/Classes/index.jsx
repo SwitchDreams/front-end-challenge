@@ -1,10 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import style from "./styles"
 
 export default function Classes(props) {
-    const { name, description } = props;
+    const { name, description, id } = props;
+
+    const navigate = useNavigate()
 
     return (
-        <style.Container>
+        <style.Container onClick={() => navigate(`/classinfo/${id}`)}>
             <style.Class>
                 <img src="../../../public/danca.jpg" alt="image"></img>
                 <h1 className="name">{name}</h1>
