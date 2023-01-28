@@ -35,6 +35,8 @@ const SignUp = styled.div`
     display: flex;
     align-items: center;
     flex-direction: center;
+    box-sizing: border-box;
+    padding: 50px;
 `
 const Form = styled.form`
     width: 100%;
@@ -44,7 +46,7 @@ const Form = styled.form`
     justify-content: flex-start;
 
     input {
-        width: 80%;
+        width: 100%;
         height: 50px;
         border: none;
         border-bottom: 1px solid #F87C0F;

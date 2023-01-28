@@ -7,12 +7,16 @@ import Token from "../../Utils/token"
 import style from "./styles"
 
 export default function HomePage() {
-    const { getClasses, classesInfos } = useContext(ClassesContext);
+    const {
+        getClasses, 
+        classesInfos,
+        filter
+    } = useContext(ClassesContext);
     const token = Token();
 
     useEffect(() => {
         getClasses(token);
-    },[]);
+    },[filter]);
 
 
     return (
@@ -24,13 +28,20 @@ export default function HomePage() {
                 <FilterBar />
                 {
                     classesInfos.length > 0 ? 
-                    <>
-                    {
-                        classesInfos.map((answer) => 
-                            <Classes description={answer.description} name={answer.name}/>
-                        )
-                    }
-                    </>
+                    classesInfos.map((answer) => 
+                        {
+                            if(answer.category_id == filter && filter != "") {
+                                return (
+                                    <Classes description={answer.description} name={answer.name}/>
+                                )
+                            }
+                            if(filter == "") {
+                                return (
+                                    <Classes description={answer.description} name={answer.name}/>
+                                )
+                            }
+                        }
+                    )
                     :
                     <div className="loading">
                         <Loading />

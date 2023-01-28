@@ -8,24 +8,48 @@ export const ClassesContext = createContext({});
 
 export const ClassesProvider = ({ children }) => {
     const [ classesInfos, setClassesInfos ] = useState({});
-    
+    const [ categories, setCategories ] = useState({});
+    const [ filter, setFilter ] = useState("");
+
     const getClasses = (token) => {
-        axios.get(`${URL}/categories`, token)
+        axios.get(`${URL}/gym_classes`, token)
         .then((answer) => {
-            console.log(answer.data);
             setClassesInfos(answer.data);
         })
         .catch((e) => {
             console.log(e);
         })
+    }
 
+    const getCategories = (token) => {
+        axios.get(`${URL}/categories`, token)
+        .then((answer) => {
+            setCategories(answer.data)
+        })
+        .catch((e) => {
+            console.log(e);
+        })
+    }
+
+    const getCategoryById = (token, value) => {
+        axios.get(`${URL}/categories/${value}`, token)
+        .then((answer) => {
+            setClassesInfos(answer.data);
+        })
+        .catch((e) => {
+            console.log(e);
+        })
     }
 
     return (
         <ClassesContext.Provider
             value = {{
                 getClasses,
-                classesInfos
+                classesInfos,
+                categories,
+                getCategories,
+                filter,
+                setFilter
             }}
         >
             { children }
