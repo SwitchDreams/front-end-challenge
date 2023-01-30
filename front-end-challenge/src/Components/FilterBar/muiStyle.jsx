@@ -26,12 +26,16 @@ const Title = {
     fontSize: "25px",
     fontWeight: "700",
     paddingBottom: "10px",
+
+    "&.Mui-focused": {
+        color: "#676767",
+    }
 }
 
 const Check = {
     '&.Mui-checked': {
         color: "#F87C0F",
-    }
+    },
 }
 
 const muiStyle = {

@@ -1,0 +1,6 @@
+export default function HoursToMinutes(duration) {
+    const time = duration.split(":");
+    const minutes = parseInt(time[0] * 60) + parseInt(time[1]);
+    
+    return minutes;
+}

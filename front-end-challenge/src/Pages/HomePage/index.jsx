@@ -16,7 +16,6 @@ export default function HomePage() {
 
     const token = Token();
 
-
     useEffect(() => {
         getClasses(token);
         setClassInfo({});

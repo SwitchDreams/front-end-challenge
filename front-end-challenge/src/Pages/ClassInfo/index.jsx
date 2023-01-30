@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import SubmitButton from "../../Components/Button";
+import Header from "../../Components/Header";
 import Loading from "../../Components/Loading";
 import { ClassesContext } from "../../Contexts/ClassesContexts";
 import Token from "../../Utils/token";
@@ -17,15 +18,9 @@ export default function ClassInfo() {
         getClassById(token, id);
     }, []);
 
-    console.log(classInfo.id)
-
     return (
         <style.Container>
-            <style.Header>
-                <div onClick={() => navigate("/homepage")}>
-                    <ion-icon name="chevron-back-outline"></ion-icon>
-                </div>
-            </style.Header>
+            <Header goTo={"/homepage"} />
             {
                 classInfo.id != undefined ?
                 <>
@@ -36,7 +31,7 @@ export default function ClassInfo() {
                         <p><b>Duração</b>: {classInfo.duration} min</p>
                         <p><b>Descrição</b>: {classInfo.description}</p>
                     </style.Class>
-                    <style.Footer>
+                    <style.Footer  onClick={() => navigate(`/editclass/${id}/${classInfo.category_id}`)}>
                         <SubmitButton label="Editar" disabled={false}/>
                     </style.Footer>
                 </>

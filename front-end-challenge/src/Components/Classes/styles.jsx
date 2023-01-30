@@ -15,11 +15,11 @@ const Class = styled.div`
         width: 100%;
         height: 70%;
         border-radius: 10px 10px 0px 0px;
-        
+        box-shadow: 0px 10px 20px -10px grey;
     }
 
     h1 {
-        padding: 10px;
+        padding: 12px;
         font-size: 18px;
         font-weight: 500;
     }

@@ -6,6 +6,7 @@ import SignUp from "../Pages/SignUp";
 import HomePage from "../Pages/HomePage";
 import { ClassesProvider } from "../Contexts/ClassesContexts";
 import ClassInfo from "../Pages/ClassInfo";
+import EditClass from "../Pages/EditClass";
 
 export default function Router() {
     return (
@@ -17,6 +18,7 @@ export default function Router() {
                     <Route path="/signup" element={<SignUp />}/>
                     <Route path="/homepage" element={<HomePage />}/>
                     <Route path="/classinfo/:id" element={<ClassInfo />}/>
+                    <Route path="/editclass/:id/:category_id" element={<EditClass />}/>
                 </Routes>
             </ClassesProvider>
             </AuthProvider>
