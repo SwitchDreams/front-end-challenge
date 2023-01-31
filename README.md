@@ -1,68 +1,39 @@
-# Switch Dreams Challenge
+  ## ⚡️ Switch Dreams Challenge
 
-O desafio proposto visa avaliar suas habilidades com o React Native, sendo isso parte do processo seletivo para vaga de desenvolvedor frontend da Switch Dreams.
+<p>Fit Dreams</p>
 
-Esperamos que você tenha uma boa noção nos seguintes tópicos:
+<img src=switch_dreams.gif  width="300" />
 
-- HTTP e estrutura básica da web
-- Linguagem de programação Javascript
-- Framework React Native
-- Ferramenta [Expo](https://docs.expo.dev/)
-- Consumo de API
+<a href="" target="_blank" rel="noopener noreferrer">My Wallet</a>
 
-Além disso é sempre interessante estar atento aos padrões usuais de qualidade de código.
+## 📝 Sobre
 
-## Problema
+<p align = "justify" >
+A aplicação tem por objetivo realizar o desafio técnico proposto pela empresa Switch Dreams.
+</p>
 
-A academia Fit Dreams possui uma grande versatilidade de aulas em seu cronograma, sendo que as atividades variam a cada mês. A Fit Dreams acaba de te contratar para desenvolver o frontend de um sistema que organizará a disponibilidade de cada aula. 
+[![My Skills](https://skills.thijs.gg/icons?i=html,css,javascript,react,styledcomponents,vite,mui&theme=light)](https://skills.thijs.gg)
 
-As informações das aulas estão disponíveis na API informada via email, assim como seus respectivos endpoints. A partir da API fornecida, deve-se desenvolver em React Native as telas:
+## 📁 Acesso ao projeto
 
-- Cadastro de usuário
-- Login 
-- Index de aulas disponíveis
-- Show da aula
-- Edit da aula
+Você pode [acessar o código fonte do projeto](https://github.com/ccarlaa/front-end-challenge.git) ou [baixá-lo](https://github.com/ccarlaa/front-end-challenge/archive/refs/heads/main.zip).
 
-Cada aula contém as informações:
+## 🛠️ Abrir e rodar o projeto
 
-- Nome da aula
-- Nome do professor
-- Horário
-- Dias da semana
-- Imagem de capa da aula
-- Descrição
+Após baixar o projeto, você pode abri-lo com o Visual Studio Code. Para isso, na tela de launcher clique em:
 
-## API
-Para obter as informações que utilizará no aplicativo utilize a API fornecida:
+1. File > Open Folder
+2. Procure o local onde o projeto está e o selecione (Caso o projeto seja baixado via zip, é necessário extraí-lo antes de procurá-lo)
+3. Por fim clique em Abrir
+4. Em seguida abra o terminal e instale as dependências com o seguinte comando:
 
-API: https://gym.switchdreams.com.br/
+```bash
+npm install 
+```
 
-[:memo: Docs](https://documenter.getpostman.com/view/12265896/Uz59MeAK#57d01a84-2799-4754-a891-7f08936f2a5e)
+5. Você  pode rodar o projeto executando:
 
-## Requisitos
-
-Para iniciar o desafio, crie um fork a partir do presente repositório e inicie seu projeto react native nele. Altere o readme com todas as informações que julgar pertinente para o desafio. Para entregar a sua implementação você deve criar uma PR e inserir no readme um link de um vídeo demonstrativo de todas as telas e do fluxo criado para o projeto.
-
-
-## Avaliação
-
-Avaliaremos as seguintes habilidades
-
-- Nível de conhecimento em Javascript
-- Nível de conhecimento em React Native
-- Nível de conhecimento em consumo de APIs
-- Qualidade do código
-- Utilização do github
-
-## Entrega
-Deve-se fazer uma [Publish](https://docs.expo.dev/workflow/publishing/#how-to-publish) através do Expo para que o aplicativo seja mais facilmente testado, além de deixar o link no readme de um vídeo demonstrando o aplicativo.
-
-## Diferenciais
-- Testes automatizados (para os testes recomenda-se o uso do Jest)
-- Linter
-- Prototipação das telas no Figma
-
-## Observações
-Ao enviar o desafio você declara que a solução implementada foi 100% feita por você, sem violar nenhuma licença de software de terceiros.
-
+```bash
+npm run dev
+```
+6. Finalmente, acesse http://localhost:5173 no seu navegador.
