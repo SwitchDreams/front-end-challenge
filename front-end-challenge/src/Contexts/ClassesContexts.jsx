@@ -88,7 +88,6 @@ export const ClassesProvider = ({ children }) => {
                 getClasses,
                 classesInfos,
                 categories,
-                getCategories,
                 filter,
                 setFilter,
                 getClassById,
