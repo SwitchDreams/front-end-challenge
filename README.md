@@ -4,7 +4,7 @@
 
 <img src=switch_dreams.gif  width="300" />
 
-<a href="" target="_blank" rel="noopener noreferrer">My Wallet</a>
+<a href="https://front-end-challenge-qusba70ge-ccarlaa.vercel.app/" target="_blank" rel="noopener noreferrer">Fit Dreams</a>
 
 ## 📝 Sobre
 
