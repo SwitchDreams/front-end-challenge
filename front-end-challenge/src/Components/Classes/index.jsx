@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ClassesContext } from "../../Contexts/ClassesContexts";
 import Token from "../../Utils/token";
 import style from "./styles"
+import dance from "../../../public/danca.jpg"
 
 export default function Classes(props) {
     const { name, description, id } = props;
@@ -22,7 +23,7 @@ export default function Classes(props) {
                 <div className="delete" onClick={(e) => OnSubmit(e)}>
                     <ion-icon name="trash-outline"></ion-icon>
                 </div>
-                <img src="../../../public/danca.jpg" alt="image"></img>
+                <img src={dance} alt="image"></img>
                 <h1 className="name">{name}</h1>
                 <p className="infos">{description}</p>
             </style.Class>

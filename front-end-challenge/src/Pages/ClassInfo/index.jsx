@@ -6,6 +6,7 @@ import Loading from "../../Components/Loading";
 import { ClassesContext } from "../../Contexts/ClassesContexts";
 import Token from "../../Utils/token";
 import style from "./styles";
+import dance from "../../../public/danca.jpg";
 
 export default function ClassInfo() {
     const { getClassById, classInfo } = useContext(ClassesContext);
@@ -26,7 +27,7 @@ export default function ClassInfo() {
                 <>
                     <style.Class>
                         <h1>{classInfo.name}</h1>
-                        <img src="../../../public/danca.jpg" />
+                        <img src={dance} />
                         <p><b>Professor(a)</b>: {classInfo.teacher_name}</p>
                         <p><b>Duração</b>: {classInfo.duration} min</p>
                         <p><b>Descrição</b>: {classInfo.description}</p>
