@@ -1,4 +1,5 @@
 import { useContext, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import Classes from "../../Components/Classes"
 import FilterBar from "../../Components/FilterBar"
 import Loading from "../../Components/Loading"
@@ -14,17 +15,25 @@ export default function HomePage() {
         setClassInfo
     } = useContext(ClassesContext);
 
+    const navigate = useNavigate();
     const token = Token();
 
     useEffect(() => {
         getClasses(token);
         setClassInfo({});
     },[filter]);
+
+    function Logout() {
+        localStorage.setItem("user", JSON.stringify({
+                token: "",
+            }));
+        navigate('/'); 
+    }
     
     return (
         <>
             <style.Header>
-                <ion-icon name="log-out-outline"></ion-icon>
+                <ion-icon onClick={() => {Logout()}} name="log-out-outline"></ion-icon>
             </style.Header>
             <style.Container>
                 <FilterBar />
