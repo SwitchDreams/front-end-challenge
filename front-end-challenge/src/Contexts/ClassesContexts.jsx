@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import HoursToMinutes from '../Utils/hoursToMinutes';
 
 const URL = import.meta.env.VITE_URL_API;
@@ -14,6 +14,8 @@ export const ClassesProvider = ({ children }) => {
     const [ filter, setFilter ] = useState("");
     const [ classInfo, setClassInfo ] = useState({});
     const [ updated, setUpdated ] = useState(false);
+
+    const navigate = useNavigate();
 
     const getClasses = (token) => {
         axios.get(`${URL}/gym_classes`, token)
@@ -49,6 +51,16 @@ export const ClassesProvider = ({ children }) => {
         axios.get(`${URL}/gym_classes/${id}`, token)
         .then((answer) => {
             setClassInfo(answer.data);
+        })
+        .catch((e) => {
+            console.log(e);
+        })
+    }
+
+    const deleteClass = (token, id) => {
+        axios.delete(`${URL}/gym_classes/${id}`, token)
+        .then(() => {
+            navigate("/homepage");
         })
         .catch((e) => {
             console.log(e);
@@ -97,7 +109,8 @@ export const ClassesProvider = ({ children }) => {
                 getCategorieById,
                 categoryId,
                 updateClass,
-                updated
+                updated,
+                deleteClass
             }}
         >
             { children }

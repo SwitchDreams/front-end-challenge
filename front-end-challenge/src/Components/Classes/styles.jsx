@@ -29,6 +29,22 @@ const Class = styled.div`
         font-size: 20;
         line-height: 10px;
     }
+
+    div {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background-color: #F87C0F;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        position: absolute;
+        margin: 10px;
+        right: 20px;
+        z-index: 3;
+    }
+
 `
 const style = {
     Container,
