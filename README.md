@@ -6,6 +6,10 @@
 
 <a href="https://front-end-challenge-qusba70ge-ccarlaa.vercel.app/" target="_blank" rel="noopener noreferrer">Fit Dreams</a>
 
+<a href="https://youtu.be/6HZkK_x6u-Q" target="_blank" rel="noopener noreferrer">Vídeo de apresentação</a>
+
+<a href="https://www.figma.com/file/5uXLGBRcawyyNauXzVKc6o/Fit-dreams?node-id=0%3A1&t=BIAQCXamnQiCENiX-1" rel="noopener noreferrer">Figma</a>
+
 ## 📝 Sobre
 
 <p align = "justify" >
